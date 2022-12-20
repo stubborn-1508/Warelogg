@@ -32,30 +32,36 @@ const ListedSpace = () =>
                   <p>1200 cu ft Volume</p>
                 </Col>
                 <Col md={ 6 } className="text-center d-flex flex-column">
-                  <Button className="my-1" variant="success">Edit Name</Button>
-                  <Button className="my-1" variant="success">Edit Location</Button>
-                  <Button className="my-1" variant="success">Edit Size</Button>
+                  <Button className="my-1" variant="dark">Edit Name</Button>
+                  <Button className="my-1" variant="dark">Edit Location</Button>
+                  <Button className="my-1" variant="dark">Edit Size</Button>
                 </Col>
               </Row>
             </Card.Header>
             <Card.Body className="cardStorageBody">
               <Row>
-                <Col lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 } className="shadow-sm p-3 bg-warning rounded text-center">
-                  <FcPlus class />
+                <Col lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 } className="shadow-sm p-3 rounded text-center">
+                  <Form.Group controlId="formFile" className="mb-3 imgSquareBig">
+                    <Form.Label>
+                      Add Image
+                      <h2><FcPlus className="plusButton" /></h2>
+                    </Form.Label>
+                    <Form.Control type="file" />
+                  </Form.Group>
                 </Col>
                 <Col md={ 6 }>
-                  <Row className='bg-blue'>
+                  <Row className=''>
                     <Col md={ 6 } className="d-block w-100 imgSquare text-center">
-                      <h2> <FcPlus/></h2>
+                      <h2> <FcPlus className="plusButton2" /></h2>Add Image
                     </Col>
                     <Col md={ 6 } className="d-block w-100 imgSquare text-center">
-                      <h2> <FcPlus /></h2>
+                      <h2> <FcPlus className="plusButton2" /></h2>Add Image
                     </Col>
                     <Col md={ 6 } className="d-block w-100 imgSquare text-center">
-                      <h2> <FcPlus /></h2>
+                      <h2> <FcPlus className="plusButton2" /></h2>Add Image
                     </Col>
                     <Col md={ 6 } className="d-block w-100 imgSquare text-center">
-                      <h2> <FcPlus /></h2>
+                      <h2> <FcPlus className="plusButton2" /></h2>Add Image
                     </Col>
                   </Row>
                 </Col>

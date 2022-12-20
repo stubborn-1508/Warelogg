@@ -1,6 +1,25 @@
+.imgSquareBig{
+  border-radius: 0.75rem !important;
+  border: 2px solid;
+  height: 500px;
+}
 .imgSquare {
   border-radius: 0.75rem !important;
   height: 250px;
   border: 2px solid;
   margin-top: 5px;
+  margin-left: auto;
+  padding: -5px;
+}
+.plusButton {
+  height: 300px;
+  width: auto;
+  margin-top: 100px;
+  text-align: center;
+}
+.plusButton2 {
+  height: 100px;
+  width: auto;
+  margin-top: 80px;
+  text-align: center;
 }
