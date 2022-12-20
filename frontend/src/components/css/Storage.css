@@ -1,0 +1,43 @@
+.btnTrans {
+    color: black !important;
+}
+
+button.link,
+.button.link {
+    color: #0b6ac3;
+}
+
+.callout {
+    position: relative;
+    margin-bottom: 1rem;
+    padding: 1.25rem;
+    border: rgba(224, 205, 186, .35) solid 1px;
+    border-radius: 0;
+    background-color: #faf8f5;
+    color: #3e3e3e;
+}
+
+.callout-caption {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    margin-bottom: -1px;
+}
+
+.callout.flat {
+    background-color: #fff;
+    color: #3e3e3e;
+    border-color: #e6e6e6;
+}
+
+ul.bullet-list:not(.grid-margin-x) {
+    margin-left: 0;
+}
+
+ul.bullet-list {
+    list-style: none;
+}
+
+.card-body {
+    height: 560px !important;
+    padding-top: 60px;
+}

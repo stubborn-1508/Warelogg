@@ -1,0 +1,6 @@
+.imgSquare {
+  border-radius: 0.75rem !important;
+  height: 250px;
+  border: 2px solid;
+  margin-top: 5px;
+}

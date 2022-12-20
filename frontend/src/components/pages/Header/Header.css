@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Smooch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Sheppards&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mrs+Sheppards&family=Satisfy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sono&display=swap');
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.HeaderX {
+    width: 100%;
+    background-color: #1e272e !important;
+    margin-bottom: 7% !important;
+}
+
+
+.logo-img {
+    width: 60px;
+    height: auto;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    display: flex;
+    justify-content: space-evenly;
+    place-items: center;
+    background-color: #f6f6f6;
+    color: black !important;
+    z-index: 7;
+    padding-top: 20px;
+}
+
+.tagline {
+    font-family: 'Satisfy', cursive;
+    color: #1e272e;
+    font-size: 2em;
+    margin-left: -13rem;
+    font-weight: bold;
+}
+
+.tagline #t1 {
+    color: #FFC600;
+}
+
+.tagline #t2 {
+    color: #1FAA59;
+}
+
+.tagline #t3 {
+    color: rebeccapurple;
+}
+
+nav ul li {
+    font-weight: bolder;
+    font-family: quicksand;
+    display: inline-block;
+    margin-right: 15px;
+    text-decoration: underline;
+    font-size: 16px;
+}
+
+nav ul li span {
+    margin-right: 5px;
+}
+
+.btnHeader {
+    border: 0;
+    font-weight: bolder;
+    font-family: quicksand;
+    color: white;
+    background-color: #1e272e;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    /* cursor: pointer;
+    transition-delay: 0s;
+    transition-duration: 1s; */
+}
