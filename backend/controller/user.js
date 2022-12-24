@@ -75,15 +75,11 @@ const login = async (req, res) => {
 };
 
 const getAllUsers = async (req, res) => {
-  // console.log(req.user);
   return res.json(req.user);
 }
 
 module.exports = {
-  // getAllUser,
   register,
   login,
   getAllUsers
-  // deleteUser,
-  // userTokenvalid,
 };

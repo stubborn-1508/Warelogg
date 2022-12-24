@@ -7,9 +7,9 @@ const bcrypt = require('bcryptjs');
 // Create Schema
 const WareHouseSchema = new Schema({
     user_id: {
-        type: String,
-        required: true,
-        default: Date.now
+        type: Number,
+        ref: 'User',
+        field: "user_id"
     },
     name: {
         type: String,
@@ -18,7 +18,6 @@ const WareHouseSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
     },
     businessName:{
         type: String
@@ -41,7 +40,15 @@ const WareHouseSchema = new Schema({
     zip: {
         type: String,
     },
-    dimension: {
+    length: {
+        type: String,
+        required: true
+    },
+    width: {
+        type: String,
+        required: true
+    },
+    height: {
         type: String,
         required: true
     },
@@ -50,9 +57,11 @@ const WareHouseSchema = new Schema({
             type: String
         }
     ],
-    imageLink: {
-        type: String
-    }
+    images: [
+        {
+            type: String
+        }
+    ]
 });
 
 

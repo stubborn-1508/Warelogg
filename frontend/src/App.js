@@ -20,6 +20,7 @@ import CheckoutSection from "./components/Checkout";
 import Profile from "./components/pages/Profile/Profile";
 import Refund from "./components/pages/Refund/Refund.js";
 import ListedSpace from "./components/pages/ListedSpace/ListedSpace.js";
+import AllListedSpace from './components/pages/allListedSpace/allListedSpace.js';
 import { Routes, Route } from "react-router-dom";
 import "./components/css/Style.css";
 import "./Contexts/context";
@@ -53,6 +54,7 @@ const App = () =>
           <Route path="/checkout" element={ <CheckoutSection /> } />
           <Route path="/test" element={ <Profile /> } />
           <Route path="/underConstruction" element={ <Underconstruction /> } />
+          <Route path="/allListedSpace" element={<AllListedSpace/>}/>
         </Routes>
         <Footer />
       </div>
