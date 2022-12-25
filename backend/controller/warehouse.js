@@ -15,38 +15,35 @@ const warehouseRegister = async (req,res) => {
         city,
         state,
         zip,
-        length,
-        width,
-        height,
+        subUnits,
         features } = req.body;
 
     if(!user_id){
         return res.status(401).json("User not logged in");
     }
 
-    if (!name&&!email&&!businessName&&!contactNumberMobile&&!businessAddress&&!city&&!state&&!zip&&!length&&!width&&!height) {
+    if (!name&&!email&&!businessName&&!contactNumberMobile&&!businessAddress&&!city&&!state&&!zip&&!subUnits) {
         return res.status(422).json("Please fill all the fields");
     }
-
+    // console.log(subUnits);
     try {
         const warehouse = new Warehouse({
-        user_id: user_id,
-        name: name,
-        email: email,
-        businessName: businessName,
-        contactNumberMobile: contactNumberMobile,
-        businessAddress: businessAddress,
-        city: city,
-        state: state,
-        zip: zip,
-        length: length,
-        width: width,
-        height: height,
-        features: features
+            user_id: user_id,
+            name: name,
+            email: email,
+            businessName: businessName,
+            contactNumberMobile: contactNumberMobile,
+            businessAddress: businessAddress,
+            city: city,
+            state: state,
+            zip: zip,
+            subUnits: subUnits,
+            features: features
         });
         warehouse.save()
         .then((user) => res.status(200).json('WareHouse registered successfully'))
         .catch((err) => console.log(err));
+        // res.status(200).json("temp done");
     } catch (err) {
         console.log(err);
     }
@@ -62,8 +59,19 @@ const getAllMyWareHouses = async (req,res) => {
     }
 }
 
+const getMyWareHouses = async (req,res) => {
+    const id = req.body.data;
+    try{
+        const data = await Warehouse.findOne({_id: id}).lean();
+        res.send(data);
+    }catch(err){
+        res.send(err);
+    }
+}
+
 module.exports = {
     warehouseRegister,
-    getAllMyWareHouses
+    getAllMyWareHouses,
+    getMyWareHouses
 };
   

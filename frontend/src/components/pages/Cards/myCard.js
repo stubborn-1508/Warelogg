@@ -19,28 +19,30 @@ import "./progresssbar.css";
 
 const MyCardSection = ({ warehouseInfo }) =>
 {
-    function WarehouseArea()
+    function WarehouseArea(x, y)
     {
-        const totalArea = warehouseInfo.totalArea;
-        const area = warehouseInfo.area;
-        const percentage = warehouseInfo.percentage;
+        console.log(x);
+        console.log(y);
+        const totalArea = parseInt(x);
+        const area = parseInt(y);
+        const percentage = (area/totalArea)*100;
         return (
             <>
-                <span className="fs-6 float-left">{ percentage }Booked</span>
+                <span className="fs-6 float-left">Booked</span>
                 <span className="fs-6 float-right">Vacant</span>
                 <ProgressBar className="progressContainer">
-                    <ProgressBar now={ 100 - percentage } label={ `${ area }sqft` } className="text-dark fw-bold fs-6" variant="warning" key={ 1 } />
-                    <ProgressBar now={ 100 } label={ `${ totalArea - area }sqft` } className="text-light fw-bold fs-6" variant="success" animated key={ 2 } />
+                    <ProgressBar now={ percentage } label={ `${ area }sqft` } className="text-dark fw-bold fs-6" variant="warning" key={ 1 } />
+                    <ProgressBar now={ 100 - percentage } label={ `${ totalArea - area }sqft` } className="text-light fw-bold fs-6" variant="success" animated key={ 2 } />
                 </ProgressBar >
             </>
         );
     }
 
     let navigate = useNavigate();
-    const routeChange = () =>
+    const routeChange = (id) =>
     {
-        let path = `/warehouse`;
-        navigate(path);
+        let path = `/listedSpace`;
+        navigate(path, {state: id});
     }
 
     // for pagination
@@ -58,9 +60,11 @@ const MyCardSection = ({ warehouseInfo }) =>
                 <Row>
                     { warehouseInfo.map((warehouse, key) =>
                     {
+                        const id = warehouse.id;
                         return <Col lg={ 3 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
-                            <Card className="rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover" onClick={ () =>
-                                routeChange() }>
+                            <Card className="rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover" onClick={() => {
+                                    routeChange(id);
+                                }}>
                                 <div className="bg-secondary p-4">
                                     <b className=" text-dark h5">{ warehouse.name }</b>
                                     <div className="d-flex flex-column justify-content-between mb-3">
@@ -78,7 +82,7 @@ const MyCardSection = ({ warehouseInfo }) =>
                                         </h6>
                                     </div>
                                     <div className="border-top pt-2">
-                                        <h6 className="m-1">{ WarehouseArea(70, 50) }</h6>
+                                        <h6 className="m-1">{ WarehouseArea(warehouse.totalArea, warehouse.area) }</h6>
                                     </div>
                                 </div>
                             </Card>

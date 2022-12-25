@@ -36,6 +36,8 @@ const AllListedSpace = () => {
             let finalArr = [];
             res.forEach((ele) => {
                 let tempObj = {};
+                tempObj['id'] = ele._id;
+                console.log(tempObj['id'])
                 tempObj['name'] = ele.name;
                 tempObj['location'] = ele.businessAddress + ', ' + ele.city;
                 let tempStr = '';
@@ -43,12 +45,19 @@ const AllListedSpace = () => {
                     tempStr = tempStr + mapping_feature[e] + ', ';
                 });
                 tempObj['facility'] = tempStr;
-                tempObj['size'] = ele.length+'x'+ele.width+'x'+ele.height;
-                tempObj['rating'] = '2.5'
-                tempObj['price'] = '1000'
-                tempObj['percentage'] = '33'
-                tempObj['area'] = '100'
-                tempObj['totalArea'] = '1000'
+                let tempStrL = 0;
+                let tempStrW = 0;
+                let tempStrH = 0;
+                let tempStrSpaceOcc = 0;
+                for(let i=0;i<ele.subUnits.length;i++){
+                    tempStrL = tempStrL + parseInt(ele.subUnits[i].length)
+                    tempStrW = tempStrW + parseInt(ele.subUnits[i].width)
+                    tempStrH = tempStrH + parseInt(ele.subUnits[i].height)
+                    tempStrSpaceOcc = tempStrSpaceOcc + parseInt(ele.subUnits[i].spaceOccupied);
+                }
+                tempObj['size'] = tempStrL+'x'+tempStrW+'x'+tempStrH;
+                tempObj['area'] = parseInt(tempStrSpaceOcc)
+                tempObj['totalArea'] = parseInt(tempStrL)*parseInt(tempStrW)
                 finalArr.push(tempObj);
             });
 

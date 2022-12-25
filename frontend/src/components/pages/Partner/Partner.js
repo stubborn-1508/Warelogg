@@ -7,6 +7,7 @@ import axios from "axios";
 const BecomePartner = () => {
   const navigate = useNavigate();
   const usertoken = localStorage.getItem("token");
+
   const [wareHouse, setWareHouse] = useState({
     user_id: '',
     name: '',
@@ -17,10 +18,45 @@ const BecomePartner = () => {
     city: '',
     state: '',
     zip: '',
-    length: '',
-    width: '',
-    height: ''
+    features: []
   });
+
+  const [length, setLength] = useState(new Array(100000).fill(''));
+  const [width, setWidth] = useState(new Array(100000).fill(''));
+  const [height, setHeight] = useState(new Array(100000).fill(''));
+
+  const [unit, setUnit] = useState({
+    counter: 1,
+    arrTemp: new Array(1).fill('')
+  });
+
+  const add = (e) => {
+    e.preventDefault();
+    const current_unit = unit;
+    const cnt = unit.counter + 1;
+    setUnit({
+      counter: cnt,
+      arrTemp: new Array(cnt).fill('')
+    });
+  }
+
+  const remove = (e) => {
+    e.preventDefault();
+    const current_unit = unit;
+    const cnt = unit.counter - 1;
+    if(cnt < 0){
+      setUnit({
+        counter: 0,
+        arrTemp: new Array(0).fill('')
+      });
+    }else{
+      setUnit({
+        counter: cnt,
+        arrTemp: new Array(cnt).fill('')
+      });
+    }
+  }
+
 
   const fetchData = async (usertoken) => {
     try {
@@ -62,6 +98,30 @@ const BecomePartner = () => {
     setWareHouse({...wareHouse, [e.target.id]: e.target.value});
   }
 
+  const handleChangeLength = (e) => {
+    const ind = parseInt(e.target.id.split('$')[0]);
+    let iniArr = length;
+    iniArr[ind] = e.target.value;
+    let finalArr = iniArr;
+    setLength(finalArr);
+  }
+
+  const handleChangeWidth = (e) => {
+    const ind = parseInt(e.target.id.split('$')[0]);
+    let iniArr = width;
+    iniArr[ind] = e.target.value;
+    let finalArr = iniArr;
+    setWidth(finalArr);
+  }
+
+  const handleChangeHeight = (e) => {
+    const ind = parseInt(e.target.id.split('$')[0]);
+    let iniArr = height;
+    iniArr[ind] = e.target.value;
+    let finalArr = iniArr;
+    setHeight(finalArr);
+  }
+
   const handleChangeCheck = (e) => {
     setFeatureArr(featureArr => ({...featureArr,[e.target.id]: !(featureArr[e.target.id])}));
   }
@@ -78,12 +138,23 @@ const BecomePartner = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    var finalArr = []
+    let finalArr = []
     for (const [key,value] of Object.entries(featureArr)){
       if(value){
         finalArr.push(key);
       }
     }
+
+    let finalArr2 = [];
+
+    for(let i=0;i<2;i++){
+      let subunit = {}
+      subunit.length = length[i];
+      subunit.width = width[i];
+      subunit.height = height[i];
+      finalArr2.push(subunit);
+    }
+
     const wareHouseDetails = {
       user_id: wareHouse.user_id,
       name: wareHouse.name,
@@ -94,12 +165,12 @@ const BecomePartner = () => {
       city: wareHouse.city,
       state: wareHouse.state,
       zip: wareHouse.zip,
-      length: wareHouse.length,
-      width: wareHouse.width,
-      height: wareHouse.height,
+      subUnits: finalArr2, 
       features: finalArr
     }
 
+
+    // console.log(wareHouseDetails);
     const waitWareReg = await wareHouseReg(wareHouseDetails);
     console.log(waitWareReg);
     if(waitWareReg[1] == 200){
@@ -119,12 +190,8 @@ const BecomePartner = () => {
       city: '',
       state: '',
       zip: '',
-      length: '',
-      width: '',
-      height: ''
     });
   }
-
 
   return (
     <>
@@ -188,18 +255,31 @@ const BecomePartner = () => {
                   <Form.Label>Zip/Postal</Form.Label>
                   <Form.Control id="zip" type="zip" onChange={handleChange} required></Form.Control>
                 </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Length (in ft)</Form.Label>
-                  <Form.Control id="length" type="text" onChange={handleChange} required></Form.Control>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Width (in ft)</Form.Label>
-                  <Form.Control id="width" type="text" onChange={handleChange} required></Form.Control>
-                </Form.Group>
-                <Form.Group className="mb-3">
-                  <Form.Label>Height (in ft)</Form.Label>
-                  <Form.Control id="height" type="text" onChange={handleChange} required></Form.Control>
-                </Form.Group>
+                <div style={{border:"1px solid black", display:"flex", flexDirection:"column", alignItems:"center"}}>
+                  {unit.arrTemp.map((ele,ind)=>{
+                    return (
+                      <div key={ind} style={{border: "2px solid black", margin: "5px", padding: "10px", borderRadius: "20px", width: "95%"}}>
+                        <h4 style={{textAlign: "center"}}>Dimensions of unit {ind+1}</h4>
+                        <Form.Group className="mb-3">
+                        <Form.Label>Length (in ft)</Form.Label>
+                        <Form.Control id={ind+'$l'} type="text" onChange={handleChangeLength} required></Form.Control>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                        <Form.Label>Width (in ft)</Form.Label>
+                        <Form.Control id={ind+'$w'} type="text" onChange={handleChangeWidth} required></Form.Control>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                        <Form.Label>Height (in ft)</Form.Label>
+                        <Form.Control id={ind+'$h'} type="text" onChange={handleChangeHeight} required></Form.Control>
+                        </Form.Group>
+                      </div>
+                    );
+                  })}
+                  <div style={{display:"flex", alignItems: "center"}}>
+                    <button style={{width:"80%",height:"40px", margin:"10px", borderRadius:"10px"}} onClick={add}>Add</button>
+                    <button style={{width:"50%",height:"40px", margin:"10px", borderRadius:"10px"}} onClick={remove}>Remove</button>
+                  </div>
+                </div>
                 <Form.Group>
                   <Form.Label>Features</Form.Label>
                   <Form.Check onChange={handleChangeCheck} id='cctv' type="checkbox" label="CCTV Survillance"/>

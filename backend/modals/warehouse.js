@@ -4,6 +4,39 @@ require("dotenv").config({ path: "../config/config.env" });
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+
+const subUnitSchema = new Schema({
+    length: {
+        type: String,
+        required: true
+    },
+    width: {
+        type: String,
+        required: true
+    },
+    height: {
+        type: String,
+        required: true
+    },
+    spaceOccupied: {
+        type: Number,
+        default: 0
+    },
+    fromOcc: {
+        type: Number,
+        default: Date.now
+    },
+    toOcc: {
+        type: Number,
+        default: Date.now
+    },
+    images: [
+        {
+            type: String
+        }
+    ]
+});
+
 // Create Schema
 const WareHouseSchema = new Schema({
     user_id: {
@@ -40,24 +73,13 @@ const WareHouseSchema = new Schema({
     zip: {
         type: String,
     },
-    length: {
-        type: String,
-        required: true
-    },
-    width: {
-        type: String,
-        required: true
-    },
-    height: {
-        type: String,
-        required: true
-    },
-    features: [
+    subUnits: [
         {
-            type: String
+            type: subUnitSchema,
+            required: true
         }
     ],
-    images: [
+    features: [
         {
             type: String
         }

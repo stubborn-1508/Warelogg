@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import
 {
   Container,
@@ -14,10 +14,42 @@ import { BsFillCartPlusFill, BsFillBookmarksFill } from "react-icons/bs";
 import { BiCurrentLocation } from 'react-icons/bi';
 import { FcOk, FcPlus } from "react-icons/fc";
 import { FaTags } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./listedspace.css";
+import axios from 'axios';
+
+
 const ListedSpace = () =>
 {
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location.state);
+
+  const id = location.state;
+
+  const [warehouse, setWarehouse] = useState(null);
+
+  const fetchData = async (id) => {
+    try{
+      console.log(id);
+      let res = await axios.post("/getMyWareHouses", {data: id});
+      console.log(res.data);
+    }catch(err){
+      console.log("Error in fetching data" + err);
+    }
+  }
+
+
+  useEffect(() => {
+    const usertoken = localStorage.getItem("token");
+    if (!usertoken) {
+        navigate("/login");
+    }else{
+        fetchData(id);
+    }
+  }, []);
+
+
   return (
     <>
       <Container>
