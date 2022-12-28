@@ -33,6 +33,16 @@ const Storage = (props) =>
 		sortBy: "",
 		bookType: "",
 	};
+	
+	const [filterItems, setFilterItems] = useState({
+		cctv: false,
+		indoor: false,
+		outdoor: false,
+		climate: false,
+		sortBy: false,
+		bookType: false,
+	});
+	
 	console.log(contextfacility);
 	if(contextfacility.length > 0){
 		contextfacility.forEach((ele1, ind1) => {
@@ -61,18 +71,21 @@ const Storage = (props) =>
 	const onCheckChange = (event) =>
 	{
 		setData({ ...data, [ event.target.name ]: event.target.checked });
+		setFilterItems({ ...filterItems, [ event.target.name ]: event.target.checked });
 		// console.log("-"+data);
 	}
 
 	const onRadioSelect = (event) =>
 	{
 		setData({ ...data, [ event.target.name ]: event.target.value });
+		setFilterItems({ ...filterItems, [ event.target.name ]: true });
 		// console.log("->" + data);
 	}
 
 	const removerFilter = (key) =>
 	{
 		setData({ ...data, [ key ]: false });
+		setFilterItems({ ...filterItems, [ key ]: false });
 	}
 
 	const [ toggle, setToggle ] = useState(0);
@@ -97,6 +110,14 @@ const Storage = (props) =>
 			sortBy: "",
 			bookType: "",
 		};
+		setFilterItems({
+			cctv: false,
+			indoor: false,
+			outdoor: false,
+			climate: false,
+			sortBy: false,
+			bookType: false,
+		})
 		setData(defaultData1);
 	}
 
@@ -289,7 +310,7 @@ const Storage = (props) =>
 									onClick={ handleShow }>
 									<VscSettings className="text-white mx-1" />
 									Filters
-									<Badge bg="light" pill className="mx-1 text-dark">{ Object.values(data).filter(f => f === true).length }</Badge>
+									<Badge bg="light" pill className="mx-1 text-dark">{ Object.values(filterItems).filter(f => f === true).length }</Badge>
 								</Button>
 							</Col>
 							<Col lg={ 2 } md={ 2 } sm={ 2 } xs={ 12 }>
@@ -340,7 +361,7 @@ const Storage = (props) =>
 								<Row>
 									<Col md={ 12 } className="appliedFilters my-3">
 										{
-											Object.entries(data).map((filter, ind) =>
+											Object.entries(filterItems).map((filter, ind) =>
 											{
 												if (ind<4 && filter[1]==true)
 												{
@@ -354,7 +375,18 @@ const Storage = (props) =>
 													)
 												} else
 												{
-													return <></>
+													if(ind>=4 && filter[1]==true){
+														return (
+															<div key={ind} className="alert alert-dark alert-dismissible fade show mx-2 py-2 col-xs-12" >
+																{ data[filter[0]] }
+																<button type="button" className="close py-2" aria-label="Close">
+																	<span onClick={ removerFilter.bind(null, filter[0]) } aria-hidden="true">&times;</span>
+																</button>
+															</div>
+														)
+													}else{
+														return <></>;
+													}
 												}
 											})
 										}
