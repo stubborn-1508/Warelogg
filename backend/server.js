@@ -9,6 +9,11 @@ require("dotenv").config({ path: "./config/config.env" });
 
 const app = express();
 
+const _dirname = path.dirname("");
+const buildpath = path.join(__dirname, "../frontend/build");
+
+app.use(express.static(buildpath));
+
 // Bodyparser middleware
 app.use(
     bodyParser.urlencoded({
