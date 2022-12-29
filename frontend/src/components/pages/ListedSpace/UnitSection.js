@@ -7,7 +7,7 @@ import { BsFillLockFill, BsFillUnlockFill, BsFillCloudSunFill } from "react-icon
 import { GiLockedChest, GiCctvCamera } from "react-icons/gi";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
-const UnitSection = () =>
+const UnitSection = (props) =>
 {
     const [ selectUnit, setSelectUnit ] = useState(0);
 
@@ -28,7 +28,7 @@ const UnitSection = () =>
                             <Row className="">
                                 <Col lg={ 12 } md={ 12 } className="d-grid gap-1 my-2">
                                     <h3 className="text-dark">
-                                        10' x 10' x 6'
+                                        {props.sectionDetails.length}' x {props.sectionDetails.width}' x {props.sectionDetails.height}'
                                     </h3>
                                     <ul className='list-unstyled d-flex flex-row justify-content-center'>
                                         <OverlayTrigger
