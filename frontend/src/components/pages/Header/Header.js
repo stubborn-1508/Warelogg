@@ -35,9 +35,8 @@ const HeaderSection = () =>
                     <img src="/images/logo.png" height={ 60 } width={ 60 } alt="" />
                   </span>
                 </span>
-                <span className="text-yellow">Let's </span>
-                <span className="text-success">Go </span>
-                <span className="text-orange">Pal</span>
+                {/* <span className="text-yellow">Let's </span> */}
+                <span className="text-orange">Warelogg </span>
               </h1>
             </Link>
           </div>
@@ -50,9 +49,9 @@ const HeaderSection = () =>
               </span>
               <Link to="/" className="text-decoration-none d-block d-lg-none d-xs-none">
                 <h1 className="m-0">
-                  <span className="text-yellow">Let's </span>
-                  <span className="text-success">Go </span>
-                  <span className="text-orange">Pal</span>
+                  {/* <span className="text-yellow">Let's </span> */}
+                  <span className="text-orange">Warelogg </span>
+                  {/* <span className="text-orange">Pal</span> */}
                 </h1>
               </Link>
               <button
