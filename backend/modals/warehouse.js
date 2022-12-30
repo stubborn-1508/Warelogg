@@ -22,6 +22,10 @@ const subUnitSchema = new Schema({
         type: Number,
         default: 0
     },
+    price: {
+        type: Number,
+        default: 0
+    },
     fromOcc: {
         type: Number,
         default: Date.now

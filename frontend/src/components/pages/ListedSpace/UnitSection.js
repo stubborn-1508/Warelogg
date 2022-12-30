@@ -10,7 +10,12 @@ import { TiWeatherPartlySunny } from "react-icons/ti";
 const UnitSection = (props) =>
 {
     const [ selectUnit, setSelectUnit ] = useState(0);
-
+    let featureArr = {
+        'climate' : 'Climate Control',
+        'indoor': 'Indoor Storage',
+        'outdoor': 'Outdoor Storage',
+        'cctv': 'CCTV Monitering'
+    }
     return (
         <>
             <Card className='my-5 shadow mb-5 bg-white rounded '>
@@ -31,6 +36,7 @@ const UnitSection = (props) =>
                                         {props.sectionDetails.length}' x {props.sectionDetails.width}' x {props.sectionDetails.height}'
                                     </h3>
                                     <ul className='list-unstyled d-flex flex-row justify-content-center'>
+                                        
                                         <OverlayTrigger
                                             placement="bottom"
                                             overlay={ <Tooltip id="button-tooltip-2">Indoor Storage</Tooltip> }
@@ -89,9 +95,11 @@ const UnitSection = (props) =>
                                         </OverlayTrigger>
                                     </ul>
                                     <div className='list-unstyled d-flex flex-column justify-content-right'>
-                                        <p className='float-left'><FaCheckCircle className='mx-2' />Feature available</p>
-                                        <p className='float-left'><FaCheckCircle className='mx-2' />Indoor Storage </p>
-                                        <p className='float-left'><FaCheckCircle className='mx-2' />CCTV surveillance</p>
+                                        {props.sectionDetails.facility.map((ele, ind) => {
+                                            return (
+                                                <p id={ind} key={ind} className='float-left'><FaCheckCircle className='mx-2' />{featureArr[ele]}</p>
+                                            );
+                                        })}
                                     </div>
                                 </Col>
                             </Row>
@@ -101,24 +109,11 @@ const UnitSection = (props) =>
                             <div className="pt-2">
                                 <div className="d-grid gap-1 my-3">
                                     <h5 className="mt-4">
-                                        ₹150/<span>day</span>
+                                        ₹{props.sectionDetails.price}/<span>day</span>
                                     </h5>
                                     <Button
                                         className="text-center shadow"
-                                        variant={ selectUnit === 0 ? "success" : "warning"
-                                        } size="md" block
-                                        onClick={ () =>
-                                        {
-                                            if (selectUnit === 0)
-                                            {
-                                                setSelectUnit(1);
-                                            }
-                                            else
-                                            {
-                                                setSelectUnit(0);
-                                            }
-                                        } }
-                                    >{ selectUnit ? <><h5 className='text-center'>Selected &nbsp;<BsFillLockFill /></h5></> : <><h5 className='text-white text-center'>Select Unit &nbsp;<BsFillUnlockFill /></h5></> }</Button>
+                                    >Edit Price</Button>
                                 </div>
                             </div>
                         </Col>

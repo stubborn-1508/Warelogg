@@ -151,9 +151,14 @@ businessAddress
               let section_props = {
                 length: parseInt(ele.length),
                 width: parseInt(ele.width),
-                height: parseInt(ele.height)
+                height: parseInt(ele.height),
+                facility: warehouse.features,
+                price: parseInt(ele.price),
+                spaceOccupied: parseInt(ele.spaceOccupied),
+                fromOcc: parseInt(ele.fromOcc),
+                toOcc: parseInt(ele.toOcc)
               }
-              return(<UnitSection sectionDetails={section_props}/>);
+              return(<UnitSection key={ind} id={ind} sectionDetails={section_props}/>);
             })}
 
           </Form>
