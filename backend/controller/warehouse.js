@@ -49,6 +49,15 @@ const warehouseRegister = async (req,res) => {
     }
 }
 
+const getwarehouseRegister = async (req,res) => {
+    try{
+        const data = await Warehouse.find({});
+        res.send(data);
+    }catch(err){
+        res.send(err);
+    }
+}
+
 const getAllMyWareHouses = async (req,res) => {
     const userID = req.body.data;
     try{
@@ -71,6 +80,7 @@ const getMyWareHouses = async (req,res) => {
 
 module.exports = {
     warehouseRegister,
+    getwarehouseRegister,
     getAllMyWareHouses,
     getMyWareHouses
 };
