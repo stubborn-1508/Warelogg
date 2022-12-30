@@ -46,7 +46,7 @@ const CardSection = ({ warehouseInfo }) =>
     // for pagination
     let active = 1;
     let items = [];
-    for (let number = 1; number <= 5; number++)
+    for (let number = 1; number <= warehouseInfo.size; number++)
     {
         items.push(number);
     }
@@ -61,13 +61,13 @@ const CardSection = ({ warehouseInfo }) =>
                         return <Col lg={ 3 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
                             <Card className="rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover" onClick={ () =>
                                 routeChange() }>
-                                <img className="img-fluid" src={ warehouse.image } alt="" />
+                                <img className="img-fluid" src="images/s5.jpg" alt="" />
                                 <div className="bg-secondary p-4">
                                     <b className=" text-dark h5">{ warehouse.name } Warehouse</b>
                                     <div className="d-flex flex-column justify-content-between mb-3">
                                         <h6 className="m-1">
                                             <i className="h4"><IoMdPin className="text-primary mr-1" /></i>
-                                            { warehouse.location }
+                                            { warehouse.city }
                                         </h6>
                                         <h6 className="m-1">
                                             <i className="h4">{ facility[ 0 ] ? <FcCamcorderPro className="text-blue mr-1" /> : <BsCloudLightningRainFill className="text-blue mr-1" /> }</i>
