@@ -149,6 +149,8 @@ businessAddress
             </Card>
             {warehouse.subUnits.map((ele, ind) => {
               let section_props = {
+                warehouseID: warehouse._id,
+                id: ele._id,
                 length: parseInt(ele.length),
                 width: parseInt(ele.width),
                 height: parseInt(ele.height),

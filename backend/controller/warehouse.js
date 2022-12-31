@@ -78,10 +78,35 @@ const getMyWareHouses = async (req,res) => {
     }
 }
 
+const editPrice = async (req,res) => {
+    const id = req.body.id;
+    const price = req.body.price;
+    const warehouseID = req.body.warehouseID;
+
+    try {
+        const data = await Warehouse.updateOne({_id: warehouseID,"subUnits._id": id}, {
+            $set: {
+                "subUnits.$.price": price
+            }
+        }, function(err) {
+            console.log(err);
+        });
+        console.log(data);
+        res.send(data);
+    }catch(err){
+        res.send(err);
+    }
+    // console.log(id);
+    // console.log(warehouseID);
+    // console.log(price);
+    console.log(req.body);
+}
+
 module.exports = {
     warehouseRegister,
     getwarehouseRegister,
     getAllMyWareHouses,
-    getMyWareHouses
+    getMyWareHouses,
+    editPrice
 };
   

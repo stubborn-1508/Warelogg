@@ -6,16 +6,57 @@ import { FaCheckCircle, FaWarehouse } from "react-icons/fa";
 import { BsFillLockFill, BsFillUnlockFill, BsFillCloudSunFill } from "react-icons/bs";
 import { GiLockedChest, GiCctvCamera } from "react-icons/gi";
 import { TiWeatherPartlySunny } from "react-icons/ti";
+import axios from "axios";
 
 const UnitSection = (props) =>
 {
     const [ selectUnit, setSelectUnit ] = useState(0);
+
+    const [price, setPrice] = useState(props.sectionDetails.price);
+
     let featureArr = {
         'climate' : 'Climate Control',
         'indoor': 'Indoor Storage',
         'outdoor': 'Outdoor Storage',
         'cctv': 'CCTV Monitering'
     }
+
+    const convertNumToDate = (num) => {
+        let result = "";
+        let d = new Date(num);
+        result += d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
+        return result;
+    }
+
+    const handleInput = (e) => {
+        // const id = e.target.id.spilt('$')[1];
+        setPrice(e.target.value);
+    }
+
+    const edit = async (userData) => {
+        try{
+          const res = await axios({ url: "/editPrice", data: userData, method: "post" });
+          return [res.data, res.status];
+        }catch (e){
+          console.log(e);
+          return [e.response.data, e.response.status];
+        }
+      }
+
+    const editPrice = async (e) => {
+        const id = e.target.id;
+        const data = {
+            warehouseID: props.sectionDetails.warehouseID,
+            id: id,
+            price: price
+        }
+
+        const waitRes = await edit(data);
+        if(waitRes[1] !== 200){
+            alert(waitRes[0]);
+        }
+    }
+    console.log(price);
     return (
         <>
             <Card className='my-5 shadow mb-5 bg-white rounded '>
@@ -109,11 +150,26 @@ const UnitSection = (props) =>
                             <div className="pt-2">
                                 <div className="d-grid gap-1 my-3">
                                     <h5 className="mt-4">
-                                        ₹{props.sectionDetails.price}/<span>day</span>
+                                        ₹<input id={props.sectionDetails.id+'$input'} defaultValue={price} style={{display:"inline",width:"150px",textAlign:"right"}} onChange={handleInput}/>/<span>day</span>
                                     </h5>
                                     <Button
+                                        id={props.sectionDetails.id}
                                         className="text-center shadow"
+                                        onClick={editPrice}
                                     >Edit Price</Button>
+                                </div>
+                            </div>
+                            <div className="pt-2">
+                                <div className="d-grid gap-1 my-3">
+                                    <h5>Space Occupied: {props.sectionDetails.spaceOccupied} sq ft</h5>
+                                </div>
+                            </div>
+                            <div className="pt-2" style={{border: "2px solid black"}}>
+                                <div className="d-grid gap-1 my-3">
+                                    {convertNumToDate(props.sectionDetails.fromOcc)===convertNumToDate(props.sectionDetails.toOcc)?(<><h6>--Not Occupied--</h6></>):(<>
+                                    <h6>Occupied From: {convertNumToDate(props.sectionDetails.fromOcc)}</h6>
+                                    <h6>Occupied To: {convertNumToDate(props.sectionDetails.toOcc)}</h6>
+                                    </>)}
                                 </div>
                             </div>
                         </Col>
