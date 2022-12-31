@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.e5c1bc5a.css",
-    "main.js": "/static/js/main.15a776f7.js",
+    "main.js": "/static/js/main.3eac12e1.js",
     "static/media/warehouse.mp4": "/static/media/warehouse.8f05b2216ea297573ce4.mp4",
     "static/media/bgWarehouse.jpg": "/static/media/bgWarehouse.b27b9a2343b1a6a493e1.jpg",
     "index.html": "/index.html",
     "main.e5c1bc5a.css.map": "/static/css/main.e5c1bc5a.css.map",
-    "main.15a776f7.js.map": "/static/js/main.15a776f7.js.map"
+    "main.3eac12e1.js.map": "/static/js/main.3eac12e1.js.map"
   },
   "entrypoints": [
     "static/css/main.e5c1bc5a.css",
-    "static/js/main.15a776f7.js"
+    "static/js/main.3eac12e1.js"
   ]
 }
