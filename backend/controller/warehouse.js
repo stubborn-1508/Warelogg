@@ -49,7 +49,7 @@ const warehouseRegister = async (req,res) => {
     }
 }
 
-const getwarehouseRegister = async (req,res) => {
+const getAllWarehouse = async (req,res) => {
     try{
         const data = await Warehouse.find({});
         res.send(data);
@@ -104,7 +104,7 @@ const editPrice = async (req,res) => {
 
 module.exports = {
     warehouseRegister,
-    getwarehouseRegister,
+    getAllWarehouse,
     getAllMyWareHouses,
     getMyWareHouses,
     editPrice

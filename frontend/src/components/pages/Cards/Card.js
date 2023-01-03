@@ -58,7 +58,7 @@ const CardSection = ({ warehouseInfo }) =>
                 <Row>
                     { warehouseInfo.map((warehouse, key) =>
                     {
-                        return <Col lg={ 3 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
+                        return <Col lg={ 4 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
                             <Card className="rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover" onClick={ () =>
                                 routeChange() }>
                                 <img className="img-fluid" src="images/s5.jpg" alt="" />

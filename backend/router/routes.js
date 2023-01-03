@@ -14,7 +14,7 @@ router.get("/getAllUsers", authentication, userController.getAllUsers);
 
 router.post("/warehouseRegister", warehouseController.warehouseRegister);
 
-router.get("/getwarehouseRegister", warehouseController.getwarehouseRegister);
+router.get("/getAllWarehouse", warehouseController.getAllWarehouse);
 
 router.post("/getAllMyWareHouses", warehouseController.getAllMyWareHouses);
 

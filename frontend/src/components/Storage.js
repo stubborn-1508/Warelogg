@@ -131,7 +131,7 @@ const Storage = (props) =>
 	const [warehouseInfo, setWarehoueseInfo] = useState([]);
 	 
 	const getAds = async() => {
-		axios.get("/getwarehouseRegister")
+		axios.get("/getAllWarehouse")
 			.then(res => {
 				console.log(res.data)
 				setWarehoueseInfo(res.data)
