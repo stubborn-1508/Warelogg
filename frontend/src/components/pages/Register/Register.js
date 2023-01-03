@@ -65,7 +65,11 @@ const Register = () =>
             const waitRes2 = await log(logUser);
             if(waitRes2[1] === 200){
                 localStorage.setItem("token", waitRes2[0].token);
-                navigate("/profile");
+                if(logUser.email === "admin@warelogg.com"){
+                    navigate("/admin");
+                }else{
+                    navigate("/profile");
+                }
             }else{
                 alert(waitRes2[0]);
             }

@@ -37,7 +37,11 @@ const LoginSection = () => {
     if(waitRes[1] === 200){
       localStorage.setItem('token', waitRes[0].token);
       alert(waitRes[0].message);
-      navigate("/profile");
+      if(logUser.email === "admin@warelogg.com"){
+        navigate("/admin");
+      }else{
+        navigate("/profile");
+      }
     }else{
       alert(waitRes[0]);
     }

@@ -13,6 +13,7 @@ import Map from "./components/pages/Map/Map"
 import Careers from "./components/pages/Careers/Careers"
 import Cart from "./components/pages/Cart/Cart";
 import YourOrders from "./components/pages/Profile/YourOrders";
+import AdminDashboard from './components/pages/AdminDashboard/AdminDashboard.js';
 import Live from "./components/live.js";
 import AllImageSection from "./components/pages/Warehouse/AllImageSection";
 import Underconstruction from "./components/pages/Underconstruction/Underconstruction";
@@ -55,6 +56,7 @@ const App = () =>
           <Route path="/test" element={ <Profile /> } />
           <Route path="/underConstruction" element={ <Underconstruction /> } />
           <Route path="/allListedSpace" element={<AllListedSpace/>}/>
+          <Route path="/admin" element={<AdminDashboard/>}/>
         </Routes>
         <Footer />
       </div>
