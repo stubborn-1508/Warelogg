@@ -58,7 +58,9 @@ const AllListedSpace = () => {
                 tempObj['size'] = tempStrL+'x'+tempStrW+'x'+tempStrH;
                 tempObj['area'] = parseInt(tempStrSpaceOcc)
                 tempObj['totalArea'] = parseInt(tempStrL)*parseInt(tempStrW)
-                finalArr.push(tempObj);
+                if(ele.isVerified){
+                    finalArr.push(tempObj);
+                }
             });
 
             setWarehouseInfo(finalArr);
@@ -94,7 +96,8 @@ const AllListedSpace = () => {
                     <Row>
                     <Col lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
                             <Col md={ 12 } className="my-5">
-                                <MyCardSection warehouseInfo={warehouseInfo}></MyCardSection>
+                                {warehouseInfo.length == 0 ? <h4>Warehouse are sent to admin for verification</h4>: 
+                                <MyCardSection warehouseInfo={warehouseInfo}></MyCardSection>}
                             </Col>
                         </Col>
                     </Row>
