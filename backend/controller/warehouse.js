@@ -91,15 +91,26 @@ const editPrice = async (req,res) => {
         }, function(err) {
             console.log(err);
         });
-        console.log(data);
         res.send(data);
     }catch(err){
         res.send(err);
     }
     // console.log(id);
     // console.log(warehouseID);
-    // console.log(price);
-    console.log(req.body);
+}
+
+const verifyWarehouse = async (req,res) => {
+    const id = req.body.id;
+    try{
+        const data = await Warehouse.updateOne({_id: id}, {$set:{
+            isVerified: true
+        }}, function(err){
+            console.log(err);
+        });
+        res.send(data);
+    }catch(err){
+        res.send(err);
+    }
 }
 
 module.exports = {
@@ -107,6 +118,7 @@ module.exports = {
     getAllWarehouse,
     getAllMyWareHouses,
     getMyWareHouses,
-    editPrice
+    editPrice,
+    verifyWarehouse
 };
   
