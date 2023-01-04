@@ -147,7 +147,7 @@ const BecomePartner = () => {
 
     let finalArr2 = [];
 
-    for(let i=0;i<2;i++){
+    for(let i=0;i<unit.counter;i++){
       let subunit = {}
       subunit.length = length[i];
       subunit.width = width[i];
