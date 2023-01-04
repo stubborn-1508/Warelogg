@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import StorageCard from "./StorageCard.js";
 import
 {
@@ -16,9 +16,11 @@ import { BsCloudLightningRainFill } from "react-icons/bs";
 import { AiFillStar } from "react-icons/ai";
 import "./StorageCard.css"
 import "./progresssbar.css";
+import axios from "axios";
 
 const CardSection = ({ warehouseInfo }) =>
 {
+
     function WarehouseArea()
     {
         const totalArea = warehouseInfo.totalArea;
@@ -50,8 +52,27 @@ const CardSection = ({ warehouseInfo }) =>
     {
         items.push(number);
     }
-
+    const adminPath = window.location.pathname;
     const facility = [ "CCTV Monitoring", "Climate Control", "Indoor Storage", "Outdoor/Drive Up" ];
+
+    // const 
+
+    const verifyWarehouse = async (id) => {
+        try{
+            const res = await axios({ url: "/verifyWarehouse", data: {id: id}, method: "post" });
+            return res.data;
+        }catch (e){
+            return [e.response.data, e.response.status];
+        }
+    }
+
+    const handleVerify = async (id, ind) => {
+        const waitRes = await verifyWarehouse(id);
+
+        if(waitRes){
+            window.location.reload();
+        }
+    }
     return (
         <>
             <Container fluid>
@@ -59,7 +80,7 @@ const CardSection = ({ warehouseInfo }) =>
                     { warehouseInfo.map((warehouse, key) =>
                     {
                         return <Col lg={ 4 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
-                            <Card className="rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover" onClick={ () =>
+                            <Card className={adminPath==="/admin"?"rounded shadow bg-white overflow-hidden mb-2 my-4":"rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover"} onClick={ () =>
                                 routeChange() }>
                                 <img className="img-fluid" src="images/s5.jpg" alt="" />
                                 <div className="bg-secondary p-4">
@@ -88,6 +109,9 @@ const CardSection = ({ warehouseInfo }) =>
                                     </div>
                                 </div>
                             </Card>
+                            {adminPath==="/admin" ? (warehouse.isVerified==true ? <h6>Verified </h6>:<button onClick={()=>{
+                                handleVerify(warehouse._id, key);
+                            }}>Verify</button>) : <></>}
                         </Col>
                     }) }
                 </Row>

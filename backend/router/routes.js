@@ -22,6 +22,8 @@ router.post("/getMyWareHouses", warehouseController.getMyWareHouses);
 
 router.post("/editPrice", warehouseController.editPrice);
 
+router.post("/verifyWarehouse", warehouseController.verifyWarehouse);
+
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 
 // router.post("/tokenIsValid", userController.userTokenvalid);

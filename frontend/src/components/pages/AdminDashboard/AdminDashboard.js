@@ -35,26 +35,26 @@ const AdminDashboard = () => {
                 console.log(err)
             });
     }
+    const [toggle, setToggle] = useState(false);
 
     useEffect(() => {
         const usertoken = localStorage.getItem("token");
         // console.log(usertoken);
-
         if (!usertoken) {
             navigate("/login");
         } else {
             fetchUserData(usertoken);
         }
-    }, [query]);
+    }, [query, toggle]);
 
 
-    const [toggle, setToggle] = useState(0);
 
+    
     const handleShowWarehouse = async (e) => {
-        // e.preventDefault();
         fetchWareData();
     }
 
+    console.log(toggle);
     if (query) {
         return (
             <>

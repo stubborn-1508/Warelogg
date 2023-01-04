@@ -87,7 +87,8 @@ const WareHouseSchema = new Schema({
         {
             type: String
         }
-    ]
+    ],
+    isVerified: false
 });
 
 
