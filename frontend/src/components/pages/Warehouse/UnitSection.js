@@ -7,9 +7,15 @@ import { BsFillLockFill, BsFillUnlockFill, BsFillCloudSunFill } from "react-icon
 import { GiLockedChest, GiCctvCamera } from "react-icons/gi";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 
-const UnitSection = () =>
+const UnitSection = ({subUnit, feature}) =>
 {
     const [ selectUnit, setSelectUnit ] = useState(0);
+    const facilityObj = {
+        'cctv': 'CCTV Monitering',
+        'indoor': 'Indoor Storage',
+        'outdoor': 'Outdoor Storage',
+        'climate': 'Climate Control'
+    };
 
     return (
         <>
@@ -28,7 +34,7 @@ const UnitSection = () =>
                             <Row className="">
                                 <Col lg={ 12 } md={ 12 } className="d-grid gap-1 my-2">
                                     <h3 className="text-dark">
-                                        10' x 10' x 6'
+                                        {subUnit.length}' x {subUnit.width}' x {subUnit.height}'
                                     </h3>
                                     <ul className='list-unstyled d-flex flex-row justify-content-center'>
                                         <OverlayTrigger
@@ -89,9 +95,9 @@ const UnitSection = () =>
                                         </OverlayTrigger>
                                     </ul>
                                     <div className='list-unstyled d-flex flex-column justify-content-right'>
-                                        <p className='float-left'><FaCheckCircle className='mx-2' />Feature available</p>
-                                        <p className='float-left'><FaCheckCircle className='mx-2' />Indoor Storage </p>
-                                        <p className='float-left'><FaCheckCircle className='mx-2' />CCTV surveillance</p>
+                                        {feature?.map((ele) => {
+                                            return (<p className='float-left'><FaCheckCircle className='mx-2' />{facilityObj[ele]}</p>);
+                                        })}
                                     </div>
                                 </Col>
                             </Row>
@@ -101,7 +107,7 @@ const UnitSection = () =>
                             <div className="pt-2">
                                 <div className="d-grid gap-1 my-3">
                                     <h5 className="mt-4">
-                                        ₹150/<span>day</span>
+                                        ₹{subUnit.price}/<span>day</span>
                                     </h5>
                                     <Button
                                         className="text-center shadow"

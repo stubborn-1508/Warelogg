@@ -21,28 +21,28 @@ import axios from "axios";
 const CardSection = ({ warehouseInfo }) =>
 {
 
-    function WarehouseArea()
+    function WarehouseArea(x, y)
     {
-        const totalArea = warehouseInfo.totalArea;
-        const area = warehouseInfo.area;
-        const percentage = warehouseInfo.percentage;
+        const totalArea = parseInt(x);
+        const area = parseInt(y);
+        const percentage = (area/totalArea)*100;
         return (
             <>
-                <span className="fs-6 float-left">{ percentage }Booked</span>
+                <span className="fs-6 float-left">Booked</span>
                 <span className="fs-6 float-right">Vacant</span>
                 <ProgressBar className="progressContainer">
-                    <ProgressBar now={ 100 - percentage } label={ `${ area }sqft` } className="text-dark fw-bold fs-6" variant="warning" key={ 1 } />
-                    <ProgressBar now={ 100 } label={ `${ totalArea - area }sqft` } className="text-light fw-bold fs-6" variant="success" animated key={ 2 } />
+                    <ProgressBar now={ percentage } label={ `${ area }sqft` } className="text-dark fw-bold fs-6" variant="warning" key={ 1 } />
+                    <ProgressBar now={ 100 - percentage } label={ `${ totalArea - area }sqft` } className="text-light fw-bold fs-6" variant="success" animated key={ 2 } />
                 </ProgressBar >
             </>
         );
     }
 
     let navigate = useNavigate();
-    const routeChange = () =>
+    const routeChange = (id) =>
     {
         let path = `/warehouse`;
-        navigate(path);
+        navigate(path, {state: id});
     }
 
     // for pagination
@@ -53,7 +53,12 @@ const CardSection = ({ warehouseInfo }) =>
         items.push(number);
     }
     const adminPath = window.location.pathname;
-    const facility = [ "CCTV Monitoring", "Climate Control", "Indoor Storage", "Outdoor/Drive Up" ];
+    const facilityObj = {
+        'cctv': 'CCTV Monitering',
+        'indoor': 'Indoor Storage',
+        'outdoor': 'Outdoor Storage',
+        'climate': 'Climate Control'
+    };
 
     // const 
 
@@ -79,9 +84,25 @@ const CardSection = ({ warehouseInfo }) =>
                 <Row>
                     { warehouseInfo.map((warehouse, key) =>
                     {
+                        let facility = '';
+                        let length = 0;
+                        let width = 0;
+                        let height = 0;
+                        let occ = 0;
+
+                        warehouse.features.map((ele)=>{
+                            facility = facility + facilityObj[ele] + ',';
+                        });
+
+                        warehouse.subUnits.map((ele) => {
+                            length = length + parseInt(ele.length);
+                            width = width + parseInt(ele.width);
+                            height = height + parseInt(ele.height);
+                            occ = occ + parseInt(ele.spaceOccupied);
+                        });
                         return <Col lg={ 4 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
                             <Card className={adminPath==="/admin"?"rounded shadow bg-white overflow-hidden mb-2 my-4":"rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover"} onClick={ () =>
-                                routeChange() }>
+                                routeChange(warehouse._id) }>
                                 <img className="img-fluid" src="images/s5.jpg" alt="" />
                                 <div className="bg-secondary p-4">
                                     <b className=" text-dark h5">{ warehouse.name } Warehouse</b>
@@ -92,20 +113,19 @@ const CardSection = ({ warehouseInfo }) =>
                                         </h6>
                                         <h6 className="m-1">
                                             <i className="h4">{ facility[ 0 ] ? <FcCamcorderPro className="text-blue mr-1" /> : <BsCloudLightningRainFill className="text-blue mr-1" /> }</i>
-                                            { warehouse.facility }
+                                            { facility }
                                         </h6>
                                         <h6 className="m-1">
                                             <i className="h4"><FcOrgUnit className="text-blue mr-1" /> </i>
-                                            { warehouse.size }
+                                            { length + 'x' + width + 'x' + height }
                                         </h6>
                                         <h6 className="m-1">
                                             <i className="h4"><AiFillStar className="text-warning" /> </i>
                                             { warehouse.rating }
-                                            <p className="m-0 float-right">from { warehouse.price } ₹</p>
                                         </h6>
                                     </div>
                                     <div className="border-top pt-2">
-                                        <h6 className="m-1">{ WarehouseArea(70, 50) }</h6>
+                                        <h6 className="m-1">{ WarehouseArea(length*width, occ) }</h6>
                                     </div>
                                 </div>
                             </Card>
