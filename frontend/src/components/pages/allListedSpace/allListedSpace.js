@@ -7,8 +7,6 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MyCardSection from "../../pages/Cards/myCard";
 
-
-
 const AllListedSpace = () => {
     const navigate = useNavigate();
     const usertoken = localStorage.getItem("token");
@@ -96,7 +94,7 @@ const AllListedSpace = () => {
                     <Row>
                     <Col lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
                             <Col md={ 12 } className="my-5">
-                                {warehouseInfo.length == 0 ? <h4>Warehouse are sent to admin for verification</h4>: 
+                                {warehouseInfo.length == 0 ? <h4>-- Warehouses are sent to admin for verification --</h4>: 
                                 <MyCardSection warehouseInfo={warehouseInfo}></MyCardSection>}
                             </Col>
                         </Col>

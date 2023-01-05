@@ -21,8 +21,6 @@ const MyCardSection = ({ warehouseInfo }) =>
 {
     function WarehouseArea(x, y)
     {
-        console.log(x);
-        console.log(y);
         const totalArea = parseInt(x);
         const area = parseInt(y);
         const percentage = (area/totalArea)*100;
