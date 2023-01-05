@@ -1,14 +1,14 @@
 import React, { useState, Fragment, useContext, useEffect } from 'react';
-import { useLocation,useNavigate, useNavigation } from 'react-router-dom';
+import { useLocation, useNavigate, useNavigation } from 'react-router-dom';
 import {
-Container,
-Row,
-Col,
-Card,
-Button,
-Form,
-Modal,
-Carousel
+    Container,
+    Row,
+    Col,
+    Card,
+    Button,
+    Form,
+    Modal,
+    Carousel
 } from "react-bootstrap";
 import { BsFillCartPlusFill, BsFillBookmarksFill } from "react-icons/bs";
 import { BiCurrentLocation } from 'react-icons/bi';
@@ -35,13 +35,12 @@ const Warehouse = () => {
     const [warehouse, setWarehouse] = useState(null);
 
     const fetchData = async (id) => {
-        try{
-        console.log(id);
-        let res = await axios.post("/getMyWareHouses", {data: id});
-        // console.log(res.data);
-        setWarehouse(res.data);
-        }catch(err){
-        console.log("Error in fetching data" + err);
+        try {
+            let res = await axios.post("/getMyWareHouses", { data: id });
+            // console.log(res.data);
+            setWarehouse(res.data);
+        } catch (err) {
+            console.log("Error in fetching data" + err);
         }
     }
 
@@ -50,11 +49,10 @@ const Warehouse = () => {
         const usertoken = localStorage.getItem("token");
         if (!usertoken) {
             navigate("/login");
-        }else{
+        } else {
             fetchData(id);
         }
     }, []);
-    
 
     const changeCartHandler = () => {
         let param;
@@ -72,15 +70,40 @@ const Warehouse = () => {
     }
 
     const [show, setShow] = useState(false);
+    const [filter, setFilter] = useState(null);
+
     const handleClose = () => setShow(false);
     const handleCart = () => {
         setShow(true);
         changeCartHandler();
     }
 
+    const sortByPrice = (ware) => {
+        let subUnit = ware.subUnits;
+        let sortedSubUnitByPrice = subUnit.sort((p1, p2) => {
+            return ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1);
+        });
+        ware.subUnits = sortedSubUnitByPrice;
+        return ware;
+    }
+
+    const sortBySize = (ware) => {
+        let subUnit = ware.subUnits;
+        let sortedSubUnitBySize = subUnit.sort((p1, p2) => {
+            return ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1);
+        });
+        ware.subUnits = sortedSubUnitBySize;
+        return ware;
+    }
+
+    const handleFilterChange = (e) => {
+        console.log("Filter activated!!!");
+        setFilter(e.target.value);
+    }
+
     console.log(warehouse);
 
-    if(warehouse){
+    if (warehouse) {
         return (<>
             <Modal
                 show={show}
@@ -107,13 +130,14 @@ const Warehouse = () => {
                         <Card.Header className='shadow p-3 bg-white rounded'>
                             <Row>
                                 <Col md={6} className="text-center d-flex flex-column">
-                                    <h2>ShiNivas Warehouse</h2>
-                                    <h6><u> <i><BiCurrentLocation /> </i>Lonavla, Maharashtra, India</u></h6>
-                                    <p><u>6 review</u></p>
+                                    <h2>{warehouse.name}</h2>
+                                    <h6><u> <i><BiCurrentLocation /> </i>{warehouse.
+                                        businessAddress
+                                    }, {warehouse.city}, {warehouse.state}</u></h6>
+
                                 </Col>
                                 <Col md={6} className="text-center d-flex flex-column">
-                                    <p>200 sq ft Area</p>
-                                    <p>1200 cu ft Volume</p>
+                                    <p><u>6 review</u></p>
                                     <h4>
                                         <RatingBar readonly="true" />
                                     </h4>
@@ -185,7 +209,7 @@ const Warehouse = () => {
                             </Row>
                         </Card.Body>
                     </Card>
-    
+
                     <Card className="shadow p-3 bg-white rounded">
                         <Card.Body>
                             <Row className='my-2'>
@@ -217,12 +241,12 @@ const Warehouse = () => {
                                     <p><FcOk /> Open 7 Days</p>
                                     <p><FcOk /> Controlled Access for Your Protection</p>
                                 </Col>
-    
+
                                 <Col md={6}></Col>
                             </Row>
                         </Card.Body>
                     </Card>
-    
+
                     <Row className='mt-3'>
                         <Col md={12} xs={12}>
                             <div className="jumbotron text-center text-dark">
@@ -230,16 +254,17 @@ const Warehouse = () => {
                                 <hr className="" />
                                 <p className="lead">
                                     <Row className='my-3'>
-                                        <Col md={6}>
+                                        {/* <Col md={6}>
                                             <Form.Label>Select Unit Type:</Form.Label>
                                             <Form.Select size="sm">
                                                 <option>Split Level Storage</option>
                                                 <option>Storage Locker</option>
                                             </Form.Select>
-                                        </Col>
+                                        </Col> */}
                                         <Col md={6}>
                                             <Form.Label>Sort By:</Form.Label>
-                                            <Form.Select size="sm">
+                                            <Form.Select onChange={handleFilterChange} size="sm">
+                                                <option>Choose filter</option>
                                                 <option>Price</option>
                                                 <option>Size</option>
                                             </Form.Select>
@@ -247,12 +272,16 @@ const Warehouse = () => {
                                     </Row>
                                 </p>
                             </div>
-                            {warehouse?.subUnits.map((ele, ind) => {
-                                return (<UnitSection subUnit={ele} feature={warehouse.features}/>)
-                            })}
+                            {filter=='Price'?(warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1)).map((ele, ind) => {
+                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} />)
+                            })): filter=='Size'? (warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1)).map((ele, ind) => {
+                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} />)
+                            })):(warehouse?.subUnits.map((ele, ind) => {
+                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} />)
+                            }))}
                         </Col>
                     </Row>
-    
+
                     <Card className='bg-light text-dark mb-5'>
                         <Card.Body>
                             <Row className='my-5'>
@@ -296,7 +325,7 @@ const Warehouse = () => {
             <ReviewSection />
         </>
         );
-    }else{
+    } else {
         return (<>
         </>);
     }
