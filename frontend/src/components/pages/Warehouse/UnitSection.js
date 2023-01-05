@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card, Button, Tooltip, OverlayTrigger, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { FcPicture } from "react-icons/fc";
@@ -16,6 +16,10 @@ const UnitSection = ({subUnit, feature}) =>
         'outdoor': 'Outdoor Storage',
         'climate': 'Climate Control'
     };
+
+    useEffect(()=>{
+        console.log("Child component re-render");
+    }, [subUnit]);
 
     return (
         <>

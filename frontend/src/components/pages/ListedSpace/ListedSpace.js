@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import
-{
+import {
   Container,
   Row,
   Col,
@@ -20,8 +19,7 @@ import axios from 'axios';
 import UnitSection from "./UnitSection.js";
 
 
-const ListedSpace = () =>
-{
+const ListedSpace = () => {
   const location = useLocation();
   const navigate = useNavigate();
   console.log(location.state);
@@ -31,12 +29,12 @@ const ListedSpace = () =>
   const [warehouse, setWarehouse] = useState(null);
 
   const fetchData = async (id) => {
-    try{
+    try {
       console.log(id);
-      let res = await axios.post("/getMyWareHouses", {data: id});
+      let res = await axios.post("/getMyWareHouses", { data: id });
       // console.log(res.data);
       setWarehouse(res.data);
-    }catch(err){
+    } catch (err) {
       console.log("Error in fetching data" + err);
     }
   }
@@ -45,19 +43,19 @@ const ListedSpace = () =>
   useEffect(() => {
     const usertoken = localStorage.getItem("token");
     if (!usertoken) {
-        navigate("/login");
-    }else{
-        fetchData(id);
+      navigate("/login");
+    } else {
+      fetchData(id);
     }
   }, []);
 
-  if(!warehouse){
+  if (!warehouse) {
     return (
       <>
         <h2>Please Wait.....</h2>
       </>
     );
-  }else{
+  } else {
     console.log(warehouse);
     return (
       <>
@@ -66,13 +64,13 @@ const ListedSpace = () =>
             <Card className="mt-5 cardX">
               <Card.Header className='shadow p-3 bg-white rounded'>
                 <Row>
-                  <Col md={ 6 } className="text-center d-flex flex-column">
+                  <Col md={6} className="text-center d-flex flex-column">
                     <h2>{warehouse.name}</h2>
                     <h6><u> <i><BiCurrentLocation />  </i>{warehouse.
-businessAddress
-}, {warehouse.city}, {warehouse.state}</u></h6>
+                      businessAddress
+                    }, {warehouse.city}, {warehouse.state}</u></h6>
                   </Col>
-                  <Col md={ 6 } className="text-center d-flex flex-column">
+                  <Col md={6} className="text-center d-flex flex-column">
                     <Button className="my-1" variant="dark">Edit Name</Button>
                     <Button className="my-1" variant="dark">Edit Location</Button>
                   </Col>
@@ -80,7 +78,7 @@ businessAddress
               </Card.Header>
               <Card.Body className="cardStorageBody">
                 <Row>
-                  <Col lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 } className="shadow-sm p-3 rounded text-center">
+                  <Col lg={6} md={6} sm={12} xs={12} className="shadow-sm p-3 rounded text-center">
                     <Form.Group controlId="formFile" className="mb-3 imgSquareBig">
                       <Form.Label>
                         Add Image
@@ -89,18 +87,18 @@ businessAddress
                       <Form.Control type="file" />
                     </Form.Group>
                   </Col>
-                  <Col md={ 6 }>
+                  <Col md={6}>
                     <Row className=''>
-                      <Col md={ 6 } className="d-block w-100 imgSquare text-center">
+                      <Col md={6} className="d-block w-100 imgSquare text-center">
                         <h2> <FcPlus className="plusButton2" /></h2>Add Image
                       </Col>
-                      <Col md={ 6 } className="d-block w-100 imgSquare text-center">
+                      <Col md={6} className="d-block w-100 imgSquare text-center">
                         <h2> <FcPlus className="plusButton2" /></h2>Add Image
                       </Col>
-                      <Col md={ 6 } className="d-block w-100 imgSquare text-center">
+                      <Col md={6} className="d-block w-100 imgSquare text-center">
                         <h2> <FcPlus className="plusButton2" /></h2>Add Image
                       </Col>
-                      <Col md={ 6 } className="d-block w-100 imgSquare text-center">
+                      <Col md={6} className="d-block w-100 imgSquare text-center">
                         <h2> <FcPlus className="plusButton2" /></h2>Add Image
                       </Col>
                     </Row>
@@ -111,14 +109,14 @@ businessAddress
                 </Row>
               </Card.Body>
             </Card>
-  
+
             <Card className="shadow p-3 bg-white rounded">
               <Card.Body>
                 <Row className='my-2'>
-                  <Col md={ 12 }>
+                  <Col md={12}>
                     <h2 className='text-warning mb-5'>Features Available at this Facility :</h2>
                   </Col>
-                  <Col md={ 4 } className="">
+                  <Col md={4} className="">
                     <p><FcOk /> No Deposit or Admin Fee</p>
                     <p><FcOk /> Clean - Dry - Secure</p>
                     <p><FcOk /> Free Automatic Payment Plans</p>
@@ -127,7 +125,7 @@ businessAddress
                     <p><FcOk /> Make Your Payment Online!</p>
                     <p><FcOk /> Individually timed lighting in most spaces</p>
                   </Col>
-                  <Col md={ 4 } className="">
+                  <Col md={4} className="">
                     <p><FcOk /> rive-Up Loading and Unloading</p>
                     <p><FcOk /> Package Signing and Receiving</p>                                <p><FcOk /> Package Signing and Receiving</p>
                     <p><FcOk /> 24-Hour Video Monitoring</p>
@@ -136,14 +134,14 @@ businessAddress
                     <p><FcOk /> Fire Protected: Sprinklers and Alarms</p>
                     <p><FcOk /> Convenient Elevator Access</p>
                   </Col>
-                  <Col md={ 4 } className="">
+                  <Col md={4} className="">
                     <p><FcOk /> Climate Control</p>
                     <p><FcOk /> SafeStor Protection</p>
                     <p><FcOk /> Indoor Storage: Twice the Protection and Security</p>
                     <p><FcOk /> Open 7 Days</p>
                     <p><FcOk /> Controlled Access for Your Protection</p>
                   </Col>
-                  <Col md={ 6 }></Col>
+                  <Col md={6}></Col>
                 </Row>
               </Card.Body>
             </Card>
@@ -160,7 +158,7 @@ businessAddress
                 fromOcc: parseInt(ele.fromOcc),
                 toOcc: parseInt(ele.toOcc)
               }
-              return(<UnitSection key={ind} id={ind} sectionDetails={section_props}/>);
+              return (<UnitSection key={ind} id={ind} sectionDetails={section_props} />);
             })}
 
           </Form>
