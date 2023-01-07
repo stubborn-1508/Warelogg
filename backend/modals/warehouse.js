@@ -34,6 +34,8 @@ const subUnitSchema = new Schema({
         type: Number,
         default: Date.now
     },
+    isInCart: false,
+    isPurchased: false,
     images: [
         {
             type: String

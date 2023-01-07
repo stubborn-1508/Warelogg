@@ -171,7 +171,6 @@ const Storage = (props) =>
 	// 		return warehouse.location.match(locationInput);
 	// 	});
 	// }
-	console.log(data);
 	return (
 		<>
 			{console.log("called 1st")}

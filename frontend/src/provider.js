@@ -5,6 +5,7 @@ import PackageContext from "./Contexts/context";
 const Provider = props =>
 {
     const [ data, setData ] = useState({
+        user_id: null,
         cart: 0,
         location: null,
         facalities: [],

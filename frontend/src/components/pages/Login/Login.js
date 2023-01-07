@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import context from "../../../Contexts/context";
 
 const LoginSection = () => {
   const navigate = useNavigate();
+  const ctx = useContext(context);
 
   const [userDetails, setUserDetails] = useState({
     email: "",
@@ -36,6 +38,8 @@ const LoginSection = () => {
 
     if(waitRes[1] === 200){
       localStorage.setItem('token', waitRes[0].token);
+      console.log(waitRes[0].id);
+      ctx.update({user_id: waitRes[0].id});
       alert(waitRes[0].message);
       if(logUser.email === "admin@warelogg.com"){
         navigate("/admin");
