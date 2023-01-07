@@ -33,6 +33,7 @@ const Warehouse = () => {
     const navigate = useNavigate();
 
     const [warehouse, setWarehouse] = useState(null);
+    const [cart, setCart] = useState([]);
 
     const fetchData = async (id) => {
         try {
@@ -73,27 +74,10 @@ const Warehouse = () => {
     const [filter, setFilter] = useState(null);
 
     const handleClose = () => setShow(false);
+
     const handleCart = () => {
         setShow(true);
         changeCartHandler();
-    }
-
-    const sortByPrice = (ware) => {
-        let subUnit = ware.subUnits;
-        let sortedSubUnitByPrice = subUnit.sort((p1, p2) => {
-            return ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1);
-        });
-        ware.subUnits = sortedSubUnitByPrice;
-        return ware;
-    }
-
-    const sortBySize = (ware) => {
-        let subUnit = ware.subUnits;
-        let sortedSubUnitBySize = subUnit.sort((p1, p2) => {
-            return ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1);
-        });
-        ware.subUnits = sortedSubUnitBySize;
-        return ware;
     }
 
     const handleFilterChange = (e) => {
@@ -272,40 +256,19 @@ const Warehouse = () => {
                                     </Row>
                                 </p>
                             </div>
-                            {filter=='Price'?(warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1)).map((ele, ind) => {
-                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} />)
-                            })): filter=='Size'? (warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1)).map((ele, ind) => {
-                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} />)
-                            })):(warehouse?.subUnits.map((ele, ind) => {
-                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} />)
+                            {filter=='Price'?(warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1)).filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
+                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} warehouse_id={id} name={warehouse.name} />)
+                            })): filter=='Size'? (warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1)).filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
+                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} warehouse_id={id} name={warehouse.name} />)
+                            })):(warehouse?.subUnits.filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
+                                return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} warehouse_id={id} name={warehouse.name} />)
                             }))}
                         </Col>
                     </Row>
 
-                    <Card className='bg-light text-dark mb-5'>
+                    {/* <Card className='bg-light text-dark mb-5'>
                         <Card.Body>
                             <Row className='my-5'>
-                                <Col
-                                    md={6}
-                                    className="text-center align-items-center justify-content-center"
-                                >
-                                    <Form.Group className="mb-3 text-center">
-                                        <Form.Label>Start Booking Date</Form.Label>
-                                        <Form.Control type="date"
-                                            autoComplete='on' />
-                                        <Form.Label>End Booking Date</Form.Label>
-                                        <Form.Control type="date"
-                                            placeholder='dd-mm-yy' autoComplete='on' />
-                                    </Form.Group>
-                                </Col>
-                                <Col md={6}>
-                                    <Form.Group className="mb-3 text-center">
-                                        <Form.Label>Start Booking Time</Form.Label>
-                                        <Form.Control type="time" autoComplete='on' />
-                                        <Form.Label>End Booking Time</Form.Label>
-                                        <Form.Control type="time" autoComplete='on' />
-                                    </Form.Group>
-                                </Col>
                                 <Col lg={12} md={6} sm={12} xs={12}>
                                     <Form.Group className='d-grid gap-1'>
                                         <Button className="mt-5" variant="warning" block onClick={handleCart}>
@@ -318,7 +281,7 @@ const Warehouse = () => {
                                 </Col>
                             </Row>
                         </Card.Body>
-                    </Card>
+                    </Card> */}
                 </Form>
             </Container>
             <hr className='my-5' />

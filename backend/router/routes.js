@@ -3,6 +3,7 @@ const router = express.Router();
 const { authentication } = require("../middleware/auth");
 const userController = require("../controller/user");
 const warehouseController = require("../controller/warehouse");
+const cartController = require("../controller/cart");
 
 // router.get("/allusers", authentication, userController.getAllUser);
 
@@ -23,6 +24,8 @@ router.post("/getMyWareHouses", warehouseController.getMyWareHouses);
 router.post("/editPrice", warehouseController.editPrice);
 
 router.post("/verifyWarehouse", warehouseController.verifyWarehouse);
+
+router.post("/addToCart", cartController.addToCart);
 
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 

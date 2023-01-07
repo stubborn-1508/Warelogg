@@ -1,15 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, Button, Tooltip, OverlayTrigger, Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from 'react';
+import { Container, Row, Col, Card, Button, Tooltip, OverlayTrigger, Image, Form } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { FcPicture } from "react-icons/fc";
 import { FaCheckCircle, FaWarehouse } from "react-icons/fa";
 import { BsFillLockFill, BsFillUnlockFill, BsFillCloudSunFill } from "react-icons/bs";
 import { GiLockedChest, GiCctvCamera } from "react-icons/gi";
 import { TiWeatherPartlySunny } from "react-icons/ti";
+import context from '../../../Contexts/context';
+import axios from 'axios';
 
-const UnitSection = ({subUnit, feature}) =>
+const UnitSection = ({subUnit, feature, warehouse_id, name}) =>
 {
-    const [ selectUnit, setSelectUnit ] = useState(0);
+    const ctx = useContext(context);
+    const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
+    const [ selectUnit, setSelectUnit ] = useState(subUnit.isInCart);
     const facilityObj = {
         'cctv': 'CCTV Monitering',
         'indoor': 'Indoor Storage',
@@ -17,9 +22,82 @@ const UnitSection = ({subUnit, feature}) =>
         'climate': 'Climate Control'
     };
 
+    const fetchData = async (usertoken) => {
+        const res = await axios.get("/getAllUsers", {
+            headers: { "x-auth-token": usertoken },
+        });
+        setUserId(res.data._id);
+    }
+
     useEffect(()=>{
-        console.log("Child component re-render");
-    }, [subUnit]);
+        // get user_id
+        const usertoken = localStorage.getItem("token");
+        if (!usertoken) {
+            navigate("/login");
+        } else {
+            fetchData(usertoken);
+        }
+    }, []);
+
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+
+    const handleChangeEndDate = (e) => {
+        setEndDate(e.target.value);
+    }
+
+    const handleChangeStartDate = (e) => {
+        setStartDate(e.target.value);
+    }
+
+
+    const handleSelectWarehouse = (e) => {
+        if(selectUnit == false){
+            if(subUnit.isInCart === false){
+                handleAddToCart(e);
+                setSelectUnit(true);
+            }
+        }else{
+            navigate('/cart', {state: userId});
+        }
+    }
+
+    const add = async (userData) => {
+        try{
+          const res = await axios({ url: "/addToCart", data: userData, method: "post" });
+          console.log(res);
+          return [res.data, res.status];
+        }catch (e){
+          console.log(e);
+          return [e.response.data, e.response.status];
+        }
+      }
+
+    const handleAddToCart = async (e) => {
+        e.preventDefault();
+        const CartData = {
+            user_id: userId,
+            cartContent: {
+                warehouse_id: warehouse_id,
+                subUnit_id: subUnit._id,
+                Name: name,
+                Size: subUnit.length+'x'+subUnit.width+'x'+subUnit.height,
+                OccFrom: startDate,
+                OccTo: endDate,
+                Price: subUnit.price
+            }
+        }
+    
+        const waitRes = await add(CartData);
+        // console.log(waitRes);
+    }
+
+    const convertNumToDate = (num) => {
+        let result = "";
+        let d = new Date(num);
+        result += d.getFullYear()+"/"+(d.getMonth()+1)+"/"+d.getDate()
+        return result;
+    }
 
     return (
         <>
@@ -103,34 +181,54 @@ const UnitSection = ({subUnit, feature}) =>
                                             return (<p className='float-left'><FaCheckCircle className='mx-2' />{facilityObj[ele]}</p>);
                                         })}
                                     </div>
+                                    {selectUnit===true ? <>
+                                    </> : (subUnit.isPurchased? <>
+                                        <h6>Occupied till: {convertNumToDate(subUnit.toOcc)}</h6>
+                                    </> : <>
+                                        <div>
+                                            <Form.Group className="mb-3 text-center d-flex">
+                                                <div style={{marginRight: "50px"}}>
+                                                <Form.Label>Start Booking Date</Form.Label>
+                                                <Form.Control type="date"
+                                                    autoComplete='on' onChange={handleChangeStartDate} />
+                                                </div>
+                                                <div style={{marginRight: "50px"}}>
+                                                <Form.Label>End Booking Date</Form.Label>
+                                                <Form.Control type="date"
+                                                    placeholder='dd-mm-yy' autoComplete='on' onChange={handleChangeEndDate} />
+                                                </div>
+                                            </Form.Group>
+                                        </div>
+                                    </> )}
                                 </Col>
                             </Row>
                         </Col>
 
                         <Col md={ 3 }>
-                            <div className="pt-2">
-                                <div className="d-grid gap-1 my-3">
-                                    <h5 className="mt-4">
-                                        ₹{subUnit.price}/<span>day</span>
-                                    </h5>
-                                    <Button
-                                        className="text-center shadow"
-                                        variant={ selectUnit === 0 ? "success" : "warning"
-                                        } size="md" block
-                                        onClick={ () =>
-                                        {
-                                            if (selectUnit === 0)
-                                            {
-                                                setSelectUnit(1);
-                                            }
-                                            else
-                                            {
-                                                setSelectUnit(0);
-                                            }
-                                        } }
-                                    >{ selectUnit ? <><h5 className='text-center'>Selected &nbsp;<BsFillLockFill /></h5></> : <><h5 className='text-white text-center'>Select Unit &nbsp;<BsFillUnlockFill /></h5></> }</Button>
+                            {subUnit.isPurchased ? 
+                            <>
+                                <div className="pt-2">
+                                    <div className="d-grid gap-1 my-3">
+                                        <h5 className="mt-4">
+                                            Out of Stock
+                                        </h5>
+                                    </div>
                                 </div>
-                            </div>
+                            </> : <>
+                                <div className="pt-2">
+                                    <div className="d-grid gap-1 my-3">
+                                        <h5 className="mt-4">
+                                            ₹{subUnit.price}/<span>day</span>
+                                        </h5>
+                                        <Button
+                                            className="text-center shadow"
+                                            variant={ selectUnit === false ? "success" : "warning"
+                                            } size="md" block
+                                            onClick={handleSelectWarehouse}
+                                        >{ selectUnit ? <><h5 className='text-center'>Go to Cart &nbsp;<BsFillLockFill /></h5></> : <><h5 className='text-white text-center'>Add to Cart &nbsp;<BsFillUnlockFill /></h5></> }</Button>
+                                    </div>
+                                </div>
+                            </>}
                         </Col>
                     </Row>
                 </Card.Body>

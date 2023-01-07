@@ -64,7 +64,7 @@ const login = async (req, res) => {
             expiresIn: '30d'
         }
         );
-        return res.status(200).json({message: "User logged in successfully!!", token: token});
+        return res.status(200).json({message: "User logged in successfully!!", token: token, id: userLogin._id});
       }
     } else {
       res.status(400).json("User not found");
