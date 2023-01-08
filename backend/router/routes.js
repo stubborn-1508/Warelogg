@@ -27,6 +27,10 @@ router.post("/verifyWarehouse", warehouseController.verifyWarehouse);
 
 router.post("/addToCart", cartController.addToCart);
 
+router.post("/getMyCart", cartController.getMyCart);
+
+router.post("/deleteCart", cartController.deleteCart);
+
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 
 // router.post("/tokenIsValid", userController.userTokenvalid);

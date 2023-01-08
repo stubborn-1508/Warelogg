@@ -49,7 +49,38 @@ const addToCart = async (req, res) => {
     }
 }
 
+const getMyCart = async(req, res) => {
+    const id = req.body.id;
+    const data = await Cart.findOne({user_id: id}).clone().lean();
+    res.send(data);
+}
+
+const deleteCart = async (req,res) => {
+    const id = req.body.id;
+    const warehouse_id = req.body.warehouse_id;
+    const subUnit_id = req.body.subUnit_id;
+    try {
+        await Cart.updateOne({user_id: id},
+            {$pull: {cartContent: {subUnit_id: subUnit_id}}},
+            { safe: true, multi: false }
+        ).clone();
+        await WareHouse.updateOne({"subUnits._id": subUnit_id}, {
+            $set: {
+                "subUnits.$.isInCart": false
+            }
+        }, function(err) {
+            console.log(err);
+        }).clone();
+        const data = await Cart.findOne({user_id: id}).clone().lean();
+        res.send(data);
+    }catch (err){
+        res.status(400).json({error: err});
+    }
+
+}
 
 module.exports = {
-    addToCart
+    addToCart,
+    getMyCart,
+    deleteCart
 };
