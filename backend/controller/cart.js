@@ -13,7 +13,7 @@ const addToCart = async (req, res) => {
     if(!cartContent.OccFrom || !cartContent.OccTo){
         res.status(400).json('Please choose the starting and ending dates');
     }
-
+    
     try{
         const cartData = await Cart.findOne({user_id: user_id}).lean();
         if(!cartData){

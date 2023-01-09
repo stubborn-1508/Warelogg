@@ -100,7 +100,7 @@ const HeaderSection = () =>
                   <Dropdown.Menu>
                     <Link to="/profile" className="nav-item nav-link"><Dropdown.Item as="button">Profile</Dropdown.Item></Link>
                     <Link to="/orders" className="nav-item nav-link"><Dropdown.Item as="button">My Bookings</Dropdown.Item></Link>
-                    <Link to="/listedSpace" className="nav-item nav-link"><Dropdown.Item as="button">Listed Space</Dropdown.Item></Link>
+                    <Link to="/allListedSpace" className="nav-item nav-link"><Dropdown.Item as="button">My Listed Space</Dropdown.Item></Link>
                     <Dropdown.Divider />
                     { usertoken != null ?
                       <Button className="btn btn-dark text-white d-lg-block mx-auto" onClick={ handleLogout }>Logout</Button>

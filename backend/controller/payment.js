@@ -1,7 +1,12 @@
-import { instance } from "../server.js";
-import crypto from "crypto";
-import { Payment } from "../modals/payment";
+const Razorpay = require("razorpay");
+const crypto = require("crypto");
+const Payment = require("../modals/payment");
 require("dotenv").config({path: "../config/config.env"});
+
+const instance = new Razorpay({
+  key_id: "rzp_test_Pv5XlbDcOtCgMo",
+  key_secret: "OQG8K23UaFaqHRmJITSDUZ5l",
+});
 
 const checkout = async (req, res) => {
   const options = {
