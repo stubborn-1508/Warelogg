@@ -46,6 +46,42 @@ const Cart = () => {
         }
     }
 
+    const checkOut = async () => {
+        let amount = 0;
+
+        for(let i=0;i<cart.length;i++){
+            amount = amount + cart[i].Price;
+        }
+
+        const {data: { order }} = await axios({url: "/checkout", data: {amount: amount}, method:"post"});
+        // console.log(data);
+        console.log(window);
+        const options = {
+            key: "rzp_test_Pv5XlbDcOtCgMo",
+            amount: order.amount,
+            currency: "INR",
+            name: "Warelogg",
+            description: "Tutorial of RazorPay",
+            image: "/images/logo.png",
+            order_id: order.id,
+            callback_url: "http://localhost:5000/paymentverification",
+            prefill: {
+                name: "Gaurav Kumar",
+                email: "gaurav.kumar@example.com",
+                contact: "9999999999"
+            },
+            notes: {
+                "address": "Razorpay Corporate Office"
+            },
+            theme: {
+                "color": "#4d70ff"
+            }
+        };
+        const razor = new window.Razorpay(options);
+        razor.open();
+        // console.log(window.Razorpay);
+    }
+
     if (userId == null || cart == null) {
         return (<>
             <h1> Please Wait.....</h1>
@@ -106,11 +142,9 @@ const Cart = () => {
                                 })}
                                 <div className="card">
                                     <div className="card-body">
-                                        <Link to="/checkout">
-                                            <button type="button" className="btn btn-warning btn-block btn-lg">
-                                                Proceed to Pay
-                                            </button>
-                                        </Link>
+                                        <button type="button" className="btn btn-warning btn-block btn-lg" onClick={checkOut}>
+                                            Proceed to Pay
+                                        </button>
                                     </div>
                                 </div>
                             </div>

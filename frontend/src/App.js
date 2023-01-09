@@ -22,6 +22,7 @@ import Profile from "./components/pages/Profile/Profile";
 import Refund from "./components/pages/Refund/Refund.js";
 import ListedSpace from "./components/pages/ListedSpace/ListedSpace.js";
 import AllListedSpace from './components/pages/allListedSpace/allListedSpace.js';
+import PaymentSuccess from './components/pages/PaymentSuccess/PaymentSuccess.js';
 import { Routes, Route } from "react-router-dom";
 import "./components/css/Style.css";
 import "./Contexts/context";
@@ -57,6 +58,7 @@ const App = () =>
           <Route path="/underConstruction" element={ <Underconstruction /> } />
           <Route path="/allListedSpace" element={<AllListedSpace/>}/>
           <Route path="/admin" element={<AdminDashboard/>}/>
+          <Route path="/paymentsuccess" element={<PaymentSuccess/>}></Route>
         </Routes>
         <Footer />
       </div>
