@@ -4,6 +4,7 @@ const { authentication } = require("../middleware/auth");
 const userController = require("../controller/user");
 const warehouseController = require("../controller/warehouse");
 const cartController = require("../controller/cart");
+const paymentController = require("../controller/payment");
 
 // router.get("/allusers", authentication, userController.getAllUser);
 
@@ -30,6 +31,10 @@ router.post("/addToCart", cartController.addToCart);
 router.post("/getMyCart", cartController.getMyCart);
 
 router.post("/deleteCart", cartController.deleteCart);
+
+router.post("/checkout", paymentController.checkout);
+
+router.post("/paymentVerification", paymentController.paymentVerification);
 
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 
