@@ -14,7 +14,7 @@ const UnitSection = ({subUnit, feature, warehouse_id, name}) =>
     const ctx = useContext(context);
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
-    const [ selectUnit, setSelectUnit ] = useState(subUnit.isInCart);
+    const [ selectUnit, setSelectUnit ] = useState(false);
     const facilityObj = {
         'cctv': 'CCTV Monitering',
         'indoor': 'Indoor Storage',
@@ -23,10 +23,13 @@ const UnitSection = ({subUnit, feature, warehouse_id, name}) =>
     };
 
     const fetchData = async (usertoken) => {
-        const res = await axios.get("/getAllUsers", {
+        const res1 = await axios.get("/getAllUsers", {
             headers: { "x-auth-token": usertoken },
         });
-        setUserId(res.data._id);
+        const id = subUnit._id;
+        const res2 = await axios({url: "/assignCarts", data: {user_id: res1.data._id, subUnit_id: id}, method:'post'});
+        setSelectUnit(res2.data.message);
+        setUserId(res1.data._id);
     }
 
     useEffect(()=>{

@@ -36,6 +36,8 @@ router.post("/checkout", paymentController.checkout);
 
 router.post("/paymentVerification", paymentController.paymentVerification);
 
+router.post("/assignCarts", cartController.assignCarts);
+
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 
 // router.post("/tokenIsValid", userController.userTokenvalid);

@@ -76,11 +76,26 @@ const deleteCart = async (req,res) => {
     }catch (err){
         res.status(400).json({error: err});
     }
+}
 
+const assignCarts = async (req, res) => {
+    const user_id = req.body.user_id;
+    const subUnit_id = req.body.subUnit_id;
+    try{
+        const waitRes = await Cart.findOne({user_id: user_id, "cartContent.subUnit_id": subUnit_id}).lean();
+        if(waitRes){
+            res.json({message: true});
+        }else{
+            res.json({message: false});
+        }
+    }catch(err){
+        res.send(err);
+    }
 }
 
 module.exports = {
     addToCart,
     getMyCart,
-    deleteCart
+    deleteCart,
+    assignCarts
 };
