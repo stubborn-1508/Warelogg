@@ -29,10 +29,10 @@ const AdminDashboard = () => {
     const fetchWareData = () => {
         axios.get("/getAllWarehouse")
             .then(res => {
-                // console.log(res.data);
                 setWareHouse(res.data);
             }).catch(err => {
-                console.log(err)
+                console.log(err);
+                alert('Error fetching warehouse data. Please retry');
             });
     }
     const [toggle, setToggle] = useState(false);
@@ -49,12 +49,12 @@ const AdminDashboard = () => {
 
 
 
-    
+
     const handleShowWarehouse = async (e) => {
         fetchWareData();
     }
 
-    console.log(toggle);
+    console.log(warehouse);
     if (query) {
         return (
             <>
@@ -115,9 +115,12 @@ const AdminDashboard = () => {
                                     </div>
                                 </div>
                                 <div>
-                                    {warehouse ? <>
+                                    {warehouse ? warehouse.length >= 1 ? (<>
                                         <CardSection warehouseInfo={warehouse}></CardSection>
-                                    </> : <></>}
+                                    </>) : (<>
+                                        <h1>No Results</h1>
+                                    </>) : (<>
+                                    </>)}
                                 </div>
                             </div>
                         </div>

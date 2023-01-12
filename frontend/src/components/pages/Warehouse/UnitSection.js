@@ -56,10 +56,8 @@ const UnitSection = ({subUnit, feature, warehouse_id, name}) =>
 
     const handleSelectWarehouse = (e) => {
         if(selectUnit == false){
-            if(subUnit.isInCart === false){
-                handleAddToCart(e);
-                setSelectUnit(true);
-            }
+            handleAddToCart(e);
+            // setSelectUnit(!selectUnit);
         }else{
             navigate('/cart', {state: userId});
         }
@@ -92,7 +90,12 @@ const UnitSection = ({subUnit, feature, warehouse_id, name}) =>
         }
     
         const waitRes = await add(CartData);
-        // console.log(waitRes);
+        if(waitRes[1] === 200){
+            setSelectUnit(true);
+        }else{
+            setSelectUnit(false);
+            alert(waitRes[0]);
+        }
     }
 
     const convertNumToDate = (num) => {

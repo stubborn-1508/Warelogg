@@ -25,10 +25,16 @@ const AllListedSpace = () => {
                 headers: { "x-auth-token": usertoken },
             });
             const user_id = res.data.user_id;
-            console.log(user_id);
+            if(!user_id){
+                alert('User not found');
+                navigate('/');
+            }
 
             res = await axios.post("/getAllMyWareHouses", {data: user_id});
-            console.log(res.data);
+            if(res.status !== 200){
+                alert('Error 404');
+                navigate('/');
+            }
 
             res = res.data;
             let finalArr = [];
@@ -65,9 +71,10 @@ const AllListedSpace = () => {
 
         } catch (err) {
             console.log("Error in fetching data" + err);
+            alert('Error while fetching data');
+            navigate('/');
         }
     };
-
 
     useEffect(() => {
         const usertoken = localStorage.getItem("token");
@@ -94,7 +101,7 @@ const AllListedSpace = () => {
                     <Row>
                     <Col lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
                             <Col md={ 12 } className="my-5">
-                                {warehouseInfo.length == 0 ? <h4>-- Warehouses are sent to admin for verification --</h4>: 
+                                {warehouseInfo.length == 0 ? (<><h4>-- Warehouses are sent to admin for verification --</h4></>): 
                                 <MyCardSection warehouseInfo={warehouseInfo}></MyCardSection>}
                             </Col>
                         </Col>
