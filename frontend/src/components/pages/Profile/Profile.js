@@ -17,7 +17,9 @@ const Profile = () => {
         const res = await axios.get("/getAllUsers", {
             headers: { "x-auth-token": usertoken },
         });
-        console.log(res.data);
+        if(res.data.email === 'admin@warelogg.com'){
+            navigate('/admin');
+        }
         setUser(res.data);
         setQuery(true);
     } catch (err) {
@@ -27,7 +29,6 @@ const Profile = () => {
 
     useEffect(() => {
         const usertoken = localStorage.getItem("token");
-        // console.log(usertoken);
     
         if (!usertoken) {
           navigate("/login");
