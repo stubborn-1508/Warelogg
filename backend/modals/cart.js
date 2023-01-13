@@ -25,18 +25,17 @@ const cartContentSchema = new Schema({
         required: true
     },
     OccFrom: {
-        type: String,
+        type: Number,
         required: true
     },
     OccTo: {
-        type: String,
+        type: Number,
         required: true
     },
     Price: {
         type: String,
         required: true
-    },
-    isPurchased: false
+    }
 });
 
 // Create Schema
@@ -44,7 +43,7 @@ const CartSchema = new Schema({
     user_id: {
         type: String,
         ref: 'User',
-        field: "user_id"
+        field: "_id"
     },
     cartContent: [
         {
