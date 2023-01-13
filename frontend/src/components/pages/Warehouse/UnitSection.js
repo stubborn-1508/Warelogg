@@ -9,24 +9,25 @@ import { TiWeatherPartlySunny } from "react-icons/ti";
 import context from '../../../Contexts/context';
 import axios from 'axios';
 
+const convertNumToDate = (num) => {
+    let result = "";
+    let d = new Date(num);
+    result += d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
+    return result;
+}
+
+const convertDateToNum = (date) => {
+    let num = new Date(date);
+    num = Date.parse(num);
+    return num;
+}
+
 const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
     const ctx = useContext(context);
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
     const [selectUnit, setSelectUnit] = useState(false);
 
-    const convertNumToDate = (num) => {
-        let result = "";
-        let d = new Date(num);
-        result += d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
-        return result;
-    }
-
-    const convertDateToNum = (date) => {
-        let num = new Date(date);
-        num = Date.parse(num);
-        return num;
-    }
 
     const [status, setStatus] = useState(subUnit.toOcc === subUnit.fromOcc ? 'Available' : `Occupied from ${convertNumToDate(subUnit.fromOcc)} to ${convertNumToDate(subUnit.toOcc)}`);
 
@@ -62,33 +63,33 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
 
     const handleChangeEndDate = (e) => {
         const num = convertDateToNum(e.target.value);
-        if(!startDate || startDate===''){
+        if (!startDate || startDate === '') {
             alert('First Choose starting Date');
             setEndDate(null);
             return;
         }
-        if(subUnit.toOcc === subUnit.fromOcc){
+        if (subUnit.toOcc === subUnit.fromOcc) {
             setStatus('Available');
             setEndDate(num);
-        }else if((startDate<=subUnit.fromOcc && num>subUnit.fromOcc)){
+        } else if ((startDate <= subUnit.fromOcc && num > subUnit.fromOcc) || (num <= startDate)) {
             setStatus('Choose the correct ending date');
             setEndDate(null);
-        }else{
+        } else {
             setStatus(`Occupied from ${convertNumToDate(subUnit.fromOcc)} to ${convertNumToDate(subUnit.toOcc)}`);
             setEndDate(num);
         }
-        
+
     }
 
     const handleChangeStartDate = (e) => {
         const num = convertDateToNum(e.target.value);
-        if(subUnit.toOcc === subUnit.fromOcc){
+        if (subUnit.toOcc === subUnit.fromOcc) {
             setStatus('Available');
             setStartDate(num);
-        }else if(num>subUnit.fromOcc && num<subUnit.toOcc){
+        } else if (num > subUnit.fromOcc && num < subUnit.toOcc) {
             setStatus('Choose the correct starting date');
             setStartDate(null);
-        }else{
+        } else {
             setStatus(`Occupied from ${convertNumToDate(subUnit.fromOcc)} to ${convertNumToDate(subUnit.toOcc)}`);
             setStartDate(num);
         }
@@ -223,9 +224,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                         })}
                                     </div>
                                     {selectUnit === true ? <>
-                                    </> : (subUnit.isPurchased ? <>
-                                        <h6>Occupied till: {convertNumToDate(subUnit.toOcc)}</h6>
-                                    </> : <>
+                                    </> :  <>
                                         <div>
                                             <Form.Group className="mb-3 text-center d-flex">
                                                 <div style={{ marginRight: "50px" }}>
@@ -240,7 +239,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                                 </div>
                                             </Form.Group>
                                         </div>
-                                    </>)}
+                                    </>}
                                     <div className='list-unstyled d-flex flex-column justify-content-right'>
                                         {status}
                                     </div>
@@ -249,16 +248,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                         </Col>
 
                         <Col md={3}>
-                            {subUnit.isPurchased ?
-                                <>
-                                    <div className="pt-2">
-                                        <div className="d-grid gap-1 my-3">
-                                            <h5 className="mt-4">
-                                                Out of Stock
-                                            </h5>
-                                        </div>
-                                    </div>
-                                </> : <>
+                            {<>
                                     <div className="pt-2">
                                         <div className="d-grid gap-1 my-3">
                                             <h5 className="mt-4">
