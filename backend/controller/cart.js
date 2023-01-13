@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 require("dotenv").config({path: "../config/config.env"});
 
 const addToCart = async (req, res) => {
-    // console.log(req.body);
     const user_id = req.body.user_id;
     const cartContent = req.body.cartContent;
     const subUnitId = cartContent.subUnit_id;
