@@ -50,8 +50,28 @@ const addToCart = async (req, res) => {
 
 const getMyCart = async(req, res) => {
     const id = req.body.id;
-    const data = await Cart.findOne({user_id: id}).clone().lean();
-    res.send(data);
+    try{
+        let data1 = await Cart.findOne({user_id: id}).clone().lean();
+        let data2 = await WareHouse.find().clone().lean();
+        data1 = data1.cartContent.map((ele) => {
+            let obj = ele;
+            for(let i=0;i<data2.length;i++){
+                for(let j=0;j<data2[i].subUnits.length;j++){
+                    if(data2[i].subUnits[j]._id.toString() === ele.subUnit_id){
+                        if(data2[i].subUnits[j].fromOcc === data2[i].subUnits[j].toOcc){
+                            obj.isAvailable = true;
+                        }else{
+                            obj.isAvailable = false;
+                        }
+                    }
+                }
+            }
+            return obj;
+        });
+        return res.status(200).json(data1);
+    }catch(err){
+        res.status(400).json("Error!!");
+    }
 }
 
 const deleteCart = async (req,res) => {

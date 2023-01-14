@@ -3,6 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+const convertNumToDate = (num) => {
+    let result = "";
+    let d = new Date(num);
+    result += d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
+    return result;
+}
+
 const Cart = () => {
     const navigate = useNavigate();
     const [userId, setUserId] = useState(null);
@@ -19,8 +26,7 @@ const Cart = () => {
     const fetchCart = async (id) => {
         try {
             const res = await axios({ url: "/getMyCart", data: { id: id }, method: "post" });
-            // console.log(res.data);
-            setCart(res.data.cartContent);
+            setCart(res.data);
         } catch (err) {
             console.log(err);
         }
@@ -50,8 +56,12 @@ const Cart = () => {
         let amount = 0;
 
         for(let i=0;i<cart.length;i++){
-            amount = amount + cart[i].Price;
+            if(cart[i].isAvailable){
+                amount = amount + parseInt(cart[i].Price);
+            }
         }
+
+        console.log(amount);
 
         const {data: { order }} = await axios({url: "/checkout", data: {amount: amount}, method:"post"});
         // console.log(data);
@@ -122,8 +132,12 @@ const Cart = () => {
                                                         </p>
                                                     </div>
                                                     <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                                        <p className="mb-0">From - {ele.OccFrom}</p>
-                                                        <p className="mb-0">To - {ele.OccTo}</p>
+                                                        {ele.isAvailable ? <>
+                                                            <p className="mb-0">From - {convertNumToDate(ele.OccFrom)}</p>
+                                                            <p className="mb-0">To - {convertNumToDate(ele.OccTo)}</p>
+                                                        </>: <>
+                                                            <p>Out Of Stock</p>
+                                                        </>}
                                                     </div>
                                                     <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                                         <h5 className="mb-0">{ele.Price}₹</h5>

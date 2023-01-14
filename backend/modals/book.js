@@ -18,7 +18,15 @@ const BookSchema = new Schema({
     name:{
         type: String
     },
-    
+    toOcc:{
+        type: Number
+    },
+    fromOcc: {
+        type: Number
+    },
+    status: {
+        type: String
+    }
 });
 
 
