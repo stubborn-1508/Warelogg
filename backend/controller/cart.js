@@ -5,13 +5,12 @@ const bcrypt = require("bcryptjs");
 require("dotenv").config({path: "../config/config.env"});
 
 const addToCart = async (req, res) => {
-    // console.log(req.body);
     const user_id = req.body.user_id;
     const cartContent = req.body.cartContent;
     const subUnitId = cartContent.subUnit_id;
 
     if(!cartContent.OccFrom || !cartContent.OccTo){
-        res.status(400).json('Please choose the starting and ending dates');
+        return res.status(400).json('Please choose the starting and ending dates');
     }
     
     try{
@@ -29,7 +28,7 @@ const addToCart = async (req, res) => {
             }, function(err) {
                 console.log(err);
             });
-            res.status(200).json('Successfully Added to Cart');
+            return res.status(200).json('Successfully Added to Cart');
         }else{
             const waitRes1 = await Cart.updateOne(
                 { user_id: user_id },
@@ -42,7 +41,7 @@ const addToCart = async (req, res) => {
             }, function(err) {
                 console.log(err);
             });
-            res.status(200).json('Successfully Added to Cart');
+            return res.status(200).json('Successfully Added to Cart');
         }
     }catch(err){
         res.send(err);
