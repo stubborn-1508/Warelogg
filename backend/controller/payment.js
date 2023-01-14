@@ -63,6 +63,14 @@ const paymentVerification = async (req, res) => {
       razorpay_signature,
     });
 
+    const data1 = await Book.find({order_id: razorpay_order_id}).clone().lean();
+
+    data1.map(async (ele) => {
+      let res = await Warehouse.updateMany({"subUnits._id": ele.subUnit_id},
+      {"$set": {"subUnits.$[elem].fromOcc": ele.fromOcc, "subUnits.$[elem].toOcc": ele.toOcc}},
+      {"arrayFilters": [{'elem._id': ele.subUnit_id}], "multi": true});
+    });
+
     res.redirect(
       `http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`
     );
