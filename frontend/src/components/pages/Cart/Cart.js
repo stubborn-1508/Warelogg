@@ -54,18 +54,24 @@ const Cart = () => {
 
     const checkOut = async () => {
         let amount = 0;
-
+        let bookCartData = [];
         for(let i=0;i<cart.length;i++){
             if(cart[i].isAvailable){
+                let obj = {};
                 amount = amount + parseInt(cart[i].Price);
+                obj.subUnit_id = cart[i].subUnit_id;
+                obj.fromOcc = cart[i].OccFrom;
+                obj.toOcc = cart[i].OccTo;
+                obj.Name = cart[i].Name;
+                obj.Size = cart[i].Size;
+                bookCartData.push(obj);
             }
         }
 
-        console.log(amount);
+        // console.log(bookCartData);
 
-        const {data: { order }} = await axios({url: "/checkout", data: {amount: amount}, method:"post"});
+        const {data: { order }} = await axios({url: "/checkout", data: {amount: amount, bookCartData, userId}, method:"post"});
         // console.log(data);
-        console.log(window);
         const options = {
             key: "rzp_test_Pv5XlbDcOtCgMo",
             amount: order.amount,
@@ -85,11 +91,19 @@ const Cart = () => {
             },
             theme: {
                 "color": "#4d70ff"
+            },
+            modal: {
+                ondismiss: async function (){
+                    try{
+                        const res = await axios({url: '/deleteOrder', data: {order_id: order.id}, method:'post'});
+                    }catch(err){
+                        console.log(err);
+                    }
+                }
             }
         };
         const razor = new window.Razorpay(options);
         razor.open();
-        // console.log(window.Razorpay);
     }
 
     if (userId == null || cart == null) {
