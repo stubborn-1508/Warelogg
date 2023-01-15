@@ -90,8 +90,42 @@ const deleteOrder = async(req,res) => {
   });
 }
 
+const getBooks = async (req,res) => {
+  const id = req.body.id;
+  try{
+    const data = await Book.find({user_id: id}).clone().lean();
+    if(data){
+      return res.status(200).json(data);
+    }else{
+      return res.status(400).json("Error!!");
+    }
+  }catch(err){
+    res.send(err);
+  }
+}
+
+const cancelBooking = async(req,res) => {
+  const id = req.body.id;
+  try{  
+    await Book.findOneAndUpdate({subUnit_id: id}, {
+      $set: {isActive: false, fromOcc: 0, toOcc: 0}
+    });
+    let res = await Warehouse.updateMany({"subUnits._id": id},
+      {"$set": {"subUnits.$[elem].fromOcc": 0, "subUnits.$[elem].toOcc": 0}},
+      {"arrayFilters": [{'elem._id': id}], "multi": true});
+
+    if(!res){
+      res.send("Error!!").status(400);
+    }
+  }catch(err){
+    res.send(err).status(400);
+  }
+}
+
 module.exports = {
     checkout,
     paymentVerification,
-    deleteOrder
+    deleteOrder,
+    getBooks,
+    cancelBooking
 };
