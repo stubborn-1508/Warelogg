@@ -47,12 +47,7 @@ const Warehouse = () => {
 
 
     useEffect(() => {
-        const usertoken = localStorage.getItem("token");
-        if (!usertoken) {
-            navigate("/login");
-        } else {
-            fetchData(id);
-        }
+        fetchData(id);
     }, []);
 
     const changeCartHandler = () => {
@@ -85,7 +80,7 @@ const Warehouse = () => {
         setFilter(e.target.value);
     }
 
-    console.log(warehouse);
+    // console.log(warehouse);
 
     if (warehouse) {
         return (<>

@@ -53,7 +53,7 @@ const App = () =>
           <Route path="/contact" element={ <ContactSection /> } />
           <Route path="/allImages" element={ <AllImageSection /> } />
           <Route path="/live" element={ <Live /> } />
-          <Route path="/checkout" element={ <CheckoutSection /> } />
+          {/* <Route path="/checkout" element={ <CheckoutSection /> } /> */}
           <Route path="/test" element={ <Profile /> } />
           <Route path="/underConstruction" element={ <Underconstruction /> } />
           <Route path="/allListedSpace" element={<AllListedSpace/>}/>

@@ -52,7 +52,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
         // get user_id
         const usertoken = localStorage.getItem("token");
         if (!usertoken) {
-            navigate("/login");
+            setSelectUnit(false);
         } else {
             fetchData(usertoken);
         }
@@ -119,6 +119,11 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
 
     const handleAddToCart = async (e) => {
         e.preventDefault();
+        const usertoken = localStorage.getItem("token");
+        if(!usertoken){
+            navigate('/login');
+            return;
+        }
         const CartData = {
             user_id: userId,
             cartContent: {

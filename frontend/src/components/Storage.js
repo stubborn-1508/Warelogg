@@ -144,13 +144,6 @@ const Storage = (props) =>
 		getAds()
 	}, [])
 
-	// const warehouseInfo = [
-	// 	{ image: "/images/s1.jpg", name: "Shree", location: "surat", facility: "CCTV monitoring", size: "10' x 20' x 6'", rating: "2.5", price: "150", percentage: "33", area: "50", totalArea: "200" },
-	// 	{ image: "/images/s5.jpg", name: "Surya", location: "delhi", facility: "Climate Control", size: "30' x 20' x 6'", rating: "4.5", price: "200", percentage: "20", area: "200", totalArea: "600" },
-	// 	{ image: "/images/s6.jpg", name: "lakshmi", location: "Nagpur", facility: "Indoor Storage", size: "15' x 20' x 5'", rating: "4.5", price: "350", percentage: "33", area: "50", totalArea: "300" },
-	// 	{ image: "/images/s4.jpg", name: "mahadev", location: "surat", facility: "Outdoor/Drive Up", size: "15' x 20' x 5'", rating: "3.5", price: "170", percentage: "33", area: "50", totalArea: "300" },
-	// ];
-
 	// search bar begins
 	let loc;
 	ctx.data.location==null? loc='':loc=ctx.data.location;
