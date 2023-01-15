@@ -29,12 +29,12 @@ const MainPage = () => {
                 <div className="carousel-inner">
                   <div
                     className="carousel-item active"
-                    style={{ minHeight: 300 }}
+                    style={{ height: "30rem" }}
                   >
                     <img
                       className="position-relative w-100"
                       src="/images/s3.jpg"
-                      style={{ minHeight: 250, objectFit: "cover" }}
+                      style={{ height: "100%", objectFit: "cover" }}
                       alt="cover"
                     />
                     <div className="carousel-caption d-flex align-items-center justify-content-center">
@@ -51,11 +51,11 @@ const MainPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="carousel-item" style={{ minHeight: 300 }}>
+                  <div className="carousel-item" style={{ height: "30rem" }}>
                     <img
                       className="position-relative w-100"
                       src="/images/s6.jpg"
-                      style={{ minHeight: 250, objectFit: "cover" }}
+                      style={{ height: "100%", objectFit: "cover" }}
                       alt="cover"
                     />
                     <div className="carousel-caption d-flex align-items-center justify-content-center">
@@ -78,11 +78,11 @@ const MainPage = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="carousel-item" style={{ minHeight: 300 }}>
+                  <div className="carousel-item" style={{ height: "30rem" }}>
                     <img
                       className="position-relative w-100"
                       src="/images/s2.jpg"
-                      style={{ minHeight: 250, objectFit: "cover" }}
+                      style={{ height: "100%", objectFit: "cover" }}
                       alt="cover"
                     />
                     <div className="carousel-caption d-flex align-items-center justify-content-center">
@@ -109,10 +109,10 @@ const MainPage = () => {
               </div>
             </div>
           </Col>
-          <Col md={4} sm={12} xs={12}>
+          <Col md={4} sm={12} xs={12} >
             <Card
-              style={{ zIndex: 7 }}
-              className="shadow p-3 mb-5 bg-white rounded"
+              style={{ zIndex: 7 ,height:"30rem"}}
+              className="shadow p-3 bg-white rounded"
             >
               <Card.Body className="cardStorageBody">
                 <Row>
@@ -124,31 +124,31 @@ const MainPage = () => {
             </Card>
           </Col>
         </Row>
-        <div style={{margin:"10rem auto 0",width:"60%",textAlign:"center"}}>
+        <div style={{margin:"10rem auto 0",width:"40%",textAlign:"center"}}>
             <h1>SUPPORTED BY</h1>
-        <Carousel wrap={true} style={{backgroundColor:"white"}} interval={2000}>
-          <Carousel.Item style={{ maxHeight: 400 }}>
+        <Carousel wrap={true} style={{backgroundColor:"white"}} interval={3000}>
+          <Carousel.Item style={{ height: "300px" }}>
             <img
               className="d-block w-100"
               src="/images/EIR-Combined-logo.png"
               alt="First slide"
-              style={{ maxHeight: 400, objectFit: "fill" }}
+              style={{ height: "100%", objectFit: "fill" }}
             />
           </Carousel.Item>
-          <Carousel.Item style={{ maxHeight: 400 }}>
+          <Carousel.Item style={{ height: "300px" }}>
             <img
               className="d-block w-100"
               src="/images/IIT_MANDI_CATALST.jpg"
               alt="Second slide"
-              style={{ maxHeight: 400, objectFit: "fill" }}
+              style={{ height: "100%", objectFit: "cover" }}
             />
           </Carousel.Item>
-          <Carousel.Item style={{ maxHeight: 400 }}>
+          <Carousel.Item style={{ height: "300px" }}>
             <img
               className="d-block w-100"
               src="/images/iit_mandi.png"
               alt="Third slide"
-              style={{ maxHeight: 400, objectFit: "fill" }}
+              style={{ height: "100%", objectFit: "fill" }}
             />
           </Carousel.Item>
         </Carousel>
