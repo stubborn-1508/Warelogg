@@ -1,0 +1,26 @@
+.sup-cont{
+    margin:10rem auto;
+    text-align:center;
+    width: 80%;
+}
+.img-1,.img-2,.img-3{
+    height: 100%;
+}
+@media (min-width: 576px){
+    .sup-cont{
+        width: 80%;
+    }
+}
+@media (min-width: 768px){
+    .sup-cont{
+        width: 60%;
+    }
+}
+@media (min-width: 992px){
+    .sup-cont{
+        width: 40%;
+    }
+    .img-1,.img-2,.img-3,.card-1{
+        height:30rem;
+    }
+}

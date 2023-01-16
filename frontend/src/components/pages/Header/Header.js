@@ -67,9 +67,9 @@ const HeaderSection = () =>
                 id="navbarCollapse"
               >
                 <div className="navbar-nav py-0">
-                  <Link to="/" className="nav-item nav-link active">
+                  {/* <Link to="/" className="nav-item nav-link active">
                     Home
-                  </Link>
+                  </Link> */}
                   <Link to="/partner" className="nav-item nav-link">
                     List Your Space
                   </Link>

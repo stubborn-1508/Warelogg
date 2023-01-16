@@ -6,7 +6,7 @@ const ContactSection = () =>
     return (
         <>
             <Container className="my-5">
-                <Row className="">
+                <Row >
                     <Col lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 } className="">
                         <div className="text-center mb-5">
                             <h5
@@ -17,11 +17,13 @@ const ContactSection = () =>
                             </h5>
                             <h1>Contact For Any Query</h1>
                         </div>
-                        <img
+                        <div style={{height:"330px"}}>
+                        <img style={{height:"100%",objectFit:"fill"}}
                             className="d-block w-100 rounded"
                             src="images/hello.jpg"
                             alt="First slide"
                         />
+                        </div>
                     </Col>
                     <Col lg={ 6 } md={ 6 } sm={ 12 } xs={ 12 }>
                         <div className="contact-form bg-secondary rounded p-5">
@@ -86,9 +88,6 @@ const ContactSection = () =>
                     </Col>
                 </Row>
             </Container>
-            <div className="container-fluid py-5 bg-dark">
-                
-            </div>
         </>
     );
 }
