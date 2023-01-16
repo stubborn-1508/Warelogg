@@ -64,6 +64,7 @@ const Cart = () => {
                 obj.toOcc = cart[i].OccTo;
                 obj.Name = cart[i].Name;
                 obj.Size = cart[i].Size;
+                obj.Price = cart[i].Price;
                 bookCartData.push(obj);
             }
         }

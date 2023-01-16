@@ -113,12 +113,37 @@ const verifyWarehouse = async (req,res) => {
     }
 }
 
+const getSubunit = async (req,res) => {
+    const id = req.body.id;
+    try{
+        const data = await Warehouse.findOne({"subUnits._id": id}).clone().lean();
+
+        if(data){
+            let tempArr;
+            data.subUnits.map((ele) => {
+                if(ele._id.toString() === id){
+                    tempArr = ele;
+                    tempArr.city = data.city
+                    tempArr.state = data.state
+                    tempArr.Name = data.name
+                }
+            });
+            return res.status(200).json(tempArr);
+        }else{
+            res.status(400).json("Error!!");
+        }
+    }catch(err){
+        res.send(err);
+    }
+} 
+
 module.exports = {
     warehouseRegister,
     getAllWarehouse,
     getAllMyWareHouses,
     getMyWareHouses,
     editPrice,
-    verifyWarehouse
+    verifyWarehouse,
+    getSubunit
 };
   
