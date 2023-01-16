@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, Carousel } from "react-bootstrap";
 
 // import "./css/MainPage.css";
 import { Link } from "react-router-dom";
+import "./Home.css"
 
 const MainPage = () => {
   return (
@@ -11,10 +12,10 @@ const MainPage = () => {
       <Container fluid className="p-0 mt-5" style={{ zIndex: 7 }}>
         <Row>
           <Col md={8} sm={12} xs={12}>
-            <div className="container-fluid p-0">
+            <div className="container-fluid p-0 h-100">
               <div
                 id="header-carousel"
-                className="carousel slide carousel-fade"
+                className="carousel slide carousel-fade h-100"
                 data-ride="carousel"
               >
                 <ol className="carousel-indicators">
@@ -26,15 +27,14 @@ const MainPage = () => {
                   <li data-target="#header-carousel" data-slide-to={1} />
                   <li data-target="#header-carousel" data-slide-to={2} />
                 </ol>
-                <div className="carousel-inner">
+                <div className="carousel-inner h-100" >
                   <div
-                    className="carousel-item active"
-                    style={{ minHeight: 300 }}
+                    className="carousel-item active img-1"
                   >
                     <img
                       className="position-relative w-100"
                       src="/images/s3.jpg"
-                      style={{ minHeight: 250, objectFit: "cover" }}
+                      style={{ height: "100%", objectFit: "cover" }}
                       alt="cover"
                     />
                     <div className="carousel-caption d-flex align-items-center justify-content-center">
@@ -46,16 +46,22 @@ const MainPage = () => {
                           Best Service Providers in India
                         </h5>
                         <h1 className="display-3 text-white mb-md-4">
-                          Way To Book Warehouse From Home
+                          Now Stock closer to your customers for faster delivery
                         </h1>
+                        {/* <Link
+                          to="/"
+                          className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
+                        >
+                          Learn More
+                        </Link> */}
                       </div>
                     </div>
                   </div>
-                  <div className="carousel-item" style={{ minHeight: 300 }}>
+                  <div className="carousel-item img-2">
                     <img
                       className="position-relative w-100"
                       src="/images/s6.jpg"
-                      style={{ minHeight: 250, objectFit: "cover" }}
+                      style={{ height: "100%", objectFit: "cover" }}
                       alt="cover"
                     />
                     <div className="carousel-caption d-flex align-items-center justify-content-center">
@@ -69,20 +75,20 @@ const MainPage = () => {
                         <h1 className="display-3 text-white mb-md-4">
                           Best Warehousing & logistics Platform
                         </h1>
-                        <Link
+                        {/* <Link
                           to="/"
                           className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                         >
                           Learn More
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>
-                  <div className="carousel-item" style={{ minHeight: 300 }}>
+                  <div className="carousel-item img-3" >
                     <img
                       className="position-relative w-100"
-                      src="/images/s2.jpg"
-                      style={{ minHeight: 250, objectFit: "cover" }}
+                      src="/images/s1.jpg"
+                      style={{ height: "100%", objectFit: "cover" }}
                       alt="cover"
                     />
                     <div className="carousel-caption d-flex align-items-center justify-content-center">
@@ -96,12 +102,12 @@ const MainPage = () => {
                         <h1 className="display-3 text-white mb-md-4">
                           Way To Book Warehouse From Home
                         </h1>
-                        <Link
+                        {/* <Link
                           to="/"
                           className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
                         >
                           Learn More
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>
@@ -109,10 +115,10 @@ const MainPage = () => {
               </div>
             </div>
           </Col>
-          <Col md={4} sm={12} xs={12}>
+          <Col md={4} sm={12} xs={12} >
             <Card
               style={{ zIndex: 7 }}
-              className="shadow p-3 mb-5 bg-white rounded"
+              className="shadow p-3 bg-white rounded card-1"
             >
               <Card.Body className="cardStorageBody">
                 <Row>
@@ -124,31 +130,47 @@ const MainPage = () => {
             </Card>
           </Col>
         </Row>
-        <div style={{margin:"10rem auto 0",width:"60%",textAlign:"center"}}>
+        <div className="sup-cont">
             <h1>SUPPORTED BY</h1>
-        <Carousel wrap={true} style={{backgroundColor:"white"}} interval={2000}>
-          <Carousel.Item style={{ maxHeight: 400 }}>
+        <Carousel wrap={true} style={{backgroundColor:"white"}} interval={null} variant="dark">
+          <Carousel.Item style={{ height: "300px" }}>
             <img
               className="d-block w-100"
-              src="/images/EIR-Combined-logo.png"
+              src="/images/sup-1.png"
               alt="First slide"
-              style={{ maxHeight: 400, objectFit: "fill" }}
+              style={{ height: "100%", objectFit: "fill" }}
             />
           </Carousel.Item>
-          <Carousel.Item style={{ maxHeight: 400 }}>
+          <Carousel.Item style={{ height: "300px" }}>
             <img
               className="d-block w-100"
               src="/images/IIT_MANDI_CATALST.jpg"
               alt="Second slide"
-              style={{ maxHeight: 400, objectFit: "fill" }}
+              style={{ height: "100%", objectFit: "cover" }}
             />
           </Carousel.Item>
-          <Carousel.Item style={{ maxHeight: 400 }}>
+          <Carousel.Item style={{ height: "300px" }}>
             <img
               className="d-block w-100"
               src="/images/iit_mandi.png"
               alt="Third slide"
-              style={{ maxHeight: 400, objectFit: "fill" }}
+              style={{ height: "100%", objectFit: "fill" }}
+            />
+          </Carousel.Item>
+          <Carousel.Item style={{ height: "300px" }}>
+            <img
+              className="d-block w-100"
+              src="/images/sup-4.png"
+              alt="Fourth slide"
+              style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
+            />
+          </Carousel.Item>
+          <Carousel.Item style={{ height: "300px" }}>
+            <img
+              className="d-block w-100"
+              src="/images/sup-5.webp"
+              alt="Fifth slide"
+              style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             />
           </Carousel.Item>
         </Carousel>

@@ -103,9 +103,8 @@ const FooterSection = () =>
                             Newsletter
                         </h5>
                         <p>
-                            Rebum labore lorem dolores kasd est, et ipsum amet et at kasd, ipsum
-                            sea tempor magna tempor. Accu kasd sed ea duo ipsum. Dolor duo eirmod
-                            sea justo no lorem est diam
+
+                            Subscribe to our newsletter to get more information on latest updates via emails and get special exclusive offers.
                         </p>
                         <div className="w-100">
                             <div className="input-group">
@@ -130,8 +129,8 @@ const FooterSection = () =>
                 <div className="row">
                     <div className="col-lg-6 text-center text-md-left mb-3 mb-md-0">
                         <p className="m-0 text-white">
-                            © <Link to="#">Letsgopal.com </Link>All Rights Reserved. Designed by{ " " }
-                            <Link to="/">Let's Go Pal Privated Limited</Link>
+                            © <Link to="#">warelogg.com </Link>All Rights Reserved. Designed by{ " " }
+                            <Link to="/">Warelogg Privated Limited</Link>
                         </p>
                     </div>
                 </div>

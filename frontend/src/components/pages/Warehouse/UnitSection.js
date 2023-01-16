@@ -237,7 +237,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                                     <Form.Control type="date"
                                                         autoComplete='on' onChange={handleChangeStartDate} />
                                                 </div>
-                                                <div style={{ marginRight: "50px" }}>
+                                                <div style={{ marginRight: "50px",position:"relative",zIndex:"10"}}>
                                                     <Form.Label>End Booking Date</Form.Label>
                                                     <Form.Control type="date"
                                                         placeholder='dd-mm-yy' autoComplete='on' onChange={handleChangeEndDate} />
