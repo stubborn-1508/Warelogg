@@ -1,4 +1,4 @@
-body {
+/* body {
     background-color: whitesmoke;
 }
 
@@ -59,4 +59,25 @@ body {
 
 .visually-hidden {
     display: none;
+} */
+
+.card-content-4{
+    height: 10.5rem;
+    margin-top: 1rem;
+}
+.bookedspan{
+    margin-bottom: 0.6rem;
+}
+
+.progressBorder{
+    border: 0.10rem solid black;
+}
+
+.textProgress{
+    text-align: center;
+    color: rgb(200, 170, 170);
+    z-index: 100;
+}
+.textcol{
+    color: #1C82AD;
 }
