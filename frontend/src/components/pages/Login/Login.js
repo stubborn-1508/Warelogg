@@ -139,13 +139,14 @@ const LoginSection = () => {
                             </div>
                         </div>
                         <div style={{display: "flex", flexWrap: "wrap"}}>
-                            <div style={{width: "50%", textAlign: "left"}}>
+                            <div style={{width: "40%", textAlign: "left"}}>
                                 <input type="checkbox" />Remember me
                             </div>
-                            <div style={{width: "50%", textAlign: "right"}}>
-                            <Link to="/register" class="signup-button">
+                            <div style={{width: "60%", textAlign: "right"}}>
+                            <button class="signup-button"><Link style={{color:"white"}} to="/register" >
                             Don't have id? Sign up!
                             </Link>
+                            </button>
                             </div>
                             <button style={{border: "none"}} class="forgot-password-button">
                                 <small>Forgot Password?</small>

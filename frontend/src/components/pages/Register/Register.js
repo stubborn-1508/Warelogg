@@ -214,9 +214,10 @@ const Register = () =>
                                 <input type="checkbox" />Remember me
                             </div>
                             <div style={{width: "60%", textAlign: "right"}}>
-                            <Link to="/login" className="login-button">
+                            <button className="login-button"><Link style={{color:"white"}} to="/login" >
                             Already Registered? Sign in!
                             </Link>
+                            </button>
                             </div>
                         </div>
                     </div>
