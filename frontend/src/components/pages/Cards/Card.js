@@ -13,8 +13,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { FcClock, FcRating, FcGlobe, FcCamcorderPro, FcOrgUnit, FcHome } from "react-icons/fc";
 import { IoMdPin } from "react-icons/io";
 import { BsCloudLightningRainFill } from "react-icons/bs";
-import { AiFillStar } from "react-icons/ai";
+import { GiCctvCamera } from "react-icons/gi";
+import { AiFillStar,AiOutlineExpand } from "react-icons/ai";
 import "./StorageCard.css"
+import "../../css/Card.css"
 import "./progresssbar.css";
 import axios from "axios";
 
@@ -28,16 +30,16 @@ const CardSection = ({ warehouseInfo }) =>
         const percentage = (area/totalArea)*100;
         return (
             <>
-                <span className="fs-6 float-left">Booked</span>
-                <span className="fs-6 float-right">Vacant</span>
-                <ProgressBar className="progressContainer">
-                    <ProgressBar now={ percentage } label={ `${ area }sqft` } className="text-dark fw-bold fs-6" variant="warning" key={ 1 } />
-                    <ProgressBar now={ 100 - percentage } label={ `${ totalArea - area }sqft` } className="text-light fw-bold fs-6" variant="success" animated key={ 2 } />
+                <span className="fs-6 float-right margin-left-5px bookedspan">{ `${ totalArea - area } sqft` }</span>
+                <span className="fs-6 float-left margin-right-5px bookedspan ">Vacant :</span>
+                <ProgressBar className="progressContainer progressBorder textProgrees">
+                    {/* <ProgressBar now={ percentage } className="text-dark fs-6" variant="warning" key={ 1 } /> */}
+                    <ProgressBar now={100 - percentage }  className="text-black fs-6" variant="success" animated key={ 2 } />
                 </ProgressBar >
             </>
         );
     }
-
+    
     let navigate = useNavigate();
     const routeChange = (id) =>
     {
@@ -91,7 +93,7 @@ const CardSection = ({ warehouseInfo }) =>
                         let occ = 0;
 
                         warehouse.features.map((ele)=>{
-                            facility = facility + facilityObj[ele] + ',';
+                            facility = facility + facilityObj[ele] + ', ';
                         });
 
                         warehouse.subUnits.map((ele) => {
@@ -100,29 +102,38 @@ const CardSection = ({ warehouseInfo }) =>
                             height = height + parseInt(ele.height);
                             occ = occ + parseInt(ele.spaceOccupied);
                         });
-                        return <Col lg={ 4 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
+                        return <Col lg={ 3 } md={ 1 } sm={ 6 } xs={ 12 } key={ key }>
                             <Card className={adminPath==="/admin"?"rounded shadow bg-white overflow-hidden mb-2 my-4":"rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover"} onClick={ () =>
                                 routeChange(warehouse._id) }>
                                 <img className="img-fluid" src="images/s5.jpg" alt="" />
                                 <div className="bg-secondary p-4">
-                                    <b className=" text-dark h5">{ warehouse.name } Warehouse</b>
-                                    <div className="d-flex flex-column justify-content-between mb-3">
-                                        <h6 className="m-1">
+                                    <b className="text-dark h6">{ warehouse.name } Warehouse</b>
+                                    <div className="d-flex flex-column justify-content-between mb-3 card-content-4 ">
+                                        <div className="d-flex justify-content-flex-start h-20%">
                                             <i className="h4"><IoMdPin className="text-primary mr-1" /></i>
-                                            { warehouse.city }
-                                        </h6>
-                                        <h6 className="m-1">
-                                            <i className="h4">{ facility[ 0 ] ? <FcCamcorderPro className="text-blue mr-1" /> : <BsCloudLightningRainFill className="text-blue mr-1" /> }</i>
-                                            { facility }
-                                        </h6>
-                                        <h6 className="m-1">
-                                            <i className="h4"><FcOrgUnit className="text-blue mr-1" /> </i>
-                                            { length + 'x' + width + 'x' + height }
-                                        </h6>
-                                        <h6 className="m-1">
+                                            <h6 className="m-1">
+                                                { warehouse.city }
+                                            </h6>
+                                        </div>
+                                        <div className="d-flex justify-content-flex-start h-20%">
+                                            <i className="h4">{ facility[ 0 ] ? <GiCctvCamera className="text-blue mr-1" /> : <BsCloudLightningRainFill className="text-blue mr-1" /> }</i>
+                                            <h6 className="m-1">
+                                                { facility }
+                                            </h6>
+                                        </div>
+                                        <div className="d-flex justify-content-flex-start h-40%">
+                                            <i className="h4"><AiOutlineExpand className="text-blue mr-1" /> </i>
+                                            <h6 className="m-1">
+                                                { length + 'x' + width + 'x' + height }
+                                            </h6>
+
+                                        </div>
+                                        <div className="d-flex justify-content-flex-start h-20%">
                                             <i className="h4"><AiFillStar className="text-warning" /> </i>
-                                            { warehouse.rating }
-                                        </h6>
+                                            <h6 className="m-1">
+                                                { warehouse.rating }
+                                            </h6>
+                                        </div>
                                     </div>
                                     <div className="border-top pt-2">
                                         <h6 className="m-1">{ WarehouseArea(length*width, occ) }</h6>

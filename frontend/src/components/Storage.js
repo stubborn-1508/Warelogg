@@ -12,7 +12,7 @@ import
 	Badge,
 } from "react-bootstrap";
 
-import MapX from "./pages/Map/Map";
+import Map from "./pages/Map/Map";
 import CardSection from "./pages/Cards/Card";
 import { FcSearch } from "react-icons/fc";
 import { BsFillGrid3X2GapFill } from "react-icons/bs";
@@ -25,7 +25,10 @@ const Storage = (props) =>
 {
 	const ctx = useContext(Context);
 	const contextfacility = ctx.data.facalities;
-	
+	const [currLoc, setCurrLoc] = useState({
+		latitude: null,
+		longitude: null
+	});
 	const defaultData = {
 		cctv: false,
 		indoor: false,
@@ -44,7 +47,38 @@ const Storage = (props) =>
 		bookType: false,
 	});
 	
-	console.log(contextfacility);
+	const position = async () => {
+		// navigator.geolocation.getCurrentPosition(
+		// 	position => setCurrLoc({
+		// 		latitude: position.coords.latitude,
+		// 		longitude: position.coords.longitude
+		// 	}, newState => console.log(newState)),
+		// 	err => console.log(err)
+		// );
+		if (navigator.geolocation) {
+			var location_timeout = setTimeout(() => {
+				alert('Timeout!!');
+			}, 10000);
+		
+			navigator.geolocation.getCurrentPosition(function(position) {
+				clearTimeout(location_timeout);
+		
+				var lat = position.coords.latitude;
+				var lng = position.coords.longitude;
+				setCurrLoc({
+					latitude: lat,
+					longitude: lng
+				});
+			}, function(error) {
+				clearTimeout(location_timeout);
+				alert('Error!!');
+			});
+		} else {
+			// Fallback for no geolocation
+			alert('Error!!');
+		}
+	}
+
 	if(contextfacility.length > 0){
 		contextfacility.forEach((ele1, ind1) => {
 			defaultData[ele1] = !defaultData[ele1];
@@ -142,6 +176,7 @@ const Storage = (props) =>
 	
 	useEffect(() => {
 		getAds()
+		position();
 	}, [])
 
 	// search bar begins
@@ -407,7 +442,9 @@ const Storage = (props) =>
 					</Col>
 					<Col lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
 						<Col md={ 12 } className="my-5">
-							{ toggle ? <MapX></MapX> : <CardSection warehouseInfo={ warehouseInfo }></CardSection> }
+							{ toggle ? <div style={{"width": "90%", "height": "700px", "position": "relative", "margin": "auto"}}>
+              <Map current_location={currLoc}/>
+            </div>: <CardSection warehouseInfo={ warehouseInfo }></CardSection> }
 						</Col>
 					</Col>
 				</Row>
