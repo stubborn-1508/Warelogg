@@ -43,9 +43,9 @@ const LoginSection = () => {
       ctx.update({user_id: waitRes[0].id});
       alert(waitRes[0].message);
       if(logUser.email === "admin@warelogg.com"){
-        navigate("/admin");
+        navigate(-1);
       }else{
-        navigate("/profile");
+        navigate(-1);
       }
     }else{
       alert(waitRes[0]);

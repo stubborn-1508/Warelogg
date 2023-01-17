@@ -9,9 +9,9 @@ mapboxgl.accessToken = "pk.eyJ1IjoibGF6eWdob3N0IiwiYSI6ImNsY293dHF1dzAydHEzc2xyM
 export default class Map extends React.Component {
   componentDidMount() {
     const { lng, lat, zoom } = {
-      lng: 75,
-      lat: 31,
-      zoom: 10,
+      lng: 77,
+      lat: 28,
+      zoom: 4,
     };
 
     const map = new mapboxgl.Map({
