@@ -12,7 +12,7 @@ import
 	Badge,
 } from "react-bootstrap";
 
-import MapX from "./pages/Map/Map";
+import Map from "./pages/Map/Map";
 import CardSection from "./pages/Cards/Card";
 import { FcSearch } from "react-icons/fc";
 import { BsFillGrid3X2GapFill } from "react-icons/bs";
@@ -407,7 +407,9 @@ const Storage = (props) =>
 					</Col>
 					<Col lg={ 12 } md={ 12 } sm={ 12 } xs={ 12 }>
 						<Col md={ 12 } className="my-5">
-							{ toggle ? <MapX></MapX> : <CardSection warehouseInfo={ warehouseInfo }></CardSection> }
+							{ toggle ? <div style={{"width": "90%", "height": "700px", "position": "relative", "margin": "auto"}}>
+              <Map />
+            </div>: <CardSection warehouseInfo={ warehouseInfo }></CardSection> }
 						</Col>
 					</Col>
 				</Row>
