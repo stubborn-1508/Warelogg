@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from 'react';
 import { Container, Row, Col, Card, Button, Tooltip, OverlayTrigger, Image, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FcPicture } from "react-icons/fc";
-import { FaCheckCircle, FaWarehouse } from "react-icons/fa";
 import { BsFillLockFill, BsFillUnlockFill, BsFillCloudSunFill } from "react-icons/bs";
-import { GiLockedChest, GiCctvCamera } from "react-icons/gi";
+import { GiTruck,GiHandTruck, GiCctvCamera } from "react-icons/gi";
+import { FcInspection } from "react-icons/fc";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import context from '../../../Contexts/context';
 import axios from 'axios';
@@ -150,16 +150,16 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
         <>
             <Card className='my-5 shadow mb-5 bg-white rounded '>
                 <Card.Body className="">
-                    <Row className="h-50 text-dark  rounded-3 text-center">
-                        <Col md={5} className="">
-                            <div className="rounded overflow-hidden mb-2">
-                                <img className="img-fluid" src="/images/s6.jpg" alt="" />
+                    <Row className="text-dark  rounded-3 text-center" >
+                        <Col md={7} className="" style={{height:"446px"}}>
+                            <div className="rounded overflow-hidden mb-2" style={{height: "calc(100% - 62px)"}}>
+                                <img className="w-100 h-100" src="/images/s6.jpg" alt="" />
                             </div>
                             <Link to="/allImages" className='d-grid text-decoration-none'>
                                 <Button className='mt-2 btn btn-secondary' variant='secondary' size="md" block><FcPicture /> All Images</Button>
                             </Link>
                         </Col>
-                        <Col md={4} className="">
+                        <Col md={5} className="">
                             <Row className="">
                                 <Col lg={12} md={12} className="d-grid gap-1 my-2">
                                     <h3 className="text-dark">
@@ -176,7 +176,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                                     {...triggerHandler}
                                                     className="d-inline-flex align-items-center"
                                                 >
-                                                    <li ref={ref}><h3 className="text-dark mx-2 text-center"><GiLockedChest /></h3></li>
+                                                    <li ref={ref}><h3 className="text-dark mx-2 text-center"><GiHandTruck style={{color:"#ffb905"}}/></h3></li>
                                                 </Button>
                                             )}
                                         </OverlayTrigger>
@@ -190,7 +190,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                                     {...triggerHandler}
                                                     className="d-inline-flex align-items-center"
                                                 >
-                                                    <li ref={ref}><h3 className="text-dark mx-2"><GiCctvCamera /></h3></li>
+                                                    <li ref={ref}><h3 className="text-dark mx-2"><GiCctvCamera style={{color:"rgb(255 5 5 / 93%)"}} /></h3></li>
                                                 </Button>
                                             )}
                                         </OverlayTrigger>
@@ -204,7 +204,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                                     {...triggerHandler}
                                                     className="d-inline-flex align-items-center"
                                                 >
-                                                    <li ref={ref}><h3 className="text-dark mx-2"><FaWarehouse /></h3></li>
+                                                    <li ref={ref}><h3 className="text-dark mx-2"><GiTruck style={{color:"rgb(255 93 5 / 80%)"}}/></h3></li>
                                                 </Button>
                                             )}
                                         </OverlayTrigger>
@@ -218,26 +218,26 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                                     {...triggerHandler}
                                                     className="d-inline-flex align-items-center"
                                                 >
-                                                    <li ref={ref}><h3 className="text-dark mx-2"><BsFillCloudSunFill /></h3></li>
+                                                    <li ref={ref}><h3 className="text-dark mx-2"><BsFillCloudSunFill style={{color:"#0dcefdb0"}}/></h3></li>
                                                 </Button>
                                             )}
                                         </OverlayTrigger>
                                     </ul>
                                     <div className='list-unstyled d-flex flex-column justify-content-right'>
                                         {feature?.map((ele) => {
-                                            return (<p className='float-left'><FaCheckCircle className='mx-2' />{facilityObj[ele]}</p>);
+                                            return (<p className='float-left'><FcInspection className='mx-2' />{facilityObj[ele]}</p>);
                                         })}
                                     </div>
                                     {selectUnit === true ? <>
                                     </> :  <>
                                         <div>
-                                            <Form.Group className="mb-3 text-center d-flex">
-                                                <div style={{ marginRight: "50px" }}>
+                                            <Form.Group className="mb-3 text-center d-flex justify-content-between flex-wrap">
+                                                <div >
                                                     <Form.Label>Start Booking Date</Form.Label>
                                                     <Form.Control type="date"
                                                         autoComplete='on' onChange={handleChangeStartDate} />
                                                 </div>
-                                                <div style={{ marginRight: "50px",position:"relative",zIndex:"10"}}>
+                                                <div>
                                                     <Form.Label>End Booking Date</Form.Label>
                                                     <Form.Control type="date"
                                                         placeholder='dd-mm-yy' autoComplete='on' onChange={handleChangeEndDate} />
@@ -248,11 +248,26 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                     <div className='list-unstyled d-flex flex-column justify-content-right'>
                                         {status}
                                     </div>
+                                    {<>
+                                    <div className="pt-2">
+                                        <div className="d-grid gap-1 my-3">
+                                            <h5 className="mt-4">
+                                                ₹{subUnit.price}/<span>day</span>
+                                            </h5>
+                                            <Button
+                                                className="text-center shadow"
+                                                variant={selectUnit === false ? "success" : "warning"
+                                                } size="md" block
+                                                onClick={handleSelectWarehouse}
+                                            >{selectUnit ? <><h5 className='text-center'>Go to Cart &nbsp;<BsFillLockFill /></h5></> : <><h5 className='text-white text-center'>Add to Cart &nbsp;<BsFillUnlockFill /></h5></>}</Button>
+                                        </div>
+                                    </div>
+                                </>}
                                 </Col>
                             </Row>
                         </Col>
 
-                        <Col md={3}>
+                        {/* <Col md={3}>
                             {<>
                                     <div className="pt-2">
                                         <div className="d-grid gap-1 my-3">
@@ -268,7 +283,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                         </div>
                                     </div>
                                 </>}
-                        </Col>
+                        </Col> */}
                     </Row>
                 </Card.Body>
             </Card>

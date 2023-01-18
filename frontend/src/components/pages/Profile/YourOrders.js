@@ -70,6 +70,11 @@ const YourOrders = () =>
 								</Tab>
 							</Tabs>
 						</Col>
+						<Col md={12}>
+							<div className='text-center'>
+								<button className="border border-3 rounded-3 p-2 fs-4" style={{backgroundColor:"#ffc600ad"}}>Please give feedback here</button>
+							</div>
+						</Col>
 					</Row>
 				</Container>
 			</>
