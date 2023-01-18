@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
 const { authentication } = require("../middleware/auth");
 const userController = require("../controller/user");
@@ -11,6 +12,9 @@ const paymentController = require("../controller/payment");
 router.post("/register", userController.register);
 
 router.post("/loginUser", userController.login);
+
+router.get("/googlelogin", passport.authenticate("google", {scope: ["profile"],}));
+router.get("/login", passport.authenticate("google", { scope: ["profile"],successRedirect: process.env.FRONTEND_URL }));
 
 router.get("/getAllUsers", authentication, userController.getAllUsers);
 
