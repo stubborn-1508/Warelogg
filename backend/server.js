@@ -18,10 +18,10 @@ app.use(express.static(buildpath));
 
 // Bodyparser middleware
 app.use(
-    bodyParser.urlencoded({
-      extended: false
-    })
-  );
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 
 app.use(bodyParser.json());
 
@@ -39,20 +39,19 @@ app.use(bodyParser.json());
 //   origin: "http://localhost:3000",
 // }));
 
-
-const dbURL =  "mongodb://localhost:27017/mern-auth";
+const dbURL = "mongodb://localhost:27017/mern-auth";
 console.log(process.env.MONGODB_URI);
 
 mongoose
-    .connect(process.env.MONGODB_URI,
-    { useUnifiedTopology:true, useNewUrlParser: true }
-    )
-    .then(() => console.log("MongoDB successfully connected"))
-    .catch(err => console.log(err));
+  .connect(process.env.MONGODB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch((err) => console.log(err));
 
 const port = 5000;
 
-app.listen(port,()=>console.log(`Server up and running on port ${port}`));
 
 app.use(session({
   secret:process.env.SESSION_SECRET,
@@ -64,3 +63,5 @@ app.use(passport.session());
 connectPassport();
 
 app.use("/", require("./router/routes.js"));
+
+app.listen(port, () => console.log(`Server up and running on port ${port}`));

@@ -42,13 +42,15 @@ router.post("/paymentVerification", paymentController.paymentVerification);
 
 router.post("/assignCarts", cartController.assignCarts);
 
-router.post('/deleteOrder', paymentController.deleteOrder);
+router.post("/deleteOrder", paymentController.deleteOrder);
 
-router.post('/getBooks', paymentController.getBooks);
+router.post("/getBooks", paymentController.getBooks);
 
-router.post('/getSubunit', warehouseController.getSubunit);
+router.post("/getSubunit", warehouseController.getSubunit);
 
-router.post('/cancelBooking', paymentController.cancelBooking);
+router.post("/cancelBooking", paymentController.cancelBooking);
+
+router.post("/sendEmail", userController.sendEmail);
 
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 
