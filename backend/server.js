@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const Razorpay = require("razorpay");
+const {connectPassport} = require("./utils/provider");
+const session = require('express-session')
 const path = require("path");
 const cors = require("cors");
 require("dotenv").config({ path: "./config/config.env" });
@@ -16,14 +18,14 @@ app.use(express.static(buildpath));
 
 // Bodyparser middleware
 app.use(
-    bodyParser.urlencoded({
-      extended: false
-    })
-  );
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 
 app.use(bodyParser.json());
 
-app.use("/", require("./router/routes.js"));
+
 
 // app.get("/api/getkey", (req, res) =>
 //   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
@@ -37,17 +39,29 @@ app.use("/", require("./router/routes.js"));
 //   origin: "http://localhost:3000",
 // }));
 
-
-const dbURL =  "mongodb://localhost:27017/mern-auth";
+const dbURL = "mongodb://localhost:27017/mern-auth";
 console.log(process.env.MONGODB_URI);
 
 mongoose
-    .connect(process.env.MONGODB_URI,
-    { useUnifiedTopology:true, useNewUrlParser: true }
-    )
-    .then(() => console.log("MongoDB successfully connected"))
-    .catch(err => console.log(err));
+  .connect(process.env.MONGODB_URI, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch((err) => console.log(err));
 
 const port = 5000;
 
-app.listen(port,()=>console.log(`Server up and running on port ${port}`));
+
+app.use(session({
+  secret:process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized:false,
+}))
+app.use(passport.initialize());
+app.use(passport.session());
+connectPassport();
+
+app.use("/", require("./router/routes.js"));
+
+app.listen(port, () => console.log(`Server up and running on port ${port}`));

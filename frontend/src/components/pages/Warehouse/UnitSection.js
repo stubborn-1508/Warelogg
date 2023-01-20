@@ -1,150 +1,184 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { Container, Row, Col, Card, Button, Tooltip, OverlayTrigger, Image, Form } from "react-bootstrap";
+import React, { useEffect, useState, useContext } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Button,
+  Tooltip,
+  OverlayTrigger,
+  Image,
+  Form,
+} from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { FcPicture } from "react-icons/fc";
 import { BsFillLockFill, BsFillUnlockFill, BsFillCloudSunFill } from "react-icons/bs";
 import { GiTruck,GiHandTruck, GiCctvCamera } from "react-icons/gi";
 import { FcInspection } from "react-icons/fc";
 import { TiWeatherPartlySunny } from "react-icons/ti";
-import context from '../../../Contexts/context';
-import axios from 'axios';
+import { CartContext } from "../../../Contexts/CartContextHolder";
+import axios from "axios";
 
 const convertNumToDate = (num) => {
-    let result = "";
-    let d = new Date(num);
-    result += d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate()
-    return result;
-}
+  let result = "";
+  let d = new Date(num);
+  result += d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate();
+  return result;
+};
 
 const convertDateToNum = (date) => {
-    let num = new Date(date);
-    num = Date.parse(num);
-    return num;
-}
+  let num = new Date(date);
+  num = Date.parse(num);
+  return num;
+};
 
 const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
-    const ctx = useContext(context);
-    const navigate = useNavigate();
-    const [userId, setUserId] = useState(null);
-    const [selectUnit, setSelectUnit] = useState(false);
+  const ctx = useContext(CartContext);
+  const navigate = useNavigate();
+  const [userId, setUserId] = useState(null);
+  const [selectUnit, setSelectUnit] = useState(false);
 
+  const [status, setStatus] = useState(
+    subUnit.toOcc === subUnit.fromOcc
+      ? "Available"
+      : `Occupied from ${convertNumToDate(
+          subUnit.fromOcc
+        )} to ${convertNumToDate(subUnit.toOcc)}`
+  );
 
-    const [status, setStatus] = useState(subUnit.toOcc === subUnit.fromOcc ? 'Available' : `Occupied from ${convertNumToDate(subUnit.fromOcc)} to ${convertNumToDate(subUnit.toOcc)}`);
+  const facilityObj = {
+    cctv: "CCTV Monitering",
+    indoor: "Indoor Storage",
+    outdoor: "Outdoor Storage",
+    climate: "Climate Control",
+  };
 
-    const facilityObj = {
-        'cctv': 'CCTV Monitering',
-        'indoor': 'Indoor Storage',
-        'outdoor': 'Outdoor Storage',
-        'climate': 'Climate Control'
+  const fetchData = async (usertoken) => {
+    const res1 = await axios.get("/getAllUsers", {
+      headers: { "x-auth-token": usertoken },
+    });
+    const id = subUnit._id;
+    const res2 = await axios({
+      url: "/assignCarts",
+      data: { user_id: res1.data._id, subUnit_id: id },
+      method: "post",
+    });
+    setSelectUnit(res2.data.message);
+    setUserId(res1.data._id);
+  };
+
+  useEffect(() => {
+    // get user_id
+    const usertoken = localStorage.getItem("token");
+    if (!usertoken) {
+      setSelectUnit(false);
+    } else {
+      fetchData(usertoken);
+    }
+  }, []);
+
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleChangeEndDate = (e) => {
+    const num = convertDateToNum(e.target.value);
+    if (!startDate || startDate === "") {
+      alert("First Choose starting Date");
+      setEndDate(null);
+      return;
+    }
+    if (subUnit.toOcc === subUnit.fromOcc) {
+      setStatus("Available");
+      setEndDate(num);
+    } else if (
+      (startDate <= subUnit.fromOcc && num > subUnit.fromOcc) ||
+      num <= startDate
+    ) {
+      setStatus("Choose the correct ending date");
+      setEndDate(null);
+    } else {
+      setStatus(
+        `Occupied from ${convertNumToDate(
+          subUnit.fromOcc
+        )} to ${convertNumToDate(subUnit.toOcc)}`
+      );
+      setEndDate(num);
+    }
+  };
+
+  const handleChangeStartDate = (e) => {
+    const num = convertDateToNum(e.target.value);
+    if (subUnit.toOcc === subUnit.fromOcc) {
+      setStatus("Available");
+      setStartDate(num);
+    } else if (num > subUnit.fromOcc && num < subUnit.toOcc) {
+      setStatus("Choose the correct starting date");
+      setStartDate(null);
+    } else {
+      setStatus(
+        `Occupied from ${convertNumToDate(
+          subUnit.fromOcc
+        )} to ${convertNumToDate(subUnit.toOcc)}`
+      );
+      setStartDate(num);
+    }
+    // setStartDate(e.target.value);
+  };
+
+  const handleSelectWarehouse = (e) => {
+    if (selectUnit == false) {
+      handleAddToCart(e);
+      // setSelectUnit(!selectUnit);
+    } else {
+      navigate("/cart", { state: userId });
+    }
+  };
+
+  const add = async (userData) => {
+    try {
+      const res = await axios({
+        url: "/addToCart",
+        data: userData,
+        method: "post",
+      });
+      console.log(res);
+      ctx.changeCartHandler(ctx.cartValue + 1);
+
+      return [res.data, res.status];
+    } catch (e) {
+      console.log(e);
+      return [e.response.data, e.response.status];
+    }
+  };
+
+  const handleAddToCart = async (e) => {
+    e.preventDefault();
+    const usertoken = localStorage.getItem("token");
+    if (!usertoken) {
+      navigate("/login");
+      return;
+    }
+    const CartData = {
+      user_id: userId,
+      cartContent: {
+        warehouse_id: warehouse_id,
+        subUnit_id: subUnit._id,
+        Name: name,
+        Size: subUnit.length + "x" + subUnit.width + "x" + subUnit.height,
+        OccFrom: startDate,
+        OccTo: endDate,
+        Price: subUnit.price,
+      },
     };
 
-    const fetchData = async (usertoken) => {
-        const res1 = await axios.get("/getAllUsers", {
-            headers: { "x-auth-token": usertoken },
-        });
-        const id = subUnit._id;
-        const res2 = await axios({ url: "/assignCarts", data: { user_id: res1.data._id, subUnit_id: id }, method: 'post' });
-        setSelectUnit(res2.data.message);
-        setUserId(res1.data._id);
+    const waitRes = await add(CartData);
+    if (waitRes[1] === 200) {
+      setSelectUnit(true);
+    } else {
+      setSelectUnit(false);
+      alert(waitRes[0]);
     }
-
-    useEffect(() => {
-        // get user_id
-        const usertoken = localStorage.getItem("token");
-        if (!usertoken) {
-            setSelectUnit(false);
-        } else {
-            fetchData(usertoken);
-        }
-    }, []);
-
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-
-    const handleChangeEndDate = (e) => {
-        const num = convertDateToNum(e.target.value);
-        if (!startDate || startDate === '') {
-            alert('First Choose starting Date');
-            setEndDate(null);
-            return;
-        }
-        if (subUnit.toOcc === subUnit.fromOcc) {
-            setStatus('Available');
-            setEndDate(num);
-        } else if ((startDate <= subUnit.fromOcc && num > subUnit.fromOcc) || (num <= startDate)) {
-            setStatus('Choose the correct ending date');
-            setEndDate(null);
-        } else {
-            setStatus(`Occupied from ${convertNumToDate(subUnit.fromOcc)} to ${convertNumToDate(subUnit.toOcc)}`);
-            setEndDate(num);
-        }
-
-    }
-
-    const handleChangeStartDate = (e) => {
-        const num = convertDateToNum(e.target.value);
-        if (subUnit.toOcc === subUnit.fromOcc) {
-            setStatus('Available');
-            setStartDate(num);
-        } else if (num > subUnit.fromOcc && num < subUnit.toOcc) {
-            setStatus('Choose the correct starting date');
-            setStartDate(null);
-        } else {
-            setStatus(`Occupied from ${convertNumToDate(subUnit.fromOcc)} to ${convertNumToDate(subUnit.toOcc)}`);
-            setStartDate(num);
-        }
-        // setStartDate(e.target.value);
-    }
-
-
-    const handleSelectWarehouse = (e) => {
-        if (selectUnit == false) {
-            handleAddToCart(e);
-            // setSelectUnit(!selectUnit);
-        } else {
-            navigate('/cart', { state: userId });
-        }
-    }
-
-    const add = async (userData) => {
-        try {
-            const res = await axios({ url: "/addToCart", data: userData, method: "post" });
-            console.log(res);
-            return [res.data, res.status];
-        } catch (e) {
-            console.log(e);
-            return [e.response.data, e.response.status];
-        }
-    }
-
-    const handleAddToCart = async (e) => {
-        e.preventDefault();
-        const usertoken = localStorage.getItem("token");
-        if(!usertoken){
-            navigate('/login');
-            return;
-        }
-        const CartData = {
-            user_id: userId,
-            cartContent: {
-                warehouse_id: warehouse_id,
-                subUnit_id: subUnit._id,
-                Name: name,
-                Size: subUnit.length + 'x' + subUnit.width + 'x' + subUnit.height,
-                OccFrom: startDate,
-                OccTo: endDate,
-                Price: subUnit.price
-            }
-        }
-
-        const waitRes = await add(CartData);
-        if (waitRes[1] === 200) {
-            setSelectUnit(true);
-        } else {
-            setSelectUnit(false);
-            alert(waitRes[0]);
-        }
-    }
+  };
 
     return (
         <>
