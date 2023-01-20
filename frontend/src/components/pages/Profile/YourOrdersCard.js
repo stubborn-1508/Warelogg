@@ -111,39 +111,41 @@ const YourOrdersCard = ({ muted, bookData }) =>
                     </Card.Header>
                     <Card.Body className="">
                         <Row md={ 12 } className="h-100 text-dark  rounded-3 text-center">
-                            <Col md={ 6 }>
+                            <Col md={ 4 }>
                                 <div className="rounded overflow-hidden mb-2">
                                     <img className="img-fluid" src="/images/s6.jpg" alt="" />
                                 </div>
                             </Col>
-                            <Col md={ 6 } className=" ">
-                                <div className="d-flex justify-content-between mt-4 mb-5">
-                                    <h5 className="m-1">
+                            <Col md={ 5 } className=" ">
+                                <div className="d-flex flex-wrap justify-content-between mt-4 mb-5">
+                                    <h6 className="m-1">
                                         <i><FcGlobe /> </i>
                                         {orderCard.city}-{orderCard.state}
-                                    </h5>
-                                    <h5 className="m-1">
+                                    </h6>
+                                    <h6 className="m-1">
                                         <i><BiCuboid style={{color:"blue"}}/> </i>
                                         {parseInt(orderCard.length)*parseInt(orderCard.width)*parseInt(orderCard.height)}sq.ft Volume
-                                    </h5>
-                                    <h5 className="m-1">
+                                    </h6>
+                                    <h6 className="m-1">
                                         <i><FcRating /> </i>
                                         4.5
-                                    </h5>
-                                    <h5 className="m-1 px-4">
+                                    </h6>
+                                    <h6 className="m-1">
                                         <i><FcCurrencyExchange /> </i>
                                         { orderCard.price } ₹
-                                    </h5>
+                                    </h6>
                                 </div>
                                 <div className='text-center mb-5'>
                                     {bookData.isActive==true?
                                 <>
                                 <h5 className="mb-0">Occupied From - {convertNumToDate(bookData.fromOcc)}</h5>
                                 <h5 className="mb-0">To - {convertNumToDate(bookData.toOcc)}</h5>
-                                </>:<><h2>cancelled</h2></>
+                                </>:<></>
                                 }
                                 </div>
-                                <div className="d-flex flex-wrap justify-content-between mx-5">
+                            </Col>
+                            <Col md={3}>
+                            <div className="pt-2">
                                     <div className="d-grid gap-1 my-2">
                                         <Link to="/live" style={ { textDecoration: "none" } }
                                             onClick={ e => muted ? e.preventDefault() : '' }
@@ -156,7 +158,11 @@ const YourOrdersCard = ({ muted, bookData }) =>
                                     </div>: <div className="d-grid gap-1 my-2">
                                         <Link to="/refund" style={ { textDecoration: "none" } }><Button
                                             className={ muted ? "d-none" : "btn btn-block text-white" } variant="danger" size="md" block onClick={() => {cancelBooking(orderCard._id)}}>Cancel Your Booking</Button></Link>
-                                    </div> }   
+                                    </div> }
+                                       <div className="d-grid gap-1 my-2">
+                                       <Link to="/" style={ { textDecoration: "none" } }><Button
+                                            className="btn btn-block text-white" variant="warning" size="md" block>Give feedback here</Button></Link>
+                                       </div>
                                 </div>
                             </Col>
                             {/* <Col md={ 4 }>
