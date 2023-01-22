@@ -66,7 +66,7 @@ const HeaderSection = () => {
                   </span>
                 </span>
                 {/* <span className="text-yellow">Let's </span> */}
-                <span className="text-orange">Warelogg </span>
+                <span style={{fontSize:"30px" ,backgroundImage:"linear-gradient(60deg, #E21143, #FFB03A)",WebkitBackgroundClip:"text",color:"transparent" ,textTransform:"none"}}>Warelogg</span>
               </h1>
             </Link>
           </div>

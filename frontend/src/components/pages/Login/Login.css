@@ -149,7 +149,7 @@ a{
     padding: 0.5rem 1rem;
     margin-bottom: 0.25rem;
     margin-right: 0.25rem;
-    font-size: .75rem;
+    font-size: 1.25rem;
     line-height: 1rem;
     font-weight: 700;
     align-items: center;
@@ -190,7 +190,7 @@ a{
     line-height: 1.25rem;
     color: rgba(209,213,219,1);
   }
-  .login-button{
+  .log-login-button{
     cursor: pointer;
     width: 100%;
     transition-duration: .15s;
@@ -209,13 +209,13 @@ a{
     background-color: rgb(56, 102, 189);
     box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
   }
-  .login-button:hover{
+  .log-login-button:hover{
     color: rgba(31,41,55,1);
     background-color: rgba(255,255,255,1);
     --tw-shadow: 0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
     box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
   }
-  .signup-button{
+  .log-signup-button{
     cursor: pointer;
     font-size: .875rem;
     line-height: 1.25rem;

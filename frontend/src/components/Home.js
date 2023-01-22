@@ -8,21 +8,22 @@ import { Link } from "react-router-dom";
 import "./Home.css";
 
 const MainPage = (props) => {
+  console.log(props);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
-      slidesToSlide: 1 // optional, default to 1.
+      items: 4,
+      slidesToSlide: 1, // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
       items: 2,
-      slidesToSlide: 1 // optional, default to 1.
+      slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
       items: 1,
-      slidesToSlide: 1 // optional, default to 1.
+      slidesToSlide: 1, // optional, default to 1.
     }
   };
   return (
@@ -146,27 +147,25 @@ const MainPage = (props) => {
             </Card>
           </Col>
         </Row>
-        <div style={{margin:"10rem 0",padding:"0 2rem"}}>
-          <h1 style={{textAlign:"center",marginBottom:"2rem"}}>SUPPORTED BY</h1>
-          <Carousel 
+        <div className="d-flex" style={{margin:"10rem 0",padding:"0 2rem", marginLeft:"-2rem"}}>
+          <card className="w-25 d-flex justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
+          <div className="w-75"><Carousel 
           responsive={responsive}
-          showDots={true}
           infinite={true}
+          arrows={false}
           autoPlay={props.deviceType !== "mobile" ? true : false}
           autoPlaySpeed={3000}
-          keyBoardControl={true}
-          transitionDuration={500}
-          containerClass="carousel-container "
-          removeArrowOnDeviceType={["tablet", "mobile"]}
+          customTransition="transform 1s ease-in-out"
+          transitionDuration={1000}
+          containerClass="carousel-container"
           deviceType={props.deviceType}
-          dotListClass="custom-dot-list-style"
           itemClass="carousel-item-padding-40-px"
           >
             <div className="sup-items"><img
               className="d-block w-100"
               src="/images/sup-1.png"
               alt="First slide"
-              style={{ height: "100%", objectFit: "cover" }}
+              style={{ height: "100%", objectFit: "fill" }}
             /></div>
             <div className="sup-items"><img
               className="d-block w-100"
@@ -193,6 +192,7 @@ const MainPage = (props) => {
               style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             /></div>
           </Carousel>
+          </div>
         </div>
       </Container>
     </>

@@ -176,7 +176,7 @@
     outline: none;
   }
   
-  .signup-button{
+  .reg-signup-button{
     cursor: pointer;
     width: 100%;
     transition-duration: .15s;
@@ -195,13 +195,13 @@
     background-color:rgb(56, 189, 149);  
     box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
   }
-  .signup-button:hover{
+  .reg-signup-button:hover{
     color: rgba(31,41,55,1);
     background-color: rgba(255,255,255,1);
     --tw-shadow: 0 4px 6px -1px rgba(0,0,0,0.1),0 2px 4px -1px rgba(0,0,0,0.06);
     box-shadow: var(--tw-ring-offset-shadow,0 0 transparent),var(--tw-ring-shadow,0 0 transparent),var(--tw-shadow);
   }
-  .login-button{
+  .reg-login-button{
     cursor: pointer;
     font-size: .875rem;
     line-height: 1.25rem;
