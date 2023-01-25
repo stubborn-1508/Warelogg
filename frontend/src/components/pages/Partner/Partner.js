@@ -203,7 +203,7 @@ const BecomePartner = () => {
                 <h3>
                   Become a&nbsp;
                   <b>
-                    <u><mark style={styles}>Let's Go Pal Partner</mark></u>
+                    <u><mark style={styles}>Warelogg Partner</mark></u>
                   </b>
                   &nbsp; and make your business more profitable.
                 </h3>
@@ -259,7 +259,12 @@ const BecomePartner = () => {
                   {unit.arrTemp.map((ele,ind)=>{
                     return (
                       <div key={ind} style={{border: "2px solid black", margin: "5px", padding: "10px", borderRadius: "20px", width: "95%"}}>
-                        <h4 style={{textAlign: "center"}}>Dimensions of unit {ind+1}</h4>
+                        {ind===0?
+                        <h4 className="text-center">Dimensions of main unit</h4>
+                        :
+                        <h4 style={{textAlign: "center"}}>Dimensions of sub-unit {ind}</h4>
+                      }
+                        
                         <Form.Group className="mb-3">
                         <Form.Label>Length (in ft)</Form.Label>
                         <Form.Control id={ind+'$l'} type="text" onChange={handleChangeLength} required></Form.Control>
@@ -276,16 +281,24 @@ const BecomePartner = () => {
                     );
                   })}
                   <div style={{display:"flex", alignItems: "center"}}>
-                    <button style={{width:"80%",height:"40px", margin:"10px", borderRadius:"10px"}} onClick={add}>Add</button>
-                    <button style={{width:"50%",height:"40px", margin:"10px", borderRadius:"10px"}} onClick={remove}>Remove</button>
+                    <button style={{width:"80%",height:"40px", margin:"10px", padding:"2px", borderRadius:"10px"}} onClick={add}>Add</button>
+                    <button style={{width:"50%",height:"40px", margin:"10px", padding:"2px", borderRadius:"10px"}} onClick={remove}>Remove</button>
                   </div>
                 </div>
-                <Form.Group>
-                  <Form.Label>Features</Form.Label>
-                  <Form.Check onChange={handleChangeCheck} id='cctv' type="checkbox" label="CCTV Survillance"/>
-                  <Form.Check onChange={handleChangeCheck} id='indoor' type="checkbox" label="Indoor Storage"/>
-                  <Form.Check onChange={handleChangeCheck} id='outdoor' type="checkbox" label="Outdoor Storage"/>
-                  <Form.Check onChange={handleChangeCheck} id='climate' type="checkbox" label="Climate Control"/>
+                  <h6 className="text-center">Features</h6>
+                <Form.Group className="d-flex flex-wrap">
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='cctv' type="checkbox" label="CCTV Surveillance"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='indoor' type="checkbox" label="Indoor Storage"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="Outdoor Storage"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Climate Control"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='cctv' type="checkbox" label="Fire Protected"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='indoor' type="checkbox" label="Elevator Access"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="SafeStor Protection"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Motion Sensor Lighting"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="24-Hour Video Monitoring"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Clean-Dry-Secure"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="rive-Up Loading and Unloading"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Open 7 Days"/>
                 </Form.Group>
               </Col>
               <Col md={12}>
