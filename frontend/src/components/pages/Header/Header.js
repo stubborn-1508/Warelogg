@@ -12,7 +12,10 @@ import { CartContext } from "../../../Contexts/CartContextHolder";
 import axios from "axios";
 // import Context from "../../../Contexts/context";
 import { Dropdown, Button, Row, Col, Container } from "react-bootstrap";
+import LoginModal from "../Login/LoginModal";
+import RegisterModal from "../Register/RegisterModal";
 import "react-icons";
+
 const styles = {
   fontFamily: "Mrs+Sheppards",
 };
@@ -53,7 +56,16 @@ const HeaderSection = () => {
     fetchData(usertoken);
   }, []);
 
+  const [modalShow, setModalShow] = React.useState(false);
+  const [registerModalShow, setRegisterModalShow] = React.useState(false);
+
   return (
+<>
+<LoginModal show={modalShow} onHide={() => setModalShow(false)} />
+<RegisterModal
+  show={registerModalShow}
+  onHide={() => setRegisterModalShow(false)}
+/>
     <div className="shadow-sm bg-white rounded">
       <div className="container-fluid">
       <nav className="navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0">
@@ -122,34 +134,53 @@ const HeaderSection = () => {
                 />
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Link to="/profile" className="nav-item nav-link">
-                  <Dropdown.Item as="button">Profile</Dropdown.Item>
-                </Link>
-                <Link to="/orders" className="nav-item nav-link">
-                  <Dropdown.Item as="button">My Bookings</Dropdown.Item>
-                </Link>
-                <Link to="/allListedSpace" className="nav-item nav-link">
-                  <Dropdown.Item as="button">My Listed Space</Dropdown.Item>
-                </Link>
-                <Dropdown.Divider />
-                {usertoken != null ? (
-                  <Button
-                    className="btn btn-dark text-white d-lg-block mx-auto"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                ) : (
-                  <>
-                    <Link to="/register" className="nav-item nav-link">
-                      <Dropdown.Item as="button">Signup</Dropdown.Item>
-                    </Link>
-                    <Link to="/login" className="nav-item nav-link">
-                      <Dropdown.Item as="button">Login</Dropdown.Item>
-                    </Link>
-                  </>
-                )}
-              </Dropdown.Menu>
+                      <Link to="/profile" className="nav-item nav-link">
+                        <Dropdown.Item as="button">Profile</Dropdown.Item>
+                      </Link>
+                      <Link to="/orders" className="nav-item nav-link">
+                        <Dropdown.Item as="button">My Bookings</Dropdown.Item>
+                      </Link>
+                      <Link to="/allListedSpace" className="nav-item nav-link">
+                        <Dropdown.Item as="button">
+                          My Listed Space
+                        </Dropdown.Item>
+                      </Link>
+                      <Dropdown.Divider />
+                      {usertoken != null ? (
+                        <Button
+                          className="btn btn-dark text-white d-lg-block mx-auto"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </Button>
+                      ) : (
+                        <>
+                          {/* <Link to="/register" className="nav-item nav-link"> */}
+                          <Dropdown.Item
+                            as="button"
+                            onClick={() => setRegisterModalShow(true)}
+                          >
+                            Signup
+                          </Dropdown.Item>
+                          {/* </Link> */}
+                          {/* <Link to="/login" className="nav-item nav-link"> */}
+                          <Dropdown.Item
+                            as="button"
+                            onClick={() => setModalShow(true)}
+                          >
+                            Login
+                          </Dropdown.Item>
+                          {/* </Link> */}
+
+                          {/* <Button
+                          className="btn btn-dark text-white d-lg-block mx-auto"
+                          onClick={handleLogout}
+                          >
+                          Login
+                        </Button> */}
+                        </>
+                      )}
+                    </Dropdown.Menu>
             </Dropdown>
             </div>
           </div>
@@ -168,38 +199,58 @@ const HeaderSection = () => {
                 />
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                <Link to="/profile" className="nav-item nav-link">
-                  <Dropdown.Item as="button">Profile</Dropdown.Item>
-                </Link>
-                <Link to="/orders" className="nav-item nav-link">
-                  <Dropdown.Item as="button">My Bookings</Dropdown.Item>
-                </Link>
-                <Link to="/allListedSpace" className="nav-item nav-link">
-                  <Dropdown.Item as="button">My Listed Space</Dropdown.Item>
-                </Link>
-                <Dropdown.Divider />
-                {usertoken != null ? (
-                  <Button
-                    className="btn btn-dark text-white d-lg-block mx-auto"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                ) : (
-                  <>
-                    <Link to="/register" className="nav-item nav-link">
-                      <Dropdown.Item as="button">Signup</Dropdown.Item>
-                    </Link>
-                    <Link to="/login" className="nav-item nav-link">
-                      <Dropdown.Item as="button">Login</Dropdown.Item>
-                    </Link>
-                  </>
-                )}
-              </Dropdown.Menu>
+                      <Link to="/profile" className="nav-item nav-link">
+                        <Dropdown.Item as="button">Profile</Dropdown.Item>
+                      </Link>
+                      <Link to="/orders" className="nav-item nav-link">
+                        <Dropdown.Item as="button">My Bookings</Dropdown.Item>
+                      </Link>
+                      <Link to="/allListedSpace" className="nav-item nav-link">
+                        <Dropdown.Item as="button">
+                          My Listed Space
+                        </Dropdown.Item>
+                      </Link>
+                      <Dropdown.Divider />
+                      {usertoken != null ? (
+                        <Button
+                          className="btn btn-dark text-white d-lg-block mx-auto"
+                          onClick={handleLogout}
+                        >
+                          Logout
+                        </Button>
+                      ) : (
+                        <>
+                          {/* <Link to="/register" className="nav-item nav-link"> */}
+                          <Dropdown.Item
+                            as="button"
+                            onClick={() => setRegisterModalShow(true)}
+                          >
+                            Signup
+                          </Dropdown.Item>
+                          {/* </Link> */}
+                          {/* <Link to="/login" className="nav-item nav-link"> */}
+                          <Dropdown.Item
+                            as="button"
+                            onClick={() => setModalShow(true)}
+                          >
+                            Login
+                          </Dropdown.Item>
+                          {/* </Link> */}
+
+                          {/* <Button
+                          className="btn btn-dark text-white d-lg-block mx-auto"
+                          onClick={handleLogout}
+                          >
+                          Login
+                        </Button> */}
+                        </>
+                      )}
+                    </Dropdown.Menu>
             </Dropdown>
         </nav>
       </div>
-    </div>
+      </div>
+    </>
   );
 };
 
