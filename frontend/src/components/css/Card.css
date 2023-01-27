@@ -62,7 +62,7 @@
 } */
 
 .card-content-4{
-    height: 10.5rem;
+    height: 6rem;
     margin-top: 1rem;
 }
 .bookedspan{
@@ -80,4 +80,38 @@
 }
 .textcol{
     color: #1C82AD;
+}
+
+.heightdiv{
+    height: 12rem;
+    margin-top: 0rem;
+    padding-top: 0rem;
+}
+
+.paddingInCity{
+    padding-top: 1.4rem;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    padding-bottom: 0rem;
+    margin-bottom: 0rem;
+}
+
+.paddingInName{
+    padding-top: 0rem;
+    margin-top: 0rem;
+    padding-bottom: 0rem;
+    margin-top: 0rem;
+}
+
+.prgbar{
+    height: 3.5rem;
+    padding: 1rem;
+    padding-bottom: 0rem;
+}
+
+.distanceStyle{
+    font-size: 0.6rem;
+    margin-left: 1.65rem;
+    margin-bottom: 0rem;
+    padding-bottom: 0rem;
 }

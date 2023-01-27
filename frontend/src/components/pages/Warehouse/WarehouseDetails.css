@@ -101,3 +101,43 @@
 li {
   list-style: none;
 } */
+
+.ratingSize{
+  font-size: 1.5rem;
+  color: black;
+  font-weight:bold;
+}
+
+.warehouseName{
+  color: black;
+}
+
+.warehouseLocation{
+  font-size: 0.85rem;
+  color: rgb(98, 97, 97);
+}
+
+.numberOfReviews{
+  font-size: 0.7rem;
+  color: black;
+}
+
+.outOf{
+  color: black;
+  font-size: 0.7rem;
+}
+
+.ratingStars{
+  background-color: rgb(242, 240, 240);
+  /* margin-left: 10rem; */
+  border-radius: 5rem;
+  padding: 0.2rem 0rem;
+  width: 10rem;
+  /* display: flex; */
+}
+
+.starDisplay{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
