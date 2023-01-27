@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { BsFillCartPlusFill, BsFillBookmarksFill } from "react-icons/bs";
 import { BiCurrentLocation } from 'react-icons/bi';
+import { MdOutlineLocationOn } from "react-icons/md";
 import { FcOk, FcPicture } from "react-icons/fc";
 import { FaTags } from "react-icons/fa";
 import RatingBar from "./RattingBar";
@@ -19,6 +20,7 @@ import { Link } from 'react-router-dom';
 import "./WarehouseDetails.css";
 import UnitSection from "./UnitSection.js";
 import ReviewSection from "./ReviewSection";
+import { IconContext } from "react-icons/lib";
 // import WarehouseDetails from "./WarehouseDetails";
 // import { CartContext } from "../../../Contexts/GlobalContextHolder";
 import Context from "../../../Contexts/context";
@@ -108,18 +110,27 @@ const Warehouse = () => {
                     <Card className="mt-5 cardX">
                         <Card.Header className='shadow p-3 bg-white rounded'>
                             <Row>
-                                <Col md={6} className="text-center d-flex flex-column">
-                                    <h2>{warehouse.name}</h2>
-                                    <h6><u> <i><BiCurrentLocation /> </i>{warehouse.
-                                        businessAddress
-                                    }, {warehouse.city}, {warehouse.state}</u></h6>
-
+                                <Col md={6} className="text-center d-flex flex-column justify-content-around">
+                                    <h2 className='warehouseName'>{warehouse.name}</h2>
+                                    <h6 className='warehouseLocation'>
+                                        <i><MdOutlineLocationOn /> </i>{warehouse.businessAddress}, {warehouse.city}, {warehouse.state}
+                                    </h6>
                                 </Col>
-                                <Col md={6} className="text-center d-flex flex-column">
-                                    <p><u>6 review</u></p>
+                                <Col md={6} className="text-center d-flex flex-column justify-content-center">
+                                    {/* <p><u>6 review</u></p>
                                     <h4>
                                         <RatingBar readonly="true" />
-                                    </h4>
+                                    </h4> */}
+                                    <div>
+                                        <span className='ratingSize'>3.5</span>
+                                        <span className='outOf'>/5</span>
+                                        <div className='starDisplay'>
+                                            <h4 className='ratingStars'>
+                                                <RatingBar readonly="true" />
+                                            </h4>
+                                        </div>
+                                        <span className='numberOfReviews'>6 reviews</span>
+                                    </div>
                                 </Col>
                             </Row>
                         </Card.Header>

@@ -1,10 +1,11 @@
 import React from "react";
 import TabX from "./pages/Home/Tab";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import { Container, Row, Col, Card} from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 // import "./css/MainPage.css";
 import { Link } from "react-router-dom";
+import { ImQuotesLeft } from "react-icons/im";
 import "./Home.css";
 
 const MainPage = (props) => {
@@ -29,8 +30,8 @@ const MainPage = (props) => {
   return (
     <>
       <Container fluid className="p-0 mt-5" style={{ zIndex: 7 }}>
-        <Row>
-          <Col md={8} sm={12} xs={12}>
+        <div className="d-flex flex-row bothUnits">
+          <div className="imagesFront">
             <div className="container-fluid p-0 h-100">
               <div
                 id="header-carousel"
@@ -131,8 +132,8 @@ const MainPage = (props) => {
                 </div>
               </div>
             </div>
-          </Col>
-          <Col md={4} sm={12} xs={12}>
+          </div>
+          <div className="findUnits">
             <Card
               style={{ zIndex: 7 }}
               className="shadow p-3 bg-white rounded card-1"
@@ -145,8 +146,8 @@ const MainPage = (props) => {
                 </Row>
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
+          </div>
+        </div>
         <div className="d-flex" style={{margin:"10rem 0",padding:"0 2rem", marginLeft:"-2rem"}}>
           <card className="w-25 d-flex justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
           <div className="w-75"><Carousel 
@@ -191,6 +192,65 @@ const MainPage = (props) => {
               alt="Fifth slide"
               style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             /></div>
+          </Carousel>
+          </div>
+        </div>
+        <header className="">
+          <div className="headerClass d-flex flex-column justify-content-around">
+              <h5 className="textBox">TESTIMONIALS</h5>
+              <h1 className="textBox heading">WHAT CLIENTS SAY</h1>
+              <p className="textBox">leo duis ut diam quam nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus</p>
+          </div>
+        </header>
+        <div className="d-flex" style={{margin:"10rem 0",padding:"0 0rem", marginLeft:"-2rem"}}>
+          {/* <card className="w-25 d-flex justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card> */}
+          <div className="w-100"><Carousel 
+          responsive={responsive}
+          infinite={true}
+          arrows={true}
+          // autoPlay={props.deviceType !== "mobile" ? true : false}
+          // autoPlaySpeed={3000}
+          customTransition="transform 1s ease-in-out"
+          transitionDuration={1000}
+          containerClass="carousel-container"
+          deviceType={props.deviceType}
+          itemClass="carousel-item-padding-40-px"
+          >
+            <div className="cardStyle" >
+              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
+              <h6 className="textBox nameSize">TIM DAVID1</h6>
+              <p className="textBox companyName">ROBO CONSTRUCTION</p>
+              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
+              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur. Sit amet nisl suscipit adipiscing bibendum est ultricies integer quis. Aenean et tortor at risus viverra adipiscing at in tellus.</p>
+            </div>
+            <div className="cardStyle" >
+              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
+              <h6 className="textBox nameSize">TIM DAVID2</h6>
+              <p className="textBox companyName">ROBO CONSTRUCTION</p>
+              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
+              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur. Sit amet nisl suscipit adipiscing bibendum est ultricies integer quis. Aenean et tortor at risus viverra adipiscing at in tellus.</p>
+            </div>
+            <div className="cardStyle" >
+              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
+              <h6 className="textBox nameSize">TIM DAVID3</h6>
+              <p className="textBox companyName">ROBO CONSTRUCTION</p>
+              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
+              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur. Sit amet nisl suscipit adipiscing bibendum est ultricies integer quis. Aenean et tortor at risus viverra adipiscing at in tellus.</p>
+            </div>
+            <div className="cardStyle" >
+              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
+              <h6 className="textBox nameSize">TIM DAVID4</h6>
+              <p className="textBox companyName">ROBO CONSTRUCTION</p>
+              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
+              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur. Sit amet nisl suscipit adipiscing bibendum est ultricies integer quis. Aenean et tortor at risus viverra adipiscing at in tellus.</p>
+            </div>
+            <div className="cardStyle" >
+              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
+              <h6 className="textBox nameSize">TIM DAVID5</h6>
+              <p className="textBox companyName">ROBO CONSTRUCTION</p>
+              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
+              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur. Sit amet nisl suscipit adipiscing bibendum est ultricies integer quis. Aenean et tortor at risus viverra adipiscing at in tellus.</p>
+            </div>
           </Carousel>
           </div>
         </div>
