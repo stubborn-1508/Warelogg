@@ -216,7 +216,7 @@ const Warehouse = () => {
                                     <p><FcOk /> Individually timed lighting in most spaces</p>
                                 </Col>
                                 <Col md={4} className="">
-                                    <p><FcOk /> rive-Up Loading and Unloading</p>
+                                    <p><FcOk /> Drive-Up Loading and Unloading</p>
                                     <p><FcOk /> Package Signing and Receiving</p> <p><FcOk /> Package Signing and Receiving</p>
                                     <p><FcOk /> 24-Hour Video Monitoring</p>
                                     <p><FcOk /> Motion Sensor Lighting</p>
