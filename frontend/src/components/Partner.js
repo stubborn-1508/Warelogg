@@ -5,6 +5,7 @@ const BecomePartner = () =>
   return (
     <>
       <Container className="my-5">
+        
         <Row>
           <Form className="text-center my-5">
             <Row>

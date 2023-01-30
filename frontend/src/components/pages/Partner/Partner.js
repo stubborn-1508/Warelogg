@@ -195,25 +195,33 @@ const BecomePartner = () => {
 
   return (
     <>
-      <Container className="my-5" style={bgCo} fluid>
+      <Container  className="my-5" style={bgCo} fluid>
+      
         <Row>
-          <Form className="text-center my-5">
-            <Row>
-              <Col md={6}>
-                <h3>
+        <img className="w-100 rounded position-absolute"
+                  src="images/partner.jpg"
+                  alt="First slide"
+                  style={{zIndex:"-7", opacity:"0.1",top:"5rem",height:"100rem" ,objectFit:"fill"}}
+                />
+          <Form className="text-center mt-5 d-flex">
+            <Row className="justify-content-center">
+            <h3 className="mb-5">
                   Become a&nbsp;
                   <b>
                     <u><mark style={styles}>Warelogg Partner</mark></u>
                   </b>
                   &nbsp; and make your business more profitable.
                 </h3>
+              {/* <Col md={6}>
+                
                 <img
                   className="d-block w-100 rounded my-5"
                   src="images/partner.jpg"
                   alt="First slide"
                 />
-              </Col>
-              <Col md={6} className="text-left">
+              </Col> */}
+              <Col sm={10} md={6} className="text-left">
+              
                 <Form.Group className="mb-3">
                   <Form.Label>Your Name</Form.Label>
                   <Form.Control id="name" type="text" onChange={handleChange} required></Form.Control>
@@ -285,21 +293,24 @@ const BecomePartner = () => {
                     <button style={{width:"50%",height:"40px", margin:"10px", padding:"2px", borderRadius:"10px"}} onClick={remove}>Remove</button>
                   </div>
                 </div>
-                  <h6 className="text-center">Features</h6>
-                <Form.Group className="d-flex flex-wrap">
+                  <h6 className="text-center my-2">Features:</h6>
+                <Form.Group className="d-flex flex-wrap mx-3 px-2">
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='cctv' type="checkbox" label="CCTV Surveillance"/>
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='indoor' type="checkbox" label="Indoor Storage"/>
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="Outdoor Storage"/>
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Climate Control"/>
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='cctv' type="checkbox" label="Fire Protected"/>
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='indoor' type="checkbox" label="Elevator Access"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="SafeStor Protection"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Motion Sensor Lighting"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="24-Hour Video Monitoring"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Clean-Dry-Secure"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="rive-Up Loading and Unloading"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="Clean-Dry-Secure"/>
                   <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Open 7 Days"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="24-Hour Video Monitoring"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="SafeStor Protection"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Drive-Up Loading and Unloading"/>
+                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Motion Sensor Lighting"/>
+                  <Form.Check className="w-100" id="newFeature" type="checkbox" label="Other feature to be included:"/>
+                  <Form.Control type="text" placeholder="Enter the feature"/>
                 </Form.Group>
+                
               </Col>
               <Col md={12}>
                 <Form.Group>
@@ -308,6 +319,7 @@ const BecomePartner = () => {
                       Become Partner
                     </Button>
                   </div>
+                  
                 </Form.Group>
               </Col>
             </Row>
