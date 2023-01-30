@@ -27,6 +27,7 @@ import { Routes, Route } from "react-router-dom";
 import "./components/css/Style.css";
 import "./Contexts/context";
 import Provider from "./provider";
+import Message from "./components/pages/Refund/Message"
 import CartContextHolder from "./Contexts/CartContextHolder.js";
 // import Test from "./components/Test.js";
 
@@ -60,6 +61,7 @@ const App = () => {
             <Route path="/allListedSpace" element={<AllListedSpace />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/paymentsuccess" element={<PaymentSuccess />}></Route>
+            <Route path="/message" element={ <Message /> } />
           </Routes>
           <Footer />
         </div>
