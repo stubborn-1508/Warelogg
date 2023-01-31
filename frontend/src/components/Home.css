@@ -111,28 +111,27 @@
 .bothUnits{
     flex-wrap: wrap;
     margin-left: 3rem;
-    margin-right: 3rem;
 }
 
-/* .imagesFront{
+.warehouseImages{
     width: 60rem;
     margin-top: 1rem;
-     margin-left: 3rem;
-    margin-right: 3rem;
-    margin-top: 1rem; 
-    
-} */
+    /* margin-right: 3rem;  */
+}
+
 
 .nextPage{
-/* .findUnits{
     width: 28rem;
     margin-top: 1rem;
-    margin-left: 3rem;
+    /* margin-left: 3rem;
     margin-top: 1rem;
-    margin-right: 3rem; 
-} */
+    margin-right: 3rem; */
+}
 
-@media (max-width: 1503px) {
+@media (max-width: 1245px) {
+    .bothUnits{
+        margin-right: 3rem;
+    }
     .warehouseImages{
         width: 100%;
     }
@@ -141,10 +140,11 @@
     }
 }
 
-@media (min-width: 1503px){
+@media (min-width: 1245px){
     .bothUnits{
         display: grid;
         width: 100%;
+        padding-right: 2rem;
     }
     .warehouseImages{
         width: 63%;
