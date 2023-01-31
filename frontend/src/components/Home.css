@@ -19,6 +19,13 @@
     .img-1,.img-2,.img-3,.card-1{
         height:30rem;
     }
+    .imagesFront{
+        width: 70%;
+    }
+    .findUnits{
+        width: 30%;
+    }
+    
 }
 
 #carousel-container{
@@ -107,22 +114,23 @@
     margin-right: 3rem;
 }
 
-.warehouseImages{
+/* .imagesFront{
     width: 60rem;
     margin-top: 1rem;
-    /* margin-left: 3rem;
+     margin-left: 3rem;
     margin-right: 3rem;
-    margin-top: 1rem; */
+    margin-top: 1rem; 
     
-}
+} */
 
 .nextPage{
+/* .findUnits{
     width: 28rem;
     margin-top: 1rem;
-    /* margin-left: 3rem;
+    margin-left: 3rem;
     margin-top: 1rem;
-    margin-right: 3rem; */
-}
+    margin-right: 3rem; 
+} */
 
 @media (max-width: 1503px) {
     .warehouseImages{

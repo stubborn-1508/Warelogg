@@ -257,11 +257,11 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                             )}
                                         </OverlayTrigger>
                                     </ul>
-                                    <div className='list-unstyled d-flex flex-column justify-content-right'>
+                                    {/* <div className='list-unstyled d-flex flex-column justify-content-right'>
                                         {feature?.map((ele) => {
                                             return (<p className='float-left'><FcInspection className='mx-2' />{facilityObj[ele]}</p>);
                                         })}
-                                    </div>
+                                    </div> */}
                                     {selectUnit === true ? <>
                                     </> :  <>
                                         <div>

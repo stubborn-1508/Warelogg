@@ -21,8 +21,8 @@ const FooterSection = () => {
                 </h5>
                 <p>
                   <i className="fa fa-map-marker-alt mr-2" />
-                  New Coworking Space IIT Mandi Catalyst IIT Mandi North Campus
-                  Salgi, Mandi , Himachal Pradesh - 175005
+                  New Coworking Space <br/> IIT Mandi Catalyst<br/> IIT Mandi North Campus
+                  Salgi, Mandi ,<br/> Himachal Pradesh - 175005
                 </p>
                 <p>
                   <i className="fa fa-phone-alt mr-2" />
@@ -30,7 +30,7 @@ const FooterSection = () => {
                 </p>
                 <p>
                   <i className="fa fa-envelope mr-2" />
-                  letsgopal@gmail.com
+                  warelogg@gmail.com
                 </p>
                 <div className="d-flex justify-content-start mt-4">
                   <Link
@@ -75,14 +75,6 @@ const FooterSection = () => {
                   <Link className="text-white mb-2" to="#">
                     <i className="fa fa-angle-right mr-2" />
                     DELIVERY INFORMATION
-                  </Link>
-                  <Link className="text-white mb-2" to="#">
-                    <i className="fa fa-angle-right mr-2" />
-                    INTERNATIONAL SHIPPING
-                  </Link>
-                  <Link className="text-white" to="#">
-                    <i className="fa fa-angle-right mr-2" />
-                    RETURNS
                   </Link>
                   <Link className="text-white" to="#">
                     <i className="fa fa-angle-right mr-2" />
@@ -138,8 +130,8 @@ const FooterSection = () => {
         <div className="row">
           <div className="col-lg-6 text-center text-md-left mb-3 mb-md-0">
             <p className="m-0 text-white">
-              © <Link to="#">warelogg.com </Link>All Rights Reserved. Designed
-              by <Link to="/">Warelogg Privated Limited</Link>
+              © <Link to="#">warelogg.com &#160;</Link>All Rights Reserved. Designed
+              by<Link to="/">Warelogg Privated Limited</Link>
             </p>
           </div>
         </div>
