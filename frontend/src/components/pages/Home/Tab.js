@@ -10,7 +10,7 @@ const TabX = () =>
     <Tabs
       defaultActiveKey="storage"
       id="uncontrolled-tab-example"
-      className="mb-3"
+      className="mb-3 tabsView"
     >
       <Tab className="" eventKey="storage" title="Storage">
         <StorageUnitTab />

@@ -195,7 +195,7 @@ const BecomePartner = () => {
 
   return (
     <>
-      <Container className="my-5" style={bgCo} fluid>
+      <Container className="" style={bgCo} fluid>
         <Row>
           <Form className="text-center my-5">
             <Row>

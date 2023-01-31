@@ -3,3 +3,34 @@
     height: 200px;
     width: 200px;
 }
+
+.profilePageStyle{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 2.5rem;
+    padding-top: 2rem;
+    padding-right: 2.5rem;
+    background-color: rgb(201, 201, 201);
+    padding-bottom: 2rem;
+}
+
+.userDetailsCard{
+    width: 67rem;
+}
+
+@media (min-width: 992px){
+    .picDesign{
+        width: 30%;
+    }
+    .userDetailsCard{
+        width: 69%;
+        margin-left: 0.5rem;
+    }
+}
+
+@media (max-width: 991px){
+    .picDesign{
+        width: 100%;
+    }
+}

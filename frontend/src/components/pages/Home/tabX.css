@@ -3,4 +3,8 @@
     background-color: #44425A !important;
     color: white !important;
 }
+
+.tabsView{
+    justify-content: space-around;
+}
     

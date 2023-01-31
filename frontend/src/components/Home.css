@@ -63,18 +63,19 @@
 .cardStyle{
     width: 20rem;
     margin-left: 3rem;
-    /* margin-right: 6rem; */
+    /* margin-right: 600rem; */
     padding: 1rem 1rem;
     border-radius: 1rem;
     background-color: rgb(240, 240, 216);
     box-shadow: 0.4rem 0.4rem 1rem rgb(123, 119, 119);
+    justify-content: center;
     /* margin-bottom: 3rem; */
 }
 
 .profileStyle{
     margin-left: 5.7rem;
     border-radius: 10rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     border: 1px solid black;
 }
 
@@ -106,7 +107,7 @@
     margin-right: 3rem;
 }
 
-.imagesFront{
+.warehouseImages{
     width: 60rem;
     margin-top: 1rem;
     /* margin-left: 3rem;
@@ -115,7 +116,7 @@
     
 }
 
-.findUnits{
+.nextPage{
     width: 28rem;
     margin-top: 1rem;
     /* margin-left: 3rem;
@@ -124,16 +125,66 @@
 }
 
 @media (max-width: 1503px) {
-    .imagesFront{
+    .warehouseImages{
         width: 100%;
     }
-    .findUnits{
+    .nextPage{
         width: 100%;
+    }
+}
+
+@media (min-width: 1503px){
+    .bothUnits{
+        display: grid;
+        width: 100%;
+    }
+    .warehouseImages{
+        width: 63%;
+    }
+    .nextPage{
+        width: 32%;
     }
 }
 
 @media (max-width: 632px) {
     .headerClass{
         width: 100%;
+    }
+}
+
+.clientsBar{
+    justify-content: center;
+}
+
+@media (max-width: 483px) {
+    .cardStyle{
+        width: 15rem;
+        margin-left: 1.2rem;
+    }
+    .profileStyle{
+        margin-left: 3.2rem;
+        margin-bottom: 0.5rem;
+    }
+    .iconStyle{
+        margin-bottom: 0.5rem;
+        font-size: 1.5rem;
+    }
+    .companyName{
+        font-size: 0.7rem;
+    }
+    .nameSize{
+        font-size: 1.2rem;
+    }
+    .para{
+        font-size: 0.69rem;
+    }
+}
+
+@media (max-width: 472px) {
+    .responsiveWarehouseFontH5{
+        font-size: 500px;
+    }
+    .responsiveWarehouseFontH1{
+        font-size: 500px;
     }
 }
