@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Khand:wght@500&display=swap');
+
+.Cancel {
+        height: 80vh;
+        display: flex;
+        font-size: 14px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Khand', sans-serif;
+}
+
+.refund-box {
+        width: 700px;
+        height: 500px;
+        overflow: hidden;
+        border-radius: 12px;
+        border: thin solid #ddd;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+}
+
+.refund-text {
+        margin-top: 40px;
+        margin-bottom: 20px;
+}
+
+.reason {
+        margin-bottom: 40px;
+}
+
+.message-box {
+        height: 80vh;
+        display: flex;
+        font-size: 14px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Khand', sans-serif;
+}

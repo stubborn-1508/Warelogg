@@ -4,9 +4,14 @@ import { Container, Row, Col, Form, Button, ProgressBar, FloatingLabel } from 'r
 import Rating from "react-rating";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import "./progressReviewBar.css";
+import { useState } from "react";
+import ReviewForm from "./ReviewForm";
+import { BsPencilSquare } from "react-icons/bs";
+
 
 const ReviewSection = () =>
 {
+    const [showForm, setShowForm] = useState(false)
     const reviewDate = new Date();
     const reviewerName = "Smit Sharma";
     const ratingTotal = "3.5";
@@ -20,6 +25,9 @@ const ReviewSection = () =>
                 placeholderSymbol={ <BsStarFill className='text-warning' /> }
                 fractions={ 2 } defaultValue={ 5 } emptySymbol={ <BsStar className='text-warning' /> } fullSymbol={ <BsStarFill className='text-warning' /> } />
         );
+    }
+    function switchForm(){
+        setShowForm(prev=>!prev)
     }
     const reviewBar = () =>
     {
@@ -35,6 +43,25 @@ const ReviewSection = () =>
             </div>
         );
     }
+
+    const Comments = ()=>
+    {
+        return (
+                <Col lg={ 8 } md={ 8 } sm={ 12 } xs={ 12 }>
+                            <Form.Label>Sort By:</Form.Label>
+                            <Form.Select size="sm">
+                                <option>Top Reviews</option>
+                                <option>Most Recent</option>
+                            </Form.Select>
+                            {reviewBar()}
+                            {reviewBar()}
+                            <Button style={{margin: "auto"}} varient="primary">See all reviews</Button>
+                            
+                        </Col>
+        )
+    }
+
+
 
     const now = 60;
     return (
@@ -79,17 +106,13 @@ const ReviewSection = () =>
                                 <Col className="text-center my-auto float-left" md={ 6 } sm={ 6 } xs={ 6 }><h6>For small business</h6></Col>
                                 <Col><h6> <RatingBar className="float-right" /> &nbsp; { ratingTotal }</h6></Col>
                             </Row>
+                            <hr />
+                            <div className="container" style={{height: "100px"}}>
+                                {(!showForm) && <Button onClick={switchForm} type="button" varient="primary" style={{margin: "auto"}}><BsPencilSquare/>&nbsp; Write a Review</Button>}
+                            </div>
                         </Col>
-                        <Col lg={ 8 } md={ 8 } sm={ 12 } xs={ 12 }>
-                            <Form.Label>Sort By:</Form.Label>
-                            <Form.Select size="sm">
-                                <option>Top Reviews</option>
-                                <option>Most Recent</option>
-                            </Form.Select>
-                            { reviewBar() }
-                            { reviewBar() }
-                            <Button varient="primary">See all reviews</Button>
-                        </Col>
+
+                        {showForm ? <ReviewForm switchForm={switchForm} /> : <Comments/>}
                     </Row>
                 </Form>
             </Container>
