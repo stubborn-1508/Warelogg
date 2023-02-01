@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import "./tabX.css";
 import { Link } from "react-router-dom";
 import Context from "../../../Contexts/context";
+import { AiOutlineSearch } from "react-icons/ai";
 
 const StorageTab = () =>
 {
@@ -69,15 +70,15 @@ const StorageTab = () =>
   return (
     <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Your Location</Form.Label>
+        <Form.Label>Search your location <AiOutlineSearch/></Form.Label>
         <Form.Control
           type="text"
-          placeholder="Zip or City,State or Landmark"
+          placeholder="Zip, City, State or Landmark"
           name="fLocation"
           onChange={ handleInputChange }
         />
       </Form.Group>
-      <Form.Group className="mb-3 d-grid gap-2 text-center text-dark" controlId="formBasicCheckbox">
+      {/* <Form.Group className="mb-3 d-grid gap-2 text-center text-dark" controlId="formBasicCheckbox">
         <Form.Label className="col-md-12"><b>Show Locations That Have :</b></Form.Label>
         <Form.Check
           id="c1"
@@ -115,7 +116,7 @@ const StorageTab = () =>
           type="checkbox"
           onChange={ handleCheckChange }
         />
-      </Form.Group>
+      </Form.Group> */}
       <Form.Group className="mb-3 text-center">
         <Link to="/storage">
           <Button className="center" variant="warning" size="lg" type="submit"

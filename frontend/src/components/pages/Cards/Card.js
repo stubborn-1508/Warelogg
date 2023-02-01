@@ -32,14 +32,21 @@ const CardSection = ({ warehouseInfo }) =>
     {
         const totalArea = parseInt(x);
         const area = parseInt(y);
-        const percentage = (area/totalArea)*100;
+        let percentage = (area/totalArea)*100;
+        if(percentage<=8 && percentage>0){
+            percentage = 8;
+        }
+        let remArea = "Vacant: "
+        let occArea = "Booked: "
+        remArea += `${totalArea-area} sqft`
+        occArea += `${area} sqft`
         return (
             <>
                 {/* <span className="fs-6 float-right margin-left-5px bookedspan">{ `${ totalArea - area } sqft` }</span> */}
                 {/* <span className="fs-6 float-left margin-right-5px bookedspan ">Vacant :</span> */}
                 <ProgressBar className="progressContainer progressBorder textProgrees">
-                    <ProgressBar title={totalArea-area} now={100 - percentage }  className="text-black fs-6" variant="success" animated key={ 2 } />
-                    <ProgressBar title={area} now={ percentage } className="text-dark fs-6" variant="warning" key={ 1 } />
+                    <ProgressBar title={remArea} now={100 - percentage }  className="text-black fs-6" variant="success" animated key={ 2 } />
+                    <ProgressBar title={occArea} now={ percentage } className="text-dark fs-6" variant="warning" key={ 1 } />
                 </ProgressBar >
             </>
         );
@@ -104,7 +111,6 @@ const CardSection = ({ warehouseInfo }) =>
             </div>
             </IconContext.Provider>]
     ]);
-
     // const 
 
     const verifyWarehouse = async (id) => {
@@ -152,7 +158,7 @@ const CardSection = ({ warehouseInfo }) =>
                             height = height + parseInt(ele.height);
                             occ = occ + parseInt(ele.spaceOccupied);
                         });
-                        return <Col lg={ 3 } md={ 1 } sm={ 6 } xs={ 12 } key={ key }>
+                        return <Col lg={ 3 } md={ 4 } sm={ 6 } xs={ 12 } key={ key } >
                             <Card className={adminPath==="/admin"?"rounded shadow bg-white overflow-hidden mb-2 my-4":"rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover"} onClick={ () =>
                                 routeChange(warehouse._id) }>
                                 <img className="img-fluid" src="images/s5.jpg" alt="" />
@@ -160,7 +166,7 @@ const CardSection = ({ warehouseInfo }) =>
                                         <div>
                                             <i className="h4"><MdOutlineLocationOn className="text-primary mr-1" /></i>
                                                 { warehouse.city }
-                                            <p className="distanceStyle">x kms away from you</p>
+                                            <p className="distanceStyle">x kms away</p>
                                         </div>
                                         <div>
                                             <i className="h4 justify-content"><AiFillStar className="text-warning" /> </i>
@@ -186,9 +192,8 @@ const CardSection = ({ warehouseInfo }) =>
                                                 })}
                                             </div>
                                             <div title = {subUnitStr} className="d-flex justify-content-flex-start h-40%">
-                                                <i className="h4"><FaExpandArrowsAlt className="text-blue mr-1" /> </i>
-                                                <h6 className="m-1">
-                                                    {/* { length + 'x' + width + 'x' + height } */}
+                                                <i className="h4"><FaExpandArrowsAlt className="areaIcon" /> </i>
+                                                <h6 className="areaText">
                                                     Total Area: {totArea} sqft
                                                 </h6>
                                             </div>
@@ -206,7 +211,7 @@ const CardSection = ({ warehouseInfo }) =>
                 </Row>
                 <Row>
                     <Col md={ 12 } xs={ 12 } className="">
-                        <Pagination size="lg" variant="success">
+                        {/* <Pagination size="lg" variant="success">
                             <Pagination.First className="" />
                             { items.map((number, key) =>
                             {
@@ -215,7 +220,7 @@ const CardSection = ({ warehouseInfo }) =>
                                 </Pagination.Item>
                             }) }
                             <Pagination.Last />
-                        </Pagination>
+                        </Pagination> */}
                     </Col>
                 </Row>
             </Container>
