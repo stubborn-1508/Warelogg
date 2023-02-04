@@ -20,6 +20,18 @@ import { VscSettings } from "react-icons/vsc";
 import Context from "../Contexts/context";
 import FilterModal from "./pages/Storage/FilterModal";
 import "./filters.css";
+import {BiSearchAlt, BiRightArrow} from "react-icons/bi"
+import {GiCctvCamera, GiLockedChest, GiCargoShip} from "react-icons/gi"
+import { FaTruckMoving, FaMapMarkerAlt } from "react-icons/fa";
+import { BsCloudSunFill } from "react-icons/bs";
+import {FiFilter} from "react-icons/fi"
+import {TbSunOff} from "react-icons/tb"
+import Icon from '@mdi/react';
+import { mdiThermometerLow, mdiForklift, mdiFireTruck, mdiHours24, mdiShieldCheck, mdiAirport, mdiStarCheckOutline} from '@mdi/js';
+import "./FilterSlider.css"
+import { IconContext } from "react-icons/lib";
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 
 const Storage = (props) => {
   const ctx = useContext(Context);
@@ -195,7 +207,59 @@ const Storage = (props) => {
     e.preventDefault();
     setLocationInput(e.target.value);
   };
+  function MapButton(){
+                return <button className="button-77" onClick={ () =>{setToggle(1);} }>
+                                        <IconContext.Provider
+                                        value={{size: '1.8rem' }}
+                                 >
+                                        <div>
+                                                <FaMapMarkerAlt/>
+                                                Map
+                                        </div>
+                                        </IconContext.Provider>
+                                </button>
+        }
 
+        function GridButton(){
+                return <button className="button-77" onClick={ () =>{setToggle(0);} }>
+                                        <IconContext.Provider
+                                        value={{size: '1.8rem' }}
+                                 >
+                                        <div>
+                                                <BsFillGrid3X2GapFill/>
+                                                Grid
+                                        </div>
+                                        </IconContext.Provider>
+                                </button>
+        }
+
+        const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 7
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 7
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 3
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 3
+  }
+};
+
+
+const CustomLeftArrow = ({ onClick }) => (
+  <i onClick={() => onClick()} className="custom-left-arrow" />
+);
+const CustomRightArrow = ({ onClick }) => {
+  return <i className="custom-right-arrow" onClick={() => onClick()} />;
+};
   // if (locationInput.length > 0)
   // {
   // 	warehouseInfo.filter((warehouse) =>
@@ -222,7 +286,7 @@ const Storage = (props) => {
       <Container className="my-5" fluid>
         <Row>
           <Col md={12} sm={12}>
-            <Row className="">
+            {/* <Row className="">
               <Col lg={2} md={2} sm={2} xs={12} className="">
                 <Button
                   variant="primary"
@@ -279,7 +343,337 @@ const Storage = (props) => {
                   </Button>
                 </Form>
               </Col>
-            </Row>
+            </Row> */}
+            <div>
+                        <div className="search-bar">
+                                {toggle ? <GridButton/> : <MapButton/>}
+                                {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0" />
+                                <form className="d-flex search-box">
+                                <button class="search-button"style={{background: "none", border: "none", padding: "0"}}><span style={{fontSize: "30px", verticalAlign: "-1px", color: "#9B9B9B"}} class="material-symbols-outlined">search</span></button>
+                                <input 
+                                        class="search-input"
+                                        style={{verticalAlign: "4px", width: "255px"}}
+                                        name="focus" 
+                                        id="search-input" 
+                                        type="search"
+				        placeholder="Search"
+					aria-label="Search"
+					onChange={ handleChange }
+					value={ locationInput }
+
+                                />
+                                </form> */}
+                                        {/* <div className="Search">
+                                                <form>
+                                                        <input type="text" name="search" placeholder="Search.." onChange={ handleChange } value={ locationInput }/>
+                                                </form>
+                                        </div> */}
+
+
+                                {/* <form className="d-flex my-2">
+							<input
+								type="search"
+								placeholder="Search"
+								aria-label="Search"
+								onChange={ handleChange }
+								value={ locationInput }
+							/>
+							<button type="button"className="button-42">
+                                                                <IconContext.Provider
+                                                                        value={{size: '1.8rem' }}
+                                 >
+                                                                        <div>
+                                                                        <BiSearchAlt/>
+                                                                        </div>
+                                                                </IconContext.Provider>
+                                                        </button>
+				</form> */}
+                        </div>
+                        <div className="Icon-filters shadow-sm p-3 bg-white rounded">
+                        <div className="slider">
+                                <Carousel responsive={responsive} customRightArrow={<CustomRightArrow />} customLeftArrow={<CustomLeftArrow/>}>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                                <input type="checkbox" title="Climate Control"/>
+                                                <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                        <div>
+                                                                <IconContext.Provider
+                                                                        value={{color: '#ff6600' }}
+                                                                >
+                                                                        <BsCloudSunFill/>
+                                                                </IconContext.Provider>
+                                                        </div>
+                                                        <div>
+                                                                <label style={{fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Climate Control</label>
+                                                        </div>
+                                                </div>
+                                                <div className="state p-off custom-icon">
+                                                        <div>
+                                                                <BsCloudSunFill/>
+                                                        </div>
+                                                        <div>
+                                                                <label style={{ fontSize: "1rem"}}>Climate Control</label>
+                                                        </div>
+                                                </div>
+                                        </div>
+                               <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="CCTV Monitoring"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <GiCctvCamera/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>CCTV Monitoring</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <GiCctvCamera/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>CCTV Monitoring</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Outdoor Storage"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <FaTruckMoving/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Outdoor Storage</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <FaTruckMoving/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Outdoor Storage</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Indoor Storage"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <GiLockedChest/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Indoor Storage</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon" style={{fontSize: "1.8rem"}}>
+                                                <div>
+                                                        <GiLockedChest/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Indoor Storage</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Cold Storage"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiThermometerLow} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Cold Storage</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiThermometerLow} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Cold Storage</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Free Loading-Unloading"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiForklift} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Free Loading</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiForklift} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Free Loading</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Fire Safety"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiFireTruck} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Fire Safety</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiFireTruck} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Fire Safety</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="24-hours availability"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiHours24} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>24-hours</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiHours24} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>24-hours</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Insurance Coverage"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiShieldCheck} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Insurance</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiShieldCheck} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Insurance</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Near Airport"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiAirport} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Near Airport</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiAirport} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Near Airport</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Near Seaport"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <GiCargoShip/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Near Seaport</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <GiCargoShip/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Near Seaport</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Quality Control"/>
+                                        <div className="state  p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiStarCheckOutline} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Quality Control</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiStarCheckOutline} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Quality Control</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="UV Protection"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <TbSunOff/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>UV Protection</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <TbSunOff/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>UV Protection</label>
+                                                </div>
+                                        </div>
+                                </div>
+                        </Carousel>
+                        </div>
+                        <button type="button" className="button-17" onClick={ handleShow } style={{fontSize: "1.1rem"}}>
+                                <IconContext.Provider
+                                        value={{size: '1.5rem' }}
+                                 >
+                                        <FiFilter />
+                                </IconContext.Provider>
+                                &nbsp;&nbsp;Filters</button>
+                        </div>
+                </div>
             <Row>
               <Col lg={8} md={8} sm={12} xs={12} className="">
                 <Row>
