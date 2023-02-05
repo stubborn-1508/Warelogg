@@ -1,5 +1,20 @@
-import React, {useState, useContext, useEffect} from "react";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from "react";
+import { Container, Row, Col, Form, Button, InputGroup,Modal } from "react-bootstrap";
+import {
+  GiTruck,
+  GiHandTruck,
+  GiCctvCamera,
+  GiElevator,
+  GiMovementSensor,
+  GiCube,
+} from "react-icons/gi";
+import { GrSecure } from "react-icons/gr";
+import { Ri24HoursFill, RiVideoDownloadLine } from "react-icons/ri";
+import { BsFillCloudSunFill } from "react-icons/bs";
+import { FaFireExtinguisher, FaTruckLoading, FaUpload } from "react-icons/fa";
+import { CiVault } from "react-icons/ci";
+import { BiRectangle } from "react-icons/bi";
+import ImageUploading from 'react-images-uploading';
 import { Context } from "../../../Contexts/context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,26 +24,48 @@ const BecomePartner = () => {
   const usertoken = localStorage.getItem("token");
 
   const [wareHouse, setWareHouse] = useState({
-    user_id: '',
-    name: '',
-    email: '',
-    businessName: '',
-    contactNumberMobile: '',
-    businessAddress: '',
-    city: '',
-    state: '',
-    zip: '',
-    features: []
+    user_id: "",
+    name: "",
+    email: "",
+    businessName: "",
+    contactNumberMobile: "",
+    businessAddress: "",
+    city: "",
+    state: "",
+    zip: "",
+    features: [],
   });
 
-  const [length, setLength] = useState(new Array(100000).fill(''));
-  const [width, setWidth] = useState(new Array(100000).fill(''));
-  const [height, setHeight] = useState(new Array(100000).fill(''));
+  const [length, setLength] = useState(new Array(100000).fill(""));
+  const [width, setWidth] = useState(new Array(100000).fill(""));
+  const [height, setHeight] = useState(new Array(100000).fill(""));
+  const [area, setArea] = useState(new Array(100000).fill("0"));
+  const [volume, setVolume] = useState(new Array(100000).fill("0"));
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
+
+  const [disabled,setDisabled]=useState(true);
+
+  const [images, setImages] = React.useState([]);
+  const maxNumber = 69;
 
   const [unit, setUnit] = useState({
     counter: 1,
-    arrTemp: new Array(1).fill('')
+    arrTemp: new Array(1).fill(""),
   });
+
+
+  const checkDisablehandler=(e)=>{
+    setDisabled(!disabled);
+  }
+
+  const onChange = (imageList, addUpdateIndex) => {
+    // data for submit
+    console.log(imageList, addUpdateIndex);
+    setImages(imageList);
+  };
 
   const add = (e) => {
     e.preventDefault();
@@ -36,56 +73,77 @@ const BecomePartner = () => {
     const cnt = unit.counter + 1;
     setUnit({
       counter: cnt,
-      arrTemp: new Array(cnt).fill('')
+      arrTemp: new Array(cnt).fill(""),
     });
-  }
+  };
 
   const remove = (e) => {
     e.preventDefault();
     const current_unit = unit;
     const cnt = unit.counter - 1;
-    if(cnt < 0){
+    if (cnt < 0) {
       setUnit({
         counter: 0,
-        arrTemp: new Array(0).fill('')
+        arrTemp: new Array(0).fill(""),
       });
-    }else{
+    } else {
       setUnit({
         counter: cnt,
-        arrTemp: new Array(cnt).fill('')
+        arrTemp: new Array(cnt).fill(""),
       });
-    }
-  }
-
-
-  const fetchData = async (usertoken) => {
-    try {
-        const res = await axios.get("/getAllUsers", {
-            headers: { "x-auth-token": usertoken },
-        });
-        setWareHouse({...wareHouse, user_id: res.data.user_id});
-    } catch (err) {
-        console.log("Error in fetching data" + err);
     }
   };
 
+  const clear = (e) => {
+    e.preventDefault();
+    const ind = parseInt(e.target.id.split("$")[0]);
+    console.log(ind);
+    let templength=length;
+    let tempwidth=width;
+    let tempheight=height;
+    let temparea=area;
+    let tempvol=volume;
+    templength[ind]="";
+    tempwidth[ind]="";
+    tempheight[ind]="";
+    temparea[ind]="0";
+    tempvol[ind]="0";
+    setLength([...templength]);
+    setWidth([...tempwidth]);
+    setHeight([...tempheight]);
+    setArea([...area]);
+    setVolume([...volume]);
+  };
+
+  const fetchData = async (usertoken) => {
+    try {
+      const res = await axios.get("/getAllUsers", {
+        headers: { "x-auth-token": usertoken },
+      });
+      setWareHouse({ ...wareHouse, user_id: res.data.user_id });
+    } catch (err) {
+      console.log("Error in fetching data" + err);
+    }
+  };
 
   useEffect(() => {
     const usertoken = localStorage.getItem("token");
     if (!usertoken) {
       navigate("/login");
-    }else{
+    } else {
       fetchData(usertoken);
     }
+    setShow(true);
   }, []);
 
   const styles = {
     backgroundColor: "yellow",
-    color: "purple"
-  }
+    color: "purple",
+  };
   const bgCo = {
     backgroundColor: "",
-  }
+    color: "black",
+  };
 
   const [featureArr, setFeatureArr] = useState({
     'cctv': false,
@@ -95,60 +153,82 @@ const BecomePartner = () => {
   });
 
   const handleChange = (e) => {
-    setWareHouse({...wareHouse, [e.target.id]: e.target.value});
-  }
+    setWareHouse({ ...wareHouse, [e.target.id]: e.target.value });
+  };
 
   const handleChangeLength = (e) => {
-    const ind = parseInt(e.target.id.split('$')[0]);
+    const ind = parseInt(e.target.id.split("$")[0]);
     let iniArr = length;
+    let iniArea = area;
+    let iniVol = volume;
     iniArr[ind] = e.target.value;
-    let finalArr = iniArr;
-    setLength(finalArr);
-  }
+    iniArea[ind] = e.target.value * width[ind];
+    iniVol[ind] = e.target.value * width[ind] * height[ind];
+    setArea([...iniArea]);
+    setLength([...iniArr]);
+    console.log(area[ind]);
+    setVolume([...iniVol]);
+  };
 
   const handleChangeWidth = (e) => {
-    const ind = parseInt(e.target.id.split('$')[0]);
+    const ind = parseInt(e.target.id.split("$")[0]);
     let iniArr = width;
+    let iniArea = area;
+    let iniVol = volume;
     iniArr[ind] = e.target.value;
-    let finalArr = iniArr;
-    setWidth(finalArr);
-  }
+    iniArea[ind] = e.target.value * length[ind];
+    iniVol[ind] = e.target.value * length[ind] * height[ind];
+    setWidth([...iniArr]);
+    setArea([...iniArea]);
+    console.log(width);
+    console.log(area);
+    setVolume([...iniVol]);
+  };
 
   const handleChangeHeight = (e) => {
-    const ind = parseInt(e.target.id.split('$')[0]);
+    const ind = parseInt(e.target.id.split("$")[0]);
     let iniArr = height;
+    let iniVol = volume;
+    iniVol[ind] = e.target.value * length[ind] * width[ind];
     iniArr[ind] = e.target.value;
-    let finalArr = iniArr;
-    setHeight(finalArr);
-  }
+    setVolume([...iniVol]);
+    setHeight([...iniArr]);
+  };
 
   const handleChangeCheck = (e) => {
-    setFeatureArr(featureArr => ({...featureArr,[e.target.id]: !(featureArr[e.target.id])}));
-  }
+    setFeatureArr((featureArr) => ({
+      ...featureArr,
+      [e.target.id]: !featureArr[e.target.id],
+    }));
+  };
 
   const wareHouseReg = async (userData) => {
-    try{
-      const res = await axios({ url: "/warehouseRegister", data: userData, method: "post" });
+    try {
+      const res = await axios({
+        url: "/warehouseRegister",
+        data: userData,
+        method: "post",
+      });
       return [res.data, res.status];
-    }catch (e){
+    } catch (e) {
       console.log(e);
       return [e.response.data, e.response.status];
     }
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let finalArr = []
-    for (const [key,value] of Object.entries(featureArr)){
-      if(value){
+    let finalArr = [];
+    for (const [key, value] of Object.entries(featureArr)) {
+      if (value) {
         finalArr.push(key);
       }
     }
 
     let finalArr2 = [];
 
-    for(let i=0;i<unit.counter;i++){
-      let subunit = {}
+    for (let i = 0; i < unit.counter; i++) {
+      let subunit = {};
       subunit.length = length[i];
       subunit.width = width[i];
       subunit.height = height[i];
@@ -165,66 +245,105 @@ const BecomePartner = () => {
       city: wareHouse.city,
       state: wareHouse.state,
       zip: wareHouse.zip,
-      subUnits: finalArr2, 
-      features: finalArr
-    }
-
+      subUnits: finalArr2,
+      features: finalArr,
+    };
 
     // console.log(wareHouseDetails);
     const waitWareReg = await wareHouseReg(wareHouseDetails);
     console.log(waitWareReg);
-    if(waitWareReg[1] == 200){
+    if (waitWareReg[1] == 200) {
       alert(waitWareReg[0]);
       navigate("/allListedSpace");
-    }else{
+    } else {
       alert(waitWareReg[0]);
     }
-
     setWareHouse({
-      user_id: '',
-      name: '',
-      email: '',
-      businessName: '',
-      contactNumberMobile: '',
-      businessAddress: '',
-      city: '',
-      state: '',
-      zip: '',
+      user_id: "",
+      name: "",
+      email: "",
+      businessName: "",
+      contactNumberMobile: "",
+      businessAddress: "",
+      city: "",
+      state: "",
+      zip: "",
     });
-  }
+  };
 
   return (
     <>
-      <Container  className="my-5" style={bgCo} fluid>
-      
+      <Modal size="xl" show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="mx-auto">Woohoo! you are three steps away to become warelogg's partner</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Row className="justify-content-between">
+            <Col xs={3}>
+            <p><h4>Step 1:</h4>Fill out the form details.Check out the additional features you would like.</p>
+            <div>
+            <img src="images/fill_form.gif" width="100%"></img>
+            </div>
+            </Col>
+            <Col xs={1}>
+            <div className="d-flex h-100 align-items-center">
+            <img src="images/right_arrow.png" width={50} height={50}></img>
+          </div>
+            </Col>
+            <Col xs={3}>
+            <p><h4>Step 2:</h4>Get your details verified.<b>(Our personnel will contact you shortly after filling the form.)</b></p>
+            <div>
+            <img src="images/verified.gif" width="100%"></img>
+            </div>
+            </Col>
+            <Col xs={1}>
+            <div className="d-flex h-100 align-items-center">
+            <img src="images/right_arrow.png" width={50} height={50}></img>
+          </div>
+            </Col>
+            <Col xs={3}>
+            <p><h4>Step3:</h4>Congratulations, you are all set.<b>Warelogg welcomes you as a partner.</b></p>
+            <div>
+            <img src="images/handshake.gif" width="100%"></img>
+            </div>
+            </Col>
+          </Row>
+        </Modal.Body>
+      </Modal>
+      <Container className="my-5" style={bgCo} fluid>
         <Row>
-        <img className="w-100 rounded position-absolute"
-                  src="images/partner.jpg"
-                  alt="First slide"
-                  style={{zIndex:"-7", opacity:"0.1",top:"5rem",height:"100rem" ,objectFit:"fill"}}
-                />
+          <img
+            className="w-100 rounded position-absolute"
+            src="images/partner.jpg"
+            alt="First slide"
+            style={{
+              zIndex: "-7",
+              opacity: "0.1",
+              top: "5rem",
+              height: "100rem",
+              objectFit: "fill",
+            }}
+          />
           <Form className="text-center mt-5 d-flex">
             <Row className="justify-content-center">
-            <h3 className="mb-5">
-                  Become a&nbsp;
-                  <b>
-                    <u><mark style={styles}>Warelogg Partner</mark></u>
-                  </b>
-                  &nbsp; and make your business more profitable.
-                </h3>
-              {/* <Col md={6}>
-                
-                <img
-                  className="d-block w-100 rounded my-5"
-                  src="images/partner.jpg"
-                  alt="First slide"
-                />
-              </Col> */}
-              <Col sm={10} md={6} className="text-left">
-              
+              <h3 className="mb-5">
+                Become a&nbsp;
+                <b>
+                  <u>
+                    <mark style={styles}>Warelogg Partner</mark>
+                  </u>
+                </b>
+                &nbsp; and make your business more profitable.
+              </h3>
+              <Col sm={10} md={8} className="text-left">
                 <Form.Group className="mb-3">
                   <Form.Label>Your Name</Form.Label>
-                  <Form.Control id="name" type="text" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="name"
+                    type="text"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label>Phone Number</Form.Label>
@@ -241,85 +360,485 @@ const BecomePartner = () => {
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Email Address</Form.Label>
-                  <Form.Control id="email" type="email" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="email"
+                    type="email"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Business Name</Form.Label>
-                  <Form.Control id="businessName" type="text" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="businessName"
+                    type="text"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
                 <Form.Group>
                   <Form.Label className="mb-3">Business Address</Form.Label>
-                  <Form.Control id="businessAddress" type="text" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="businessAddress"
+                    type="text"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>City</Form.Label>
-                  <Form.Control id="city" type="text" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="city"
+                    type="text"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>State</Form.Label>
-                  <Form.Control id="state" type="text" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="state"
+                    type="text"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
                 <Form.Group className="mb-3">
                   <Form.Label>Zip/Postal</Form.Label>
-                  <Form.Control id="zip" type="zip" onChange={handleChange} required></Form.Control>
+                  <Form.Control
+                    id="zip"
+                    type="zip"
+                    onChange={handleChange}
+                    required
+                  ></Form.Control>
                 </Form.Group>
-                <div style={{border:"1px solid black", display:"flex", flexDirection:"column", alignItems:"center"}}>
-                  {unit.arrTemp.map((ele,ind)=>{
+                <div
+                  style={{
+                    border: "1px solid black",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  {unit.arrTemp.map((ele, ind) => {
                     return (
-                      <div key={ind} style={{border: "2px solid black", margin: "5px", padding: "10px", borderRadius: "20px", width: "95%"}}>
-                        {ind===0?
-                        <h4 className="text-center">Dimensions of main unit</h4>
-                        :
-                        <h4 style={{textAlign: "center"}}>Dimensions of sub-unit {ind}</h4>
-                      }
-                        
-                        <Form.Group className="mb-3">
-                        <Form.Label>Length (in ft)</Form.Label>
-                        <Form.Control id={ind+'$l'} type="text" onChange={handleChangeLength} required></Form.Control>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                        <Form.Label>Width (in ft)</Form.Label>
-                        <Form.Control id={ind+'$w'} type="text" onChange={handleChangeWidth} required></Form.Control>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                        <Form.Label>Height (in ft)</Form.Label>
-                        <Form.Control id={ind+'$h'} type="text" onChange={handleChangeHeight} required></Form.Control>
-                        </Form.Group>
-                      </div>
+                      <>
+                        <div
+                          key={ind}
+                          style={{
+                            border: "2px solid black",
+                            margin: "5px",
+                            padding: "10px",
+                            borderRadius: "20px",
+                            width: "95%",
+                          }}
+                        >
+                          {ind === 0 ? (
+                            <h4 className="text-center">
+                              Dimensions of main unit
+                            </h4>
+                          ) : (
+                            <h4 style={{ textAlign: "center" }}>
+                              Dimensions of sub-unit {ind}
+                            </h4>
+                          )}
+
+                          <Form.Group className="mb-3">
+                            <Form.Label>Length (in ft)</Form.Label>
+                            <Form.Control
+                              id={ind + "$l"}
+                              type="text"
+                              value={length[ind]}
+                              onChange={handleChangeLength}
+                              required
+                            ></Form.Control>
+                          </Form.Group>
+                          <Form.Group className="mb-3">
+                            <Form.Label>Width (in ft)</Form.Label>
+                            <Form.Control
+                              id={ind + "$w"}
+                              type="text"
+                              value={width[ind]}
+                              onChange={handleChangeWidth}
+                              required
+                            ></Form.Control>
+                          </Form.Group>
+                          <Form.Group className="mb-3">
+                            <Form.Label>Height (in ft)</Form.Label>
+                            <Form.Control
+                              id={ind + "$h"}
+                              type="text"
+                              value={height[ind]}
+                              onChange={handleChangeHeight}
+                              required
+                            ></Form.Control>
+                          </Form.Group>
+                          <div className="d-flex justify-content-around">
+                            <div>
+                              <BiRectangle style={{ color: "red" }} />
+                              &nbsp; Area:{area[ind]} sq. ft.
+                            </div>
+                            <div>
+                              <GiCube style={{ color: "#70c1db" }} />
+                              &nbsp; Volume: {volume[ind]} cubic ft
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center" }}>
+                          <button
+                            style={{
+                              width: "80%",
+                              height: "40px",
+                              margin: "10px",
+                              padding: "2px",
+                              borderRadius: "10px",
+                            }}
+                            onClick={add}
+                          >
+                            Add
+                          </button>
+                          {ind === 0 ? (
+                            <></>
+                          ) : (
+                            <button
+                              style={{
+                                width: "50%",
+                                height: "40px",
+                                margin: "10px",
+                                padding: "2px",
+                                borderRadius: "10px",
+                              }}
+                              onClick={remove}
+                            >
+                              Remove
+                            </button>
+                          )}
+                          <button
+                            id={ind + "$remove"}
+                            style={{
+                              width: "80%",
+                              height: "40px",
+                              margin: "10px",
+                              padding: "2px",
+                              borderRadius: "10px",
+                            }}
+                            onClick={clear}
+                          >
+                            Clear
+                          </button>
+                        </div>
+                      </>
                     );
                   })}
-                  <div style={{display:"flex", alignItems: "center"}}>
-                    <button style={{width:"80%",height:"40px", margin:"10px", padding:"2px", borderRadius:"10px"}} onClick={add}>Add</button>
-                    <button style={{width:"50%",height:"40px", margin:"10px", padding:"2px", borderRadius:"10px"}} onClick={remove}>Remove</button>
-                  </div>
                 </div>
-                  <h6 className="text-center my-2">Features:</h6>
-                <Form.Group className="d-flex flex-wrap mx-3 px-2">
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='cctv' type="checkbox" label="CCTV Surveillance"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='indoor' type="checkbox" label="Indoor Storage"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="Outdoor Storage"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Climate Control"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='cctv' type="checkbox" label="Fire Protected"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='indoor' type="checkbox" label="Elevator Access"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='outdoor' type="checkbox" label="Clean-Dry-Secure"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Open 7 Days"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="24-Hour Video Monitoring"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="SafeStor Protection"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Drive-Up Loading and Unloading"/>
-                  <Form.Check className="w-25" onChange={handleChangeCheck} id='climate' type="checkbox" label="Motion Sensor Lighting"/>
-                  <Form.Check className="w-100" id="newFeature" type="checkbox" label="Other feature to be included:"/>
-                  <Form.Control type="text" placeholder="Enter the feature"/>
+                <div className="mt-2 p-2" style={{ border: "1px solid black"}}>
+                <h5 className="text-center mt-2 mb-2">Features:</h5>
+                <Form.Group className="d-flex flex-wrap">
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="fire"
+                        class="form-check-input"
+                      />
+                      <label title="" for="fire" class="form-check-label">
+                        Fire Protected &nbsp;
+                        <FaFireExtinguisher
+                          style={{
+                            color: "red",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="climate"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="climate" class="form-check-label">
+                        Climate Control &nbsp;
+                        <BsFillCloudSunFill
+                          style={{
+                            color: "#0dcefdb0",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="elevator"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="elevator" class="form-check-label">
+                        Elevator Access &nbsp;
+                        <GiElevator
+                          style={{
+                            color: "grey",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="availaibility"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="availaibility" class="form-check-label">
+                        Open 7 Days &nbsp;
+                        <Ri24HoursFill
+                          style={{
+                            color: "black",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="indoor"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="indoor" class="form-check-label">
+                        Indoor Storage &nbsp;
+                        <GiHandTruck
+                          style={{
+                            color: "#ffb905",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="outdoor"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="outdoor" class="form-check-label">
+                        Outdoor Storage &nbsp;
+                        <GiTruck
+                          style={{
+                            color: "rgb(255 93 5 / 80%)",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="cctv"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="cctv" class="form-check-label">
+                        CCTV Surveillance &nbsp;
+                        <GiCctvCamera
+                          style={{
+                            color: "rgb(255 5 5 / 93%)",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="secure"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="secure" class="form-check-label">
+                        Clean-Dry-Secure &nbsp;
+                        <GrSecure
+                          style={{
+                            color: "#ffb905",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="protection"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="protection" class="form-check-label">
+                        SafeStore Protection &nbsp;
+                        <CiVault
+                          style={{
+                            color: "darkgreen",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="motion"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="motion" class="form-check-label">
+                        Motion Sensor Lighting &nbsp;
+                        <GiMovementSensor
+                          style={{
+                            color: "#e82e2e",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="monitor"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="monitor" class="form-check-label">
+                         Live video Monitoring &nbsp;
+                        <RiVideoDownloadLine
+                          style={{
+                            color: "rgb(255 5 5 / 93%)",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="w-25 d-flex flex-wrap p-1">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        id="driveup"
+                        class="form-check-input"
+                        onChange={handleChangeCheck}
+                      />
+                      <label title="" for="driveup" class="form-check-label">
+                        Drive-Up facility &nbsp;
+                        <FaTruckLoading
+                          style={{
+                            color: "rgb(255 93 5 / 80%)",
+                            height: "1.25rem",
+                            width: "1.25rem",
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <Form.Check
+                    className="w-100 mx-1"
+                    id="newFeature"
+                    type="checkbox"
+                    onChange={checkDisablehandler}
+                    label="Other features:"
+                  />
+                  <Form.Control type="text" placeholder="Enter the feature" disabled={disabled}/>
                 </Form.Group>
-                
+                </div>
+                <ImageUploading
+        multiple
+        value={images}
+        onChange={onChange}
+        maxNumber={maxNumber}
+        dataURLKey="data_url"
+      >
+        {({
+          imageList,
+          onImageUpload,
+          onImageRemoveAll,
+          onImageUpdate,
+          onImageRemove,
+          isDragging,
+          dragProps,
+        }) => (
+          // write your building UI
+          <div className="upload__image-wrapper mt-2">
+            <button className="p-2 w-100 mx-auto rounded-2 fw-bold"
+              style={isDragging ? { color: 'red' } : undefined}
+              onClick={onImageUpload}
+              {...dragProps}
+            >
+              Upload images here(For verification)&nbsp;
+              <FaUpload style={{color:"#FF6600"}}/>
+            </button>
+            &nbsp;
+            <div className="d-flex">
+            {imageList.map((image, index) => (
+              <div key={index} className="image-item mx-2 text-center">
+                <img src={image['data_url']} alt="" height="100" />
+                <div className="image-item__btn-wrapper mt-1">
+                  <button className="p-1 mr-1 rounded-2" onClick={() => onImageUpdate(index)}>Update</button>
+                  <button className="p-1 ml-1 rounded-2" onClick={() => onImageRemove(index)}>Remove</button>
+                </div>
+              </div>
+            ))}
+            </div>
+          </div>
+        )}
+      </ImageUploading>
               </Col>
               <Col md={12}>
                 <Form.Group>
                   <div>
-                    <Button onClick={handleSubmit} variant="blue" className="btn-block my-3" size="lg">
-                      Become Partner
+                    <Button
+                      onClick={handleSubmit}
+                      variant="blue"
+                      className="my-3"
+                      size="lg"
+                    >
+                      Submit
                     </Button>
                   </div>
-                  
                 </Form.Group>
               </Col>
             </Row>
