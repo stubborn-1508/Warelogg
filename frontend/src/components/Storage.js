@@ -21,13 +21,14 @@ import Context from "../Contexts/context";
 import FilterModal from "./pages/Storage/FilterModal";
 import "./filters.css";
 import {BiSearchAlt, BiRightArrow} from "react-icons/bi"
-import {GiCctvCamera, GiLockedChest, GiCargoShip} from "react-icons/gi"
-import { FaTruckMoving, FaMapMarkerAlt } from "react-icons/fa";
+import {GiCctvCamera, GiLockedChest, GiCargoShip, GiGears} from "react-icons/gi"
+import { FaTruckMoving, FaMapMarkerAlt, FaBoxes, FaWarehouse} from "react-icons/fa";
 import { BsCloudSunFill } from "react-icons/bs";
 import {FiFilter} from "react-icons/fi"
 import {TbSunOff} from "react-icons/tb"
+import {IoSnow} from "react-icons/io"
 import Icon from '@mdi/react';
-import { mdiThermometerLow, mdiForklift, mdiFireTruck, mdiHours24, mdiShieldCheck, mdiAirport, mdiStarCheckOutline} from '@mdi/js';
+import { mdiForklift, mdiHours24, mdiShieldCheck, mdiAirport, mdiStarCheckOutline, mdiAccountHardHat, mdiSnowflakeThermometer, mdiFireExtinguisher, mdiDolly} from '@mdi/js';
 import "./FilterSlider.css"
 import { IconContext } from "react-icons/lib";
 import Carousel from 'react-multi-carousel';
@@ -392,7 +393,8 @@ const CustomRightArrow = ({ onClick }) => {
                         <div className="Icon-filters shadow-sm p-3 bg-white rounded">
                         <div className="slider">
                                 <Carousel responsive={responsive} customRightArrow={<CustomRightArrow />} customLeftArrow={<CustomLeftArrow/>}>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                                 <input type="checkbox" title="Climate Control"/>
                                                 <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                         <div>
@@ -415,7 +417,9 @@ const CustomRightArrow = ({ onClick }) => {
                                                         </div>
                                                 </div>
                                         </div>
-                               <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                               <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="CCTV Monitoring"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -438,14 +442,16 @@ const CustomRightArrow = ({ onClick }) => {
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                               </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Outdoor Storage"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
                                                         <IconContext.Provider
                                                                 value={{color: '#ff6600' }}
                                                         >
-                                                                <FaTruckMoving/>
+                                                                <FaBoxes/>
                                                         </IconContext.Provider>
                                                 </div>
                                                 <div>
@@ -454,21 +460,23 @@ const CustomRightArrow = ({ onClick }) => {
                                         </div>
                                         <div className="state p-off custom-icon">
                                                 <div>
-                                                        <FaTruckMoving/>
+                                                        <FaBoxes/>
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem"}}>Outdoor Storage</label>
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Indoor Storage"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
                                                         <IconContext.Provider
                                                                 value={{color: '#ff6600' }}
                                                         >
-                                                                <GiLockedChest/>
+                                                                <FaWarehouse/>
                                                         </IconContext.Provider>
                                                 </div>
                                                 <div>
@@ -477,18 +485,20 @@ const CustomRightArrow = ({ onClick }) => {
                                         </div>
                                         <div className="state p-off custom-icon" style={{fontSize: "1.8rem"}}>
                                                 <div>
-                                                        <GiLockedChest/>
+                                                        <FaWarehouse/>
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem"}}>Indoor Storage</label>
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Cold Storage"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
-                                                        <Icon path={mdiThermometerLow} size={1.3} color="#ff6600"/>
+                                                        <Icon path={mdiSnowflakeThermometer} size={1.3} color="#ff6600"/>
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Cold Storage</label>
@@ -496,18 +506,20 @@ const CustomRightArrow = ({ onClick }) => {
                                         </div>
                                         <div className="state p-off custom-icon">
                                                 <div>
-                                                        <Icon path={mdiThermometerLow} size={1.3} />
+                                                        <Icon path={mdiSnowflakeThermometer} size={1.3} />
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem"}}>Cold Storage</label>
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Free Loading-Unloading"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
-                                                        <Icon path={mdiForklift} size={1.3} color="#ff6600"/>
+                                                        <Icon path={mdiDolly} size={1.3} color="#ff6600"/>
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Free Loading</label>
@@ -515,18 +527,20 @@ const CustomRightArrow = ({ onClick }) => {
                                         </div>
                                         <div className="state p-off custom-icon">
                                                 <div>
-                                                        <Icon path={mdiForklift} size={1.3} />
+                                                        <Icon path={mdiDolly} size={1.3} />
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem"}}>Free Loading</label>
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Fire Safety"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
-                                                        <Icon path={mdiFireTruck} size={1.3} color="#ff6600"/>
+                                                        <Icon path={mdiFireExtinguisher} size={1.3} color="#ff6600"/>
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Fire Safety</label>
@@ -534,14 +548,16 @@ const CustomRightArrow = ({ onClick }) => {
                                         </div>
                                         <div className="state p-off custom-icon">
                                                 <div>
-                                                        <Icon path={mdiFireTruck} size={1.3} />
+                                                        <Icon path={mdiFireExtinguisher} size={1.3} />
                                                 </div>
                                                 <div>
                                                         <label style={{ fontSize: "1rem"}}>Fire Safety</label>
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="24-hours availability"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -560,7 +576,9 @@ const CustomRightArrow = ({ onClick }) => {
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Insurance Coverage"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -579,7 +597,9 @@ const CustomRightArrow = ({ onClick }) => {
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Near Airport"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -598,7 +618,9 @@ const CustomRightArrow = ({ onClick }) => {
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Near Seaport"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -621,7 +643,9 @@ const CustomRightArrow = ({ onClick }) => {
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="Quality Control"/>
                                         <div className="state  p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -640,7 +664,9 @@ const CustomRightArrow = ({ onClick }) => {
                                                 </div>
                                         </div>
                                 </div>
-                                <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
                                         <input type="checkbox" title="UV Protection"/>
                                         <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
                                                 <div>
@@ -662,6 +688,78 @@ const CustomRightArrow = ({ onClick }) => {
                                                         <label style={{ fontSize: "1rem"}}>UV Protection</label>
                                                 </div>
                                         </div>
+                                </div>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Truck drive-in"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <FaTruckMoving/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Truck Drive-In</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <FaTruckMoving/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Truck Drive-In</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Labour Availability"/>
+                                        <div className="state  p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <Icon path={mdiAccountHardHat} size={1.3} color="#ff6600"/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Labour Availability</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <Icon path={mdiAccountHardHat} size={1.3} />
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Labour Availability</label>
+                                                </div>
+                                        </div>
+                                </div>
+                                </div>
+                                <div className="filter-adjuster">
+                                        <div className="pretty p-icon p-toggle p-plain" style={{fontSize: "1.8rem"}}>
+                                        <input type="checkbox" title="Fully-Automated"/>
+                                        <div className="state p-on custom-icon" style={{fontSize: "2.2rem"}}>
+                                                <div>
+                                                        <IconContext.Provider
+                                                                value={{color: '#ff6600' }}
+                                                        >
+                                                                <GiGears/>
+                                                        </IconContext.Provider>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem", fontWeight: "bold", color: "#ff6600"}}>Fully-Automated</label>
+                                                </div>
+                                        </div>
+                                        <div className="state p-off custom-icon">
+                                                <div>
+                                                        <GiGears/>
+                                                </div>
+                                                <div>
+                                                        <label style={{ fontSize: "1rem"}}>Fully-Automated</label>
+                                                </div>
+                                        </div>
+                                </div>
                                 </div>
                         </Carousel>
                         </div>
