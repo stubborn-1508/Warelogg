@@ -24,8 +24,8 @@ const Cart = () => {
     const fetchCart = async (id) => {
         try {
             const res = await axios({ url: "/getMyCart", data: { id: id }, method: "post" });
-        //     console.log(res.data);
-            setCart(res.data.cartContent);
+
+            setCart(res.data);
         //     console.log(tot)
         } catch (err) {
             console.log(err);
@@ -45,6 +45,8 @@ const Cart = () => {
             fetchData(usertoken, fetchCart);
         }
     }, []);
+
+//     console.log(cart)
 
     const deleteCart = async (warehouse_id, subUnit_id) => {
         try {

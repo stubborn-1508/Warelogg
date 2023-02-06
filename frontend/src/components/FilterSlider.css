@@ -12,6 +12,11 @@
         flex-direction: column;
         justify-content: space-between;
         text-align: center;
+        margin-top: 10px;
+}
+
+.filter-adjuster{
+        height: 85px;
 }
 
 .search-bar {
