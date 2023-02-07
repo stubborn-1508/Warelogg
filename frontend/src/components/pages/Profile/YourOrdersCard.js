@@ -10,7 +10,7 @@ const convertNumToDate = (num) => {
     let result = "";
     let d = new Date(num);
     result += d.getDate() + "/" + (d.getMonth() + 1) +  "/" + d.getFullYear() 
-    console.log(num);
+    // console.log(result);
     return result;
 }
 
@@ -31,8 +31,8 @@ const YourOrdersCard = ({ muted, bookData }) =>
         fetchSubUnit(id);
         console.log(bookData);
         console.log('hello');
-        console.log(bookData.OccFrom);
-        console.log(bookData.OccTo);
+        console.log(convertNumToDate(bookData.fromOcc));
+        console.log(convertNumToDate(bookData.toOcc));
 
     }, []);
 
