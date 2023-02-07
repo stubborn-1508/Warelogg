@@ -29,3 +29,92 @@ a.cart:hover {
 .dropdown-toggle::after {
   display: none !important;
 }
+
+@media (min-width: 992px) {
+  .listSpaceBT{
+    flex-direction: row;
+  }
+}
+@media (max-width: 991px) {
+  .listSpaceBT{
+    flex-direction: column;
+  }
+  .listSpaceButtonStyle{
+    color: gray;
+  }
+  .posCart{
+    margin-right: 100rem;
+  }
+}
+
+.listSpaceButtonStyle{
+  color : gray; 
+  font-size : 1rem;
+}
+
+.listSpaceButtonStyle:hover{
+  color: orange;
+}
+
+.stayTunedContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: clamp(2rem, 2.8vw, 5rem);
+  font-family: Raleway;
+  font-weight: bold;
+}
+
+.stayTunedTypewriter {
+  color: #f36d3e;
+	width: 21.5ch;
+	white-space: nowrap;
+	overflow: hidden;
+	border-right: 4px solid #212121;
+	animation: cursor 1s step-start infinite, 
+    text 5s steps(18) alternate infinite;
+}
+
+.navBarSearch input[type=text] {
+  width: 130px;
+  box-sizing: border-box;
+  border: 2px solid #fa4717;
+  border-radius: 4rem;
+  font-size: 16px;
+  background-color: white;
+  background-image: url('https://www.w3schools.com/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+  height: 2.5rem;
+}
+
+.navBarSearch input[type=text]:focus {
+  outline: none;
+  /*to remove the focus outline in chrome */
+  width: 300px;
+}
+
+@media (max-width: 991px) {
+  .navBarSearch{
+    margin-left: 1.3rem;
+  }
+}
+
+@keyframes cursor {
+	0%, 100% { 
+    border-color: #212121; 
+  }
+}
+
+@keyframes text {
+	0% { 
+    width: 0; 
+  }
+	100% { 
+    width: 21.5ch; 
+  }
+}
