@@ -1,11 +1,14 @@
 import React from "react";
 import blah from "./emptyCart.svg"
+import "./Cart.css"
 
 export default function Empty(){
         return (
                 <>
-                        <img src={blah} style={{width: "500px"}}/>
-                        <span className="fw-bold"style={{fontSize:"4rem", marginLeft: "150px"}}>Your Cart is Empty!</span>
+                        <div className="empty-image">
+                                <img src={blah} className="cart-image"/>
+                                <span className="fw-bold empty-text">Your Cart is Empty!</span>
+                        </div>
                 </>
         )
 }
