@@ -227,7 +227,7 @@ const MainPage = (props) => {
         </header>
         <div className="clientsBoxDesignMargin">
           <div className="w-100"><Carousel 
-          responsive={responsiveClients}
+          responsive={responsive}
           infinite={true}
           arrows={false}
           autoPlay={true}
@@ -276,7 +276,7 @@ const MainPage = (props) => {
             </div>
           </Carousel>
           </div>
-        </div> */}
+        </div>
       </Container>
     </>
   );
