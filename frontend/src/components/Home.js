@@ -38,24 +38,6 @@ const MainPage = (props) => {
       slidesToSlide: 1,
     }
   };
-
-  // const responsiveClients = {
-  //   desktop: {
-  //     breakpoint: { max: 3000, min: 1214 },
-  //     items: 3,
-  //     slidesToSlide: 1, // optional, default to 1.
-  //   },
-  //   tablet: {
-  //     breakpoint: { max: 1214, min: 866 },
-  //     items: 2,
-  //     slidesToSlide: 1, // optional, default to 1.
-  //   },
-  //   mobile: {
-  //     breakpoint: { max: 866, min: 0 },
-  //     items: 1,
-  //     slidesToSlide: 1, // optional, default to 1.
-  //   }
-  // };
   
   return (
     <>
@@ -256,64 +238,6 @@ const MainPage = (props) => {
           </Carousel>
           </Col>
         </Row>
-        <header className="">
-          <div className="headerClass d-flex flex-column justify-content-around">
-              <h5 className="textBox">TESTIMONIALS</h5>
-              <h1 className="textBox heading">WHAT CLIENTS SAY</h1>
-          </div>
-        </header>
-        <div className="clientsBoxDesignMargin">
-          <div className="w-100"><Carousel 
-          responsive={responsive}
-          infinite={true}
-          arrows={false}
-          autoPlay={true}
-          autoPlaySpeed={5000}
-          removeArrowOnDeviceType={["mobile"]}
-          customTransition="transform 1s ease-in-out"
-          transitionDuration={1000}
-          deviceType={props.deviceType}
-          keyBoardControl={true}
-          itemClass="carousel-item-padding-40-px"
-          >
-            <div className="cardStyle" >
-              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
-              <h6 className="textBox nameSize">TIM DAVID1</h6>
-              <p className="textBox companyName">ROBO CONSTRUCTION</p>
-              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
-              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur.</p>
-            </div>
-            <div className="cardStyle" >
-              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
-              <h6 className="textBox nameSize">TIM DAVID2</h6>
-              <p className="textBox companyName">ROBO CONSTRUCTION</p>
-              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
-              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur.</p>
-            </div>
-            <div className="cardStyle" >
-              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
-              <h6 className="textBox nameSize">TIM DAVID3</h6>
-              <p className="textBox companyName">ROBO CONSTRUCTION</p>
-              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
-              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur.</p>
-            </div>
-            <div className="cardStyle" >
-              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
-              <h6 className="textBox nameSize">TIM DAVID4</h6>
-              <p className="textBox companyName">ROBO CONSTRUCTION</p>
-              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
-              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur.</p>
-            </div>
-            <div className="cardStyle" >
-              <img className="profileStyle" src="images/testimonial-3.jpg"></img>
-              <h6 className="textBox nameSize">TIM DAVID5</h6>
-              <p className="textBox companyName">ROBO CONSTRUCTION</p>
-              <i className="d-flex flex-row justify-content-around iconStyle"><ImQuotesLeft/></i>
-              <p className="para textBox">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At lectus urna duis convallis convallis tellus id interdum velit. Eleifend donec pretium vulputate sapien. At volutpat diam ut venenatis tellus in metus. Dictum at tempor commodo ullamcorper a lacus vestibulum sed arcu. Id volutpat lacus laoreet non curabitur.</p>
-            </div>
-          </Carousel>
-          </div>
-        </div>
       </Container>
     </>
   );

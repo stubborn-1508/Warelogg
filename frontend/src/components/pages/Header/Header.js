@@ -136,7 +136,6 @@ const HeaderSection = () => {
                 <Link
                   to="/cart"
                   className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
-                  style={{zIndex:"-1"}}
                 >
                   <span className="cart-basket d-flex align-items-center justify-content-center">
                     {ctx.cartValue}
@@ -144,7 +143,7 @@ const HeaderSection = () => {
                   <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
                 </Link>
               </div>
-            <Dropdown xs={2} className="d-lg-none d-block mx-2" variant="secondary" style={{zIndex:"-1"}}>
+            <Dropdown xs={2} className="d-lg-none d-block mx-2" variant="secondary">
               <Dropdown.Toggle
                 id="dropdown-autoclose-true dropdownHeader"
                 variant="secondary"
