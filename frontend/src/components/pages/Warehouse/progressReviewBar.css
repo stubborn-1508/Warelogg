@@ -3,5 +3,28 @@
 }
 .progress-bar {
   color: #44425A !important;
-  font-size: large;
+  font-size: small;
+}
+
+.progressReviewBar {
+        height: 20px !important;
+}
+
+.Customer-name {
+        display: flex;
+        justify-content: space-between;
+}
+
+.review-date {
+        font-size: 14px;
+}
+
+.review-duration {
+        display: flex;
+        justify-content: space-between;
+}
+
+.reviewButton {
+        position: relative;
+        left: 25%;
 }
