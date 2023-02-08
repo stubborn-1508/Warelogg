@@ -69,8 +69,7 @@ const StorageTab = () =>
 
   return (
     <div className="nextPageTab">
-      {/* <div className="nextPageTabItem1"><div>Search by Location </div></div> */}
-      <Form className="nextPageTabItem2">
+      <Form className="nextPageTabItem1">
         <Form.Group controlId="formBasicEmail" className="landmarkForm">
           <Form.Control
             type="text"
@@ -80,51 +79,11 @@ const StorageTab = () =>
             />
         </Form.Group>
       </Form>
-      <Link to="/storage" className="nextPageTabItem3">
+      <Link to="/storage" className="nextPageTabItem2">
         <button className="button-360" onClick={ getLocation } type="submit">
           Find Storage Units
-          {/* <i style={{marginLeft:"0.4rem"}}>< AiOutlineSearch/></i> */}
         </button>
       </Link>
-      {/* <Form.Group className="mb-3 d-grid gap-2 text-center text-dark" controlId="formBasicCheckbox">
-        <Form.Label className="col-md-12"><b>Show Locations That Have :</b></Form.Label>
-        <Form.Check
-          id="c1"
-          className="checkX"
-          inline
-          label="CCTV surveillance"
-          name="checkType"
-          type="checkbox"
-          onChange={ handleCheckChange }
-          />
-          <Form.Check
-          id="c2"
-          className="checkX"
-          inline
-          label="Indoor Storage"
-          name="checkType"
-          type="checkbox"
-          onChange={ handleCheckChange }
-          />
-          <Form.Check
-          id="c3"
-          className="checkX"
-          inline
-          label="Outdoor/Drive Up"
-          name="checkType"
-          type="checkbox"
-          onChange={ handleCheckChange }
-          />
-          <Form.Check
-          id="c4"
-          className="checkX"
-          inline
-          label="Climate Control"
-          name="checkType"
-          type="checkbox"
-          onChange={ handleCheckChange }
-          />
-        </Form.Group> */}
     </div>
   );
 };

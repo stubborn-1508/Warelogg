@@ -63,14 +63,6 @@ const HeaderSection = () => {
   const location = useLocation();
   console.log(location.pathname);
 
-  function SearchBarDisplay(){
-    return <div className="navBarSearch">
-    <form>
-      <input type="text" name="search" placeholder="Search.." />
-    </form>
-  </div>
-  }
-
   const [modalShow, setModalShow] = React.useState(false);
   const [registerModalShow, setRegisterModalShow] = React.useState(false);
 
@@ -123,7 +115,6 @@ const HeaderSection = () => {
             </div>
             <div>
               <div className="d-flex listSpaceBT">
-                {location.pathname != "/" && <SearchBarDisplay/>}
                 <Link to="/partner" className="nav-item nav-link listSpaceButtonStyle">
                   List Your Space
                 </Link>
@@ -145,6 +136,7 @@ const HeaderSection = () => {
                 <Link
                   to="/cart"
                   className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
+                  style={{zIndex:"-1"}}
                 >
                   <span className="cart-basket d-flex align-items-center justify-content-center">
                     {ctx.cartValue}
@@ -152,7 +144,7 @@ const HeaderSection = () => {
                   <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
                 </Link>
               </div>
-            <Dropdown xs={2} className="d-lg-none d-block mx-2" variant="secondary">
+            <Dropdown xs={2} className="d-lg-none d-block mx-2" variant="secondary" style={{zIndex:"-1"}}>
               <Dropdown.Toggle
                 id="dropdown-autoclose-true dropdownHeader"
                 variant="secondary"

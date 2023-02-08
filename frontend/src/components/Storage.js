@@ -772,6 +772,13 @@ const CustomRightArrow = ({ onClick }) => {
                                 &nbsp;&nbsp;Filters</button>
                         </div>
                 </div>
+                <div className="navBarSearchContainer">
+                        <div className="navBarSearch">
+                                <form>
+                                        <input type="text" name="search" placeholder="Search.." />
+                                </form>
+                        </div>
+                </div>
             <Row>
               <Col lg={8} md={8} sm={12} xs={12} className="">
                 <Row>

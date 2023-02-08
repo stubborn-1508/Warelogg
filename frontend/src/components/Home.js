@@ -6,6 +6,7 @@ import "react-multi-carousel/lib/styles.css";
 // import "./css/MainPage.css";
 import { Link } from "react-router-dom";
 import { ImQuotesLeft } from "react-icons/im";
+import { GiCheckMark } from "react-icons/gi";
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 
@@ -92,7 +93,7 @@ const MainPage = (props) => {
                     </div>
                     <img
                       className="d-block w-100 frontCar-itemsImg"
-                      src="/images/s1.jpg"
+                      src="/images/warehouseimg4.jpg"
                       alt="First slide"
                     />
                   </div>
@@ -142,8 +143,28 @@ const MainPage = (props) => {
                     </div>
                     <img
                       className="d-block w-100 frontCar-itemsImg"
-                      src="/images/agriculturalstorage.jpg"
+                      src="/images/warehouseimg5.jpg"
                       alt="sixth slide"
+                    />
+                  </div>
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
+                      EXPAND YOUR STORAGE CAPACITY
+                    </div>
+                    <img
+                      className="d-block w-100 frontCar-itemsImg"
+                      src="/images/warehouseimg2.jpg"
+                      alt="seventh slide"
+                    />
+                  </div>
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
+                      CENTRE PLANS THE WORLD'S LARGEST GRAIN STORAGE PROGRAMME FOR FOOD SECURITY: REPORTS
+                    </div>
+                    <img
+                      className="d-block w-100 frontCar-itemsImg"
+                      src="/images/warehouseimg3.jpg"
+                      alt="eighth slide"
                     />
                   </div>
                 </Carousel>
@@ -158,18 +179,18 @@ const MainPage = (props) => {
               <div className="benifitsSubunit">
                 <div className="benifitsSubunitsHeading">RETAILER & ENTERPRISES</div>
                 <div className="benifitsSubunitsContent">
-                  <div className="benifitsSubunitsPoints">* Develop An Agile Distribution Network With Flexible Space & Freight</div>
-                  <div className="benifitsSubunitsPoints">* Manage Your Inventory Overflow, Reduce Distribution Cost</div>
-                  <div className="benifitsSubunitsPoints">* A-Grade Facilities With All Compliances, Integrated Tech To Manage Vendors & Distributors</div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Develop An Agile Distribution Network With Flexible Space & Freight</div></div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Manage Your Inventory Overflow, Reduce Distribution Cost</div></div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> A-Grade Facilities With All Compliances, Integrated Tech To Manage Vendors & Distributors</div></div>
                 </div>
               </div>
               <div className="benifitsSubunit">
-                <div className="benifitsSubunitsHeading">SMALL & MEDIUM SIZE COMPANIES</div>
+                <div className="benifitsSubunitsHeading">SMALL SIZE COMPANIES AND FARMERS</div>
                 <div className="benifitsSubunitsContent">
                 <div className="benifitsSubunitsContent">
-                  <div className="benifitsSubunitsPoints">* Access To World Class Infrastructure At Lowest Price; No Minimum Space Constraint</div>
-                  <div className="benifitsSubunitsPoints">* Reduce Warehousing Cost. Use Space Only When Required & As Much Needed</div>
-                  <div className="benifitsSubunitsPoints">* Move Your Business To New Cities Without Any Investment</div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Access To High Class Infrastructure At Lower Price</div></div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Reduce Warehousing Cost. Use Sub-Units Only When Required & As Much Needed</div></div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Reduce Losses And Easier Market Access For Rural Farmers</div></div>
                 </div>
                 </div>
               </div>
@@ -177,9 +198,9 @@ const MainPage = (props) => {
                 <div className="benifitsSubunitsHeading">E-COMMERCE PLAYERS</div>
                 <div className="benifitsSubunitsContent">
                 <div className="benifitsSubunitsContent">
-                  <div className="benifitsSubunitsPoints">* Network Of Smart & Scalable Fulfilment Centres Integrated With Marketplaces & Last Mile</div>
-                  <div className="benifitsSubunitsPoints">* Pan-India Delivery Within 1-2 Days</div>
-                  <div className="benifitsSubunitsPoints">* Own Branding On Packaging, Lower Fulfilment Cost, Lower TAT & Lesser Returns.</div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Network Of Smart & Scalable Fulfilment Centres Integrated With Marketplaces & Last Mile</div></div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Listing And Booking Warehouses Is Easier Now</div></div>
+                  <div className="benifitsSubunitsPoints"><i className="benifitsSubunitsPointsIcon"><GiCheckMark/></i><div> Fast Growing Network Provides Easy Access.</div></div>
                 </div>
                 </div>
               </div>

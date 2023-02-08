@@ -13,13 +13,6 @@
     width: 9rem;
 }
 
-.filterFindUnits{
-    display: flex;
-    flex-direction: column;
-}
-
-
-
 .overlay {
     position: fixed;
     top: 0;
@@ -68,8 +61,7 @@
 }
 
 .button-360 {
-  /* background-image: linear-gradient(92.88deg, #455EB5 9.16%, #5643CC 43.89%, #673FD7 64.72%); */
-  background-color: #fa794b;
+  background-color: #fc8f68;
   border-radius: 8px;
   border-style: none;
   box-sizing: border-box;
@@ -107,8 +99,8 @@
 }
 
 .nextPageTabItem1{
-    font-weight: 900;
     display: flex; 
+    flex-direction: column;
     justify-content:space-around; 
 }
 
@@ -116,24 +108,9 @@
     display: flex; 
     flex-direction: column;
     justify-content:space-around; 
-    /* border: 2px solid #fa4717; */
-    /* border-radius: 0.65rem; */
-    /* border-color: #fa794b; */
-    /* border-style: none; */
-}
-
-.nextPageTabItem3{
-    display: flex; 
-    flex-direction: column;
-    justify-content:space-around; 
     margin-left: 0rem;
 }
 
-@media (min-width: 1000px) {
-    .nextPageTabItem2{
-        width: 75%;
-    }
-}
 
 @media (min-width: 786px) {
     .nextPageTab{
@@ -141,34 +118,28 @@
         justify-content: space-between;
         width: 100%;
     }
-    .nextPageTabItem1{
-        font-size: 1.1rem;
-        flex-direction: column;
-        width: 200px;
-    }
-    .nextPageTabItem3{
+    .nextPageTabItem2{
         width: 209px;
     }
-    .nextPageTabItem2{
+    .nextPageTabItem1{
         width: 60%;
     }
 }
 
+@media (min-width: 1000px) {
+    .nextPageTabItem1{
+        width: 75%;
+    }
+}
 
 @media (max-width: 786px) {
     .nextPageTab{
         flex-direction: column;
         justify-content: space-between;
     }
-    .nextPageTabItem1{
-        flex-direction: row;
-        justify-content: space-around;
-        font-size: 1rem;
-        margin-bottom: 1rem;
-    }
 }    
 
 .landmarkForm{
-    border: 2px solid #fa4717;
+    border: 2px solid rgb(249, 165, 69);
     border-radius: 0.65rem;
 }
