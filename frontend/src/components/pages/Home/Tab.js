@@ -11,13 +11,14 @@ const TabX = () =>
       defaultActiveKey="storage"
       id="uncontrolled-tab-example"
       className="mb-3 tabsView"
+      style={{marginLeft:"-2rem", display: "none"}}
     >
       <Tab className="" eventKey="storage" title="Storage">
         <StorageUnitTab />
       </Tab>
-      <Tab eventKey="shipping" title="Shipping">
+      {/* <Tab eventKey="shipping" title="Shipping">
         <ShippingTab />
-      </Tab>
+      </Tab> */}
     </Tabs>
   );
 };

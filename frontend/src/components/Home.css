@@ -39,21 +39,8 @@
     justify-content: center;
 }
 .carousel .slide{ background: none; }
-/* .clientBtnStyle{
-    padding: 0.3rem 2rem;
-    background-color: #ff6600;
-    border-radius: 2rem;
-    color: black;
-    border: none;
-}
 
-.clientBtnStyle:hover{
-    background-color: #cc5403;
-    color: black;
-    text-decoration: none;
-} */
-
-.headerClass{
+/* .headerClass{
     width: 40rem;
     margin: auto;
     margin-bottom: 5rem;
@@ -70,13 +57,11 @@
 .cardStyle{
     width: 20rem;
     margin-left: 3rem;
-    /* margin-right: 600rem; */
     padding: 1rem 1rem;
     border-radius: 1rem;
     background-color: rgb(240, 240, 216);
     box-shadow: 0.4rem 0.4rem 1rem rgb(123, 119, 119);
     justify-content: center;
-    /* margin-bottom: 3rem; */
 }
 
 .profileStyle{
@@ -105,8 +90,7 @@
 
 .clientStyle{
     flex-wrap: wrap;
-    /* margin: 1rem 20rem; */
-}
+} */
 
 .bothUnits{
     flex-wrap: wrap;
@@ -116,16 +100,22 @@
 .warehouseImages{
     width: 60rem;
     margin-top: 1rem;
-    /* margin-right: 3rem;  */
+    border-radius: 0.5rem;
 }
 
 
 .nextPage{
-    width: 28rem;
     margin-top: 1rem;
-    /* margin-left: 3rem;
-    margin-top: 1rem;
-    margin-right: 3rem; */
+    border-radius: 1rem;
+    width: 100%
+}
+
+.frontCar-items{
+    height: 29rem;
+}
+
+.frontCar-items:hover{
+    cursor: pointer;
 }
 
 @media (max-width: 1245px) {
@@ -142,15 +132,13 @@
 
 @media (min-width: 1245px){
     .bothUnits{
-        display: grid;
-        width: 100%;
+        /* display: grid; */
+        width: 95%;
         padding-right: 2rem;
     }
     .warehouseImages{
-        width: 63%;
-    }
-    .nextPage{
-        width: 32%;
+        width: 100%;
+        margin-right: 2rem;
     }
 }
 
@@ -160,7 +148,17 @@
     }
 }
 
-.clientsBar{
+.frontCar-items{
+    font-size: 3rem;
+}
+
+@media (max-width: 471px) {
+    .frontCar-items{
+        font-size: 2rem;
+    }
+}
+
+/* .clientsBar{
     justify-content: center;
 }
 
@@ -196,3 +194,45 @@
         font-size: 500px;
     }
 }
+
+@media (min-width: 1382px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 1214px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 866px) {
+    .clientsBoxDesignMargin{
+        margin-left: 8rem;
+    }
+}
+
+@media (max-width: 635px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 519px) {
+    .clientsBoxDesignMargin{
+        margin-left: 3rem;
+    }
+}
+
+@media (max-width: 479px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 399px) {
+    .clientsBoxDesignMargin{
+        margin-left: 2rem;
+    }
+} */
