@@ -92,6 +92,10 @@ a.cart:hover {
   height: 2.5rem;
 }
 
+.dropdownMenu{
+  background-color: #fa4717;
+}
+
 .navBarSearch input[type=text]:focus {
   outline: none;
   /*to remove the focus outline in chrome */

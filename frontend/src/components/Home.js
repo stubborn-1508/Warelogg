@@ -86,86 +86,102 @@ const MainPage = (props) => {
                   deviceType={props.deviceType}
                   itemClass="carousel-item-padding-40-px"
                 >
-                  <div className="frontCar-items"
-                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem", boxShadow:"2rem"}}
-                    onClick={()=>{Navigate('/storage')}}
-                    >
-                      <div style={{position: "absolute", top: "5%", left: "0%", zIndex:"9", borderRadius:"0.5rem"}}>
-                        NOW STOCK CLOSER TO YOUR CUSTOMERS FOR FASTER DELIVERY
-                      </div>
-                      <img
-                        className="d-block w-100"
-                        src="/images/s1.jpg"
-                        alt="First slide"
-                        style={{ height: "29rem", objectFit: "fill", opacity:"0.7", borderRadius:"0.5rem"}}
-                      />
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
+                      NOW STOCK CLOSER TO YOUR CUSTOMERS FOR FASTER DELIVERY
+                    </div>
+                    <img
+                      className="d-block w-100 frontCar-itemsImg"
+                      src="/images/s1.jpg"
+                      alt="First slide"
+                    />
                   </div>
-                  <div className="frontCar-items"
-                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
-                    onClick={()=>{Navigate('/storage')}}>
-                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
                       LEADING WAREHOUSING PLATFORM
                     </div>
                     <img
-                      className="d-block w-100"
-                      src="/images/s2.jpg"
+                      className="d-block w-100 frontCar-itemsImg"
+                      src="/images/warehouseimg1.jpg"
                       alt="Second slide"
-                      style={{ height: "29rem", objectFit: "cover", opacity:"0.7", borderRadius:"0.5rem"}}
                     />
                   </div>
-                  <div className="frontCar-items"
-                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
-                    onClick={()=>{Navigate('/storage')}}>
-                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
                       BEST WAREHOUSING & LOGISTICS PLATFORM
                     </div>
                     <img
-                      className="d-block w-100"
+                      className="d-block w-100 frontCar-itemsImg"
                       src="/images/s3.jpg"
                       alt="Third slide"
-                      style={{ height: "29rem", objectFit: "fill", opacity:"0.7", borderRadius:"0.5rem"}}
                     />
                   </div>
-                  <div className="frontCar-items"
-                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
-                    onClick={()=>{Navigate('/storage')}}>
-                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
                       WAY TO BOOK WAREHOUSE FROM HOME
                     </div>
                     <img
-                      className="d-block w-100"
+                      className="d-block w-100 frontCar-itemsImg"
                       src="/images/s4.jpg"
                       alt="Fourth slide"
-                      style={{ height: "29rem", objectFit: "fill", opacity:"0.7", borderRadius:"0.5rem"}}
                     />
                   </div>
-                  <div className="frontCar-items"
-                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
-                    onClick={()=>{Navigate('/storage')}}>
-                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
                       BEST SERVICE PROVIDERS IN INDIA
                     </div>
                     <img
-                      className="d-block w-100"
+                      className="d-block w-100 frontCar-itemsImg"
                       src="/images/s5.jpg"
                       alt="Fifth slide"
-                      style={{ height: "29rem", objectFit: "fill",backgroundColor:"white", opacity:"0.7", borderRadius:"0.5rem"}}
                     />
                   </div>
-                  <div className="frontCar-items"
-                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
-                    onClick={()=>{Navigate('/storage')}}>
-                    <div style={{position: "absolute", top: "5%", left: "0%", zIndex:"9", borderRadius:"0.5rem"}}>
-                    REDUCING POST HARVEST LOSSES AND INCREASING MARKET ACCESS FOR RURAL FARMERS
+                  <div className="frontCar-items" onClick={()=>{Navigate('/storage')}}>
+                    <div className="frontCar-itemsText">
+                      REDUCING POST HARVEST LOSSES AND INCREASING MARKET ACCESS FOR RURAL FARMERS
                     </div>
                     <img
-                      className="d-block w-100"
+                      className="d-block w-100 frontCar-itemsImg"
                       src="/images/agriculturalstorage.jpg"
-                      alt="Fifth slide"
-                      style={{ height: "29rem", objectFit: "fill",backgroundColor:"white", opacity:"0.7", borderRadius:"0.5rem"}}
+                      alt="sixth slide"
                     />
                   </div>
-                  </Carousel>
+                </Carousel>
+              </div>
+            </div>
+          </div>
+          <div className="benifitsBar">
+            <div className="benifitsHeading">
+              THE WARELOGG BENIFITS TO YOUR BUSINESS
+            </div>
+            <div className="benifitsSubunitsContainer">
+              <div className="benifitsSubunit">
+                <div className="benifitsSubunitsHeading">RETAILER & ENTERPRISES</div>
+                <div className="benifitsSubunitsContent">
+                  <div className="benifitsSubunitsPoints">* Develop An Agile Distribution Network With Flexible Space & Freight</div>
+                  <div className="benifitsSubunitsPoints">* Manage Your Inventory Overflow, Reduce Distribution Cost</div>
+                  <div className="benifitsSubunitsPoints">* A-Grade Facilities With All Compliances, Integrated Tech To Manage Vendors & Distributors</div>
+                </div>
+              </div>
+              <div className="benifitsSubunit">
+                <div className="benifitsSubunitsHeading">SMALL & MEDIUM SIZE COMPANIES</div>
+                <div className="benifitsSubunitsContent">
+                <div className="benifitsSubunitsContent">
+                  <div className="benifitsSubunitsPoints">* Access To World Class Infrastructure At Lowest Price; No Minimum Space Constraint</div>
+                  <div className="benifitsSubunitsPoints">* Reduce Warehousing Cost. Use Space Only When Required & As Much Needed</div>
+                  <div className="benifitsSubunitsPoints">* Move Your Business To New Cities Without Any Investment</div>
+                </div>
+                </div>
+              </div>
+              <div className="benifitsSubunit">
+                <div className="benifitsSubunitsHeading">E-COMMERCE PLAYERS</div>
+                <div className="benifitsSubunitsContent">
+                <div className="benifitsSubunitsContent">
+                  <div className="benifitsSubunitsPoints">* Network Of Smart & Scalable Fulfilment Centres Integrated With Marketplaces & Last Mile</div>
+                  <div className="benifitsSubunitsPoints">* Pan-India Delivery Within 1-2 Days</div>
+                  <div className="benifitsSubunitsPoints">* Own Branding On Packaging, Lower Fulfilment Cost, Lower TAT & Lesser Returns.</div>
+                </div>
+                </div>
               </div>
             </div>
           </div>

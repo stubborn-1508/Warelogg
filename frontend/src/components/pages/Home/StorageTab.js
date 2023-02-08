@@ -71,7 +71,7 @@ const StorageTab = () =>
     <div className="nextPageTab">
       {/* <div className="nextPageTabItem1"><div>Search by Location </div></div> */}
       <Form className="nextPageTabItem2">
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formBasicEmail" className="landmarkForm">
           <Form.Control
             type="text"
             placeholder="Zip, City, State or Landmark"
@@ -82,9 +82,8 @@ const StorageTab = () =>
       </Form>
       <Link to="/storage" className="nextPageTabItem3">
         <button className="button-360" onClick={ getLocation } type="submit">
-          {/* <img src="/images/logo.png" style={{height:"2rem", marginRight:"0.4rem"}}></img> */}
-          Find Units
-          <i>< AiOutlineSearch/></i>
+          Find Storage Units
+          {/* <i style={{marginLeft:"0.4rem"}}>< AiOutlineSearch/></i> */}
         </button>
       </Link>
       {/* <Form.Group className="mb-3 d-grid gap-2 text-center text-dark" controlId="formBasicCheckbox">
