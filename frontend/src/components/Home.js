@@ -7,8 +7,10 @@ import "react-multi-carousel/lib/styles.css";
 import { Link } from "react-router-dom";
 import { ImQuotesLeft } from "react-icons/im";
 import "./Home.css";
+import { useNavigate } from "react-router-dom";
 
 const MainPage = (props) => {
+  const Navigate = useNavigate()
   console.log(props);
   const responsive = {
     desktop: {
@@ -28,135 +30,38 @@ const MainPage = (props) => {
     }
   };
 
-  const responsiveClients = {
+  const responsiveWarehouse = {
     desktop: {
-      breakpoint: { max: 3000, min: 1214 },
-      items: 3,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-    tablet: {
-      breakpoint: { max: 1214, min: 866 },
-      items: 2,
-      slidesToSlide: 1, // optional, default to 1.
-    },
-    mobile: {
-      breakpoint: { max: 866, min: 0 },
+      breakpoint: { max: 3000, min: 0 },
       items: 1,
-      slidesToSlide: 1, // optional, default to 1.
+      slidesToSlide: 1,
     }
   };
+
+  // const responsiveClients = {
+  //   desktop: {
+  //     breakpoint: { max: 3000, min: 1214 },
+  //     items: 3,
+  //     slidesToSlide: 1, // optional, default to 1.
+  //   },
+  //   tablet: {
+  //     breakpoint: { max: 1214, min: 866 },
+  //     items: 2,
+  //     slidesToSlide: 1, // optional, default to 1.
+  //   },
+  //   mobile: {
+  //     breakpoint: { max: 866, min: 0 },
+  //     items: 1,
+  //     slidesToSlide: 1, // optional, default to 1.
+  //   }
+  // };
   
   return (
     <>
       <Container fluid className="p-0 mt-5" style={{ zIndex: 7 }}>
         <div className="d-flex flex-row bothUnits">
-          <div className="warehouseImages">
-            <div className="container-fluid p-0 h-100">
-              <div
-                id="header-carousel"
-                className="carousel slide carousel-fade h-100"
-                data-ride="carousel"
-              >
-                <ol className="carousel-indicators">
-                  <li
-                    data-target="#header-carousel"
-                    data-slide-to={0}
-                    className="active"
-                  />
-                  <li data-target="#header-carousel" data-slide-to={1} />
-                  <li data-target="#header-carousel" data-slide-to={2} />
-                </ol>
-                <div className="carousel-inner h-100">
-                  <div className="carousel-item active img-1">
-                    <img
-                      className="position-relative w-100"
-                      src="/images/s3.jpg"
-                      style={{ height: "100%", objectFit: "cover" }}
-                      alt="cover"
-                    />
-                    <div className="carousel-caption d-flex align-items-center justify-content-center">
-                      <div
-                        className="p-5"
-                        style={{ width: "100%", maxWidth: 900 }}
-                      >
-                        <h5 className="text-white text-uppercase mb-md-3 responsiveWarehouseFontH5">
-                          Best Service Providers in India
-                        </h5>
-                        <h1 className="display-3 text-white mb-md-4 responsiveWarehouseFontH1">
-                          Now Stock closer to your customers for faster delivery
-                        </h1>
-                        {/* <Link
-                          to="/"
-                          className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
-                        >
-                          Learn More
-                        </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="carousel-item img-2">
-                    <img
-                      className="position-relative w-100"
-                      src="/images/s6.jpg"
-                      style={{ height: "100%", objectFit: "cover" }}
-                      alt="cover"
-                    />
-                    <div className="carousel-caption d-flex align-items-center justify-content-center">
-                      <div
-                        className="p-5"
-                        style={{ width: "100%", maxWidth: 900 }}
-                      >
-                        <h5 className="text-white text-uppercase mb-md-3 responsiveWarehouseFontH5">
-                          Leading Warehousing Platform
-                        </h5>
-                        <h1 className="display-3 text-white mb-md-4 responsiveWarehouseFontH1">
-                          Best Warehousing & logistics Platform
-                        </h1>
-                        {/* <Link
-                          to="/"
-                          className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
-                        >
-                          Learn More
-                        </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                  <div className="carousel-item img-3">
-                    <img
-                      className="position-relative w-100"
-                      src="/images/s1.jpg"
-                      style={{ height: "100%", objectFit: "cover" }}
-                      alt="cover"
-                    />
-                    <div className="carousel-caption d-flex align-items-center justify-content-center">
-                      <div
-                        className="p-5"
-                        style={{ width: "100%", maxWidth: 900 }}
-                      >
-                        <h5 className="text-white text-uppercase mb-md-3 responsiveWarehouseFontH5">
-                          Best Service Providers in India
-                        </h5>
-                        <h1 className="display-3 text-white mb-md-4 responsiveWarehouseFontH1">
-                          Way To Book Warehouse From Home
-                        </h1>
-                        {/* <Link
-                          to="/"
-                          className="btn btn-primary py-md-2 px-md-4 font-weight-semi-bold mt-2"
-                        >
-                          Learn More
-                        </Link> */}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="nextPage">
-            <Card
-              style={{ zIndex: 7 }}
-              className="shadow p-3 bg-white rounded card-1"
-            >
+          <div className="nextPage bg-white">
+            <Card className="bg-white">
               <Card.Body className="cardStorageBody">
                 <Row>
                   <Col md={12} className="mx-3">
@@ -166,10 +71,110 @@ const MainPage = (props) => {
               </Card.Body>
             </Card>
           </div>
+          <div className="warehouseImages" >
+            <div className="d-flex warehouseImgCarouselStyle" style={{margin:"0rem 0 0 -2rem ",padding:"0 0rem", marginLeft:"-2rem"}}>
+              <div className="w-100" style={{paddingLeft:"2rem", borderRadius:"2rem", boxShadow:"6rem"}}>
+                <Carousel 
+                  responsive={responsiveWarehouse}
+                  infinite={true}
+                  arrows={false}
+                  autoPlay={props.deviceType !== "mobile" ? true : false}
+                  autoPlaySpeed={5000}
+                  customTransition="transform 1s ease-in-out"
+                  transitionDuration={1000}
+                  containerClass="carousel-container"
+                  deviceType={props.deviceType}
+                  itemClass="carousel-item-padding-40-px"
+                >
+                  <div className="frontCar-items"
+                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem", boxShadow:"2rem"}}
+                    onClick={()=>{Navigate('/storage')}}
+                    >
+                      <div style={{position: "absolute", top: "5%", left: "0%", zIndex:"9", borderRadius:"0.5rem"}}>
+                        NOW STOCK CLOSER TO YOUR CUSTOMERS FOR FASTER DELIVERY
+                      </div>
+                      <img
+                        className="d-block w-100"
+                        src="/images/s1.jpg"
+                        alt="First slide"
+                        style={{ height: "29rem", objectFit: "fill", opacity:"0.7", borderRadius:"0.5rem"}}
+                      />
+                  </div>
+                  <div className="frontCar-items"
+                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
+                    onClick={()=>{Navigate('/storage')}}>
+                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                      LEADING WAREHOUSING PLATFORM
+                    </div>
+                    <img
+                      className="d-block w-100"
+                      src="/images/s2.jpg"
+                      alt="Second slide"
+                      style={{ height: "29rem", objectFit: "cover", opacity:"0.7", borderRadius:"0.5rem"}}
+                    />
+                  </div>
+                  <div className="frontCar-items"
+                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
+                    onClick={()=>{Navigate('/storage')}}>
+                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                      BEST WAREHOUSING & LOGISTICS PLATFORM
+                    </div>
+                    <img
+                      className="d-block w-100"
+                      src="/images/s3.jpg"
+                      alt="Third slide"
+                      style={{ height: "29rem", objectFit: "fill", opacity:"0.7", borderRadius:"0.5rem"}}
+                    />
+                  </div>
+                  <div className="frontCar-items"
+                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
+                    onClick={()=>{Navigate('/storage')}}>
+                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                      WAY TO BOOK WAREHOUSE FROM HOME
+                    </div>
+                    <img
+                      className="d-block w-100"
+                      src="/images/s4.jpg"
+                      alt="Fourth slide"
+                      style={{ height: "29rem", objectFit: "fill", opacity:"0.7", borderRadius:"0.5rem"}}
+                    />
+                  </div>
+                  <div className="frontCar-items"
+                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
+                    onClick={()=>{Navigate('/storage')}}>
+                    <div style={{position: "absolute", top: "5%", left: "5%", zIndex:"9", borderRadius:"0.5rem"}}>
+                      BEST SERVICE PROVIDERS IN INDIA
+                    </div>
+                    <img
+                      className="d-block w-100"
+                      src="/images/s5.jpg"
+                      alt="Fifth slide"
+                      style={{ height: "29rem", objectFit: "fill",backgroundColor:"white", opacity:"0.7", borderRadius:"0.5rem"}}
+                    />
+                  </div>
+                  <div className="frontCar-items"
+                    style={{position:"relative", textAlign: "center", color: "white", fontWeight:"900", backgroundColor:"#141414", borderRadius:"0.5rem"}}
+                    onClick={()=>{Navigate('/storage')}}>
+                    <div style={{position: "absolute", top: "5%", left: "0%", zIndex:"9", borderRadius:"0.5rem"}}>
+                    REDUCING POST HARVEST LOSSES AND INCREASING MARKET ACCESS FOR RURAL FARMERS
+                    </div>
+                    <img
+                      className="d-block w-100"
+                      src="/images/agriculturalstorage.jpg"
+                      alt="Fifth slide"
+                      style={{ height: "29rem", objectFit: "fill",backgroundColor:"white", opacity:"0.7", borderRadius:"0.5rem"}}
+                    />
+                  </div>
+                  </Carousel>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="d-flex" style={{margin:"10rem 0",padding:"0 2rem", marginLeft:"-2rem"}}>
-          <card className="w-25 d-flex justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
-          <div className="w-75"><Carousel 
+        <Row className="d-flex" style={{margin:"10rem 3rem"}}>
+          <Col md={3} xs={6} className="px-0">
+          <card className="d-flex h-100 justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
+          </Col>
+          <Col md={9} xs={6} className="px-0"><Carousel 
           responsive={responsive}
           infinite={true}
           arrows={false}
@@ -191,7 +196,7 @@ const MainPage = (props) => {
               className="d-block w-100"
               src="/images/IIT_MANDI_CATALYST.jpg"
               alt="Second slide"
-              style={{ height: "100%", objectFit: "cover" }}
+              style={{ height: "100%", objectFit: "contain" }}
             /></div>
             <div className="sup-items"><img
               className="d-block w-100"
@@ -212,28 +217,27 @@ const MainPage = (props) => {
               style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             /></div>
           </Carousel>
-          </div>
-        </div>
+          </Col>
+        </Row>
         <header className="">
           <div className="headerClass d-flex flex-column justify-content-around">
               <h5 className="textBox">TESTIMONIALS</h5>
               <h1 className="textBox heading">WHAT CLIENTS SAY</h1>
-              <p className="textBox">leo duis ut diam quam nulla porttitor massa id neque aliquam vestibulum morbi blandit cursus risus at ultrices mi tempus</p>
           </div>
         </header>
-        <div className="d-flex" style={{margin:"10rem 3rem",padding:"0 0rem", marginLeft:"3rem"}}>
+        <div className="clientsBoxDesignMargin">
           <div className="w-100"><Carousel 
-          responsive={responsiveClients}
+          responsive={responsive}
           infinite={true}
-          arrows={true}
-          // showDots={true}
+          arrows={false}
+          autoPlay={true}
+          autoPlaySpeed={5000}
           removeArrowOnDeviceType={["mobile"]}
           customTransition="transform 1s ease-in-out"
           transitionDuration={1000}
           deviceType={props.deviceType}
           keyBoardControl={true}
           itemClass="carousel-item-padding-40-px"
-          // className="clientsBar"
           >
             <div className="cardStyle" >
               <img className="profileStyle" src="images/testimonial-3.jpg"></img>
