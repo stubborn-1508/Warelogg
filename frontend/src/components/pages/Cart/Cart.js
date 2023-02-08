@@ -6,6 +6,7 @@ import { BsCart3 } from "react-icons/bs";
 import { IconContext } from "react-icons";
 import Empty from "./Empty.js"
 import axios from 'axios';
+import "./Cart.css"
 
 const Cart = () => {
     const navigate = useNavigate();
@@ -158,20 +159,22 @@ const Cart = () => {
                         return (
                                 <div key={ind}className="card mb-3 shadow mb-5 bg-white rounded">
                   <div className="card-body ">
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex flex-row align-items-center">
+                    <div className="cart-item">
+                      <div className="picture-name" style={{width: "100%"}}>
                         <div>
                           <img
                             src="images/s4.jpg"
                             className="img-fluid rounded-3" alt="Shopping item" style={{width: "150px"}}/>
                         </div>
-                        <div className="ms-3">
-                          <h5 style={{color:"black"}}>{ele.Name}</h5>
+                        <div className="ms-3 name-size">
+                        <div className="name-text">
+                                {ele.Name}
+                        </div>
                           <p className="small mb-0">{ele.Size}</p>
                         </div>
                       </div>
-                      <div className="d-flex justify-content-between align-items-center" style={{width: "350px"}}>
-                        <div className="fw-bold" style={{color:"black", fontSize:"1rem"}}>
+                      <div className="d-flex justify-content-between align-items-center" style={{width: "100%"}}>
+                        <div className="fw-bold date-content" style={{color:"black", fontSize:"1rem"}}>
                                 <p className="mb-0">From: <span className='fw-normal'>&nbsp;{startFormat}</span></p>
                                 <p className="mb-0">To: &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<span className='fw-normal'>{endFormat}</span></p>
                         </div>
@@ -180,7 +183,7 @@ const Cart = () => {
                         </div>
                         <a onClick={() => {
                                 deleteCart(ele.warehouse_id, ele.subUnit_id)
-                                }} href="#!" className="text-danger"><i class="fas fa-trash-alt"></i></a>
+                                }} href="#!" className="text-danger responsive-del-s"><i class="fas fa-trash-alt"></i></a>
                         
                       </div>
                                                         
