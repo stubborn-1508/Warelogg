@@ -16,6 +16,9 @@ import { Dropdown, Button, Row, Col, Container } from "react-bootstrap";
 import LoginModal from "../Login/LoginModal";
 import RegisterModal from "../Register/RegisterModal";
 import "react-icons";
+import { useLocation } from 'react-router-dom'
+
+
 
 const styles = {
   fontFamily: "Mrs+Sheppards",
@@ -56,6 +59,17 @@ const HeaderSection = () => {
 
     fetchData(usertoken);
   }, []);
+
+  const location = useLocation();
+  console.log(location.pathname);
+
+  function SearchBarDisplay(){
+    return <div className="navBarSearch">
+    <form>
+      <input type="text" name="search" placeholder="Search.." />
+    </form>
+  </div>
+  }
 
   const [modalShow, setModalShow] = React.useState(false);
   const [registerModalShow, setRegisterModalShow] = React.useState(false);
@@ -109,11 +123,7 @@ const HeaderSection = () => {
             </div>
             <div>
               <div className="d-flex listSpaceBT">
-                <div className="navBarSearch">
-                  <form>
-                    <input type="text" name="search" placeholder="Search.." />
-                  </form>
-                </div>
+                {location.pathname != "/" && <SearchBarDisplay/>}
                 <Link to="/partner" className="nav-item nav-link listSpaceButtonStyle">
                   List Your Space
                 </Link>
@@ -156,7 +166,7 @@ const HeaderSection = () => {
                   alt=""
                 />
               </Dropdown.Toggle>
-              <Dropdown.Menu>
+              <Dropdown.Menu className="dropdownMenu">
                       <Link to="/profile" className="nav-item nav-link">
                         <Dropdown.Item as="button">Profile</Dropdown.Item>
                       </Link>
