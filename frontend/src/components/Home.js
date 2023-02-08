@@ -168,10 +168,10 @@ const MainPage = (props) => {
           </div>
         </div>
         <Row className="d-flex" style={{margin:"10rem 3rem"}}>
-          <Col md={3} xs={6} className="px-0">
-          <card className="d-flex h-100 justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
+          <Col md={3} xs={12} className="px-0 mb-2">
+          <card className="d-flex h-100 justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0  my-4">Our Supporters</h3></card>
           </Col>
-          <Col md={9} xs={6} className="px-0"><Carousel 
+          <Col md={9} xs={12} className="px-0 mb-2"><Carousel 
           responsive={responsive}
           infinite={true}
           arrows={false}

@@ -49,8 +49,7 @@ const BecomePartner = () => {
   const [height, setHeight] = useState(new Array(100000).fill(""));
   const [area, setArea] = useState(new Array(100000).fill("0"));
   const [volume, setVolume] = useState(new Array(100000).fill("0"));
-  const [totalPrice,setTotalPrice]=useState();
-
+  const [totalPrice, setTotalPrice] = useState(new Array(100000).fill("0"));
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -60,7 +59,7 @@ const BecomePartner = () => {
   const [images, setImages] = useState([]);
   const maxNumber = 69;
 
-  const [files, setFiles]= useState([]);
+  const [files, setFiles] = useState([]);
   const hiddenFileInput = useRef(null);
 
   const handleFileClick = (event) => {
@@ -69,26 +68,25 @@ const BecomePartner = () => {
 
   const handleFileChange = (event) => {
     const fileUploaded = event.target.files[0].name;
-    let flag=false;
-    for(let i=0;i<files.length;i++){
-      if(files[i]===''){
-      files[i]=fileUploaded;
-      flag=true;
-      break;
+    let flag = false;
+    for (let i = 0; i < files.length; i++) {
+      if (files[i] === "") {
+        files[i] = fileUploaded;
+        flag = true;
+        break;
       }
     }
-    if(flag===false)
-    {
-    files.push(fileUploaded);
+    if (flag === false) {
+      files.push(fileUploaded);
     }
     setFiles([...files]);
     console.log(files);
   };
 
-  const areaChangeHandler=(event)=>{
-    let temp=event.target.value;
-    setTotalPrice(25*temp);
-  };
+  // const areaChangeHandler = (event) => {
+  //   let temp = event.target.value;
+  //   setTotalPrice(25 * temp);
+  // };
 
   const [unit, setUnit] = useState({
     counter: 1,
@@ -105,16 +103,16 @@ const BecomePartner = () => {
     setImages(imageList);
   };
 
-  const videoRemoveHandler=(index)=>{
-    files.splice(index,1);
+  const videoRemoveHandler = (index) => {
+    files.splice(index, 1);
     console.log(files);
     console.log(files.length);
     setFiles([...files]);
-  }
-  const videoUpdateHandler=(index)=>{
-    files[index]="";
+  };
+  const videoUpdateHandler = (index) => {
+    files[index] = "";
     handleFileClick();
-  }
+  };
 
   const add = (e) => {
     e.preventDefault();
@@ -157,10 +155,12 @@ const BecomePartner = () => {
     tempheight[ind] = "";
     temparea[ind] = "0";
     tempvol[ind] = "0";
+    totalPrice[ind]="0";
     setLength([...templength]);
     setWidth([...tempwidth]);
     setHeight([...tempheight]);
     setArea([...area]);
+    setTotalPrice([...totalPrice]);
     setVolume([...volume]);
   };
 
@@ -212,10 +212,11 @@ const BecomePartner = () => {
     let iniVol = volume;
     iniArr[ind] = e.target.value;
     iniArea[ind] = e.target.value * width[ind];
+    totalPrice[ind] =iniArea[ind]*25;
     iniVol[ind] = e.target.value * width[ind] * height[ind];
-    setArea([...iniArea]);
     setLength([...iniArr]);
-    console.log(area[ind]);
+    setArea([...iniArea]);
+    setTotalPrice([...totalPrice]);
     setVolume([...iniVol]);
   };
 
@@ -226,11 +227,11 @@ const BecomePartner = () => {
     let iniVol = volume;
     iniArr[ind] = e.target.value;
     iniArea[ind] = e.target.value * length[ind];
+    totalPrice[ind] =iniArea[ind]*25;
     iniVol[ind] = e.target.value * length[ind] * height[ind];
     setWidth([...iniArr]);
     setArea([...iniArea]);
-    console.log(width);
-    console.log(area);
+    setTotalPrice([...totalPrice]);
     setVolume([...iniVol]);
   };
 
@@ -478,7 +479,7 @@ const BecomePartner = () => {
                 <div
                   style={{
                     border: "1px solid black",
-                    borderRadius:"0.25rem",
+                    borderRadius: "0.25rem",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -507,35 +508,85 @@ const BecomePartner = () => {
                             </h4>
                           )}
 
-                          <Form.Group className="mb-3">
-                            <Form.Label>Length (in ft)</Form.Label>
-                            <Form.Control
-                              id={ind + "$l"}
-                              type="text"
-                              value={length[ind]}
-                              onChange={handleChangeLength}
-                              required
-                            ></Form.Control>
+                          <Form.Group as={Row} className="mb-3 p-1">
+                            <Form.Label column sm={3}>Length (in ft)</Form.Label>
+                            <Col sm={9}>
+                              <InputGroup>
+                                <InputGroup.Text>ft</InputGroup.Text>
+                                <Form.Control
+                                  id={ind + "$l"}
+                                  type="text"
+                                  value={length[ind]}
+                                  onChange={handleChangeLength}
+                                  required
+                                ></Form.Control>
+                              </InputGroup>
+                            </Col>
                           </Form.Group>
-                          <Form.Group className="mb-3">
-                            <Form.Label>Width (in ft)</Form.Label>
-                            <Form.Control
-                              id={ind + "$w"}
-                              type="text"
-                              value={width[ind]}
-                              onChange={handleChangeWidth}
-                              required
-                            ></Form.Control>
+                          <Form.Group as={Row} className="mb-3 p-1">
+                            <Form.Label column sm={3}>Width (in ft)</Form.Label>
+                            <Col sm={9}>
+                              <InputGroup>
+                                <InputGroup.Text>ft</InputGroup.Text>
+                                <Form.Control
+                                  id={ind + "$w"}
+                                  type="text"
+                                  value={width[ind]}
+                                  onChange={handleChangeWidth}
+                                  required
+                                ></Form.Control>
+                              </InputGroup>
+                            </Col>
                           </Form.Group>
-                          <Form.Group className="mb-3">
-                            <Form.Label>Height (in ft)</Form.Label>
-                            <Form.Control
-                              id={ind + "$h"}
-                              type="text"
-                              value={height[ind]}
-                              onChange={handleChangeHeight}
-                              required
-                            ></Form.Control>
+                          <Form.Group as={Row} className="mb-3 p-1">
+                            <Form.Label column sm={3}>Height (in ft)</Form.Label>
+                            <Col  sm={9}>
+                              <InputGroup>
+                                <InputGroup.Text>ft</InputGroup.Text>
+                                <Form.Control
+                                  id={ind + "$h"}
+                                  type="text"
+                                  value={height[ind]}
+                                  onChange={handleChangeHeight}
+                                  required
+                                ></Form.Control>
+                              </InputGroup>
+                            </Col>
+                          </Form.Group>
+                          <Form.Group
+                            as={Row}
+                            className="mb-3 p-1"
+                            controlId="Price"
+                          >
+                            <Form.Label column sm={3}>
+                              Price(per sq. ft)
+                            </Form.Label>
+                            <Col sm={9}>
+                              <InputGroup>
+                                <InputGroup.Text>₹</InputGroup.Text>
+                                <Form.Control
+                                  plaintext
+                                  readOnly
+                                  defaultValue="25"
+                                  style={{ padding: "0.5rem" }}
+                                />
+                              </InputGroup>
+                            </Col>
+                          </Form.Group>
+                          <Form.Group
+                            as={Row}
+                            className="mb-3 p-1"
+                            controlId="Total_price"
+                          >
+                            <Form.Label column sm={3}>
+                              Total Price
+                            </Form.Label>
+                            <Col sm={9}>
+                              <InputGroup>
+                                <InputGroup.Text>₹</InputGroup.Text>
+                                <Form.Control type="text" value={totalPrice[ind]} readOnly />
+                              </InputGroup>
+                            </Col>
                           </Form.Group>
                           <div className="d-flex justify-content-around">
                             <div>
@@ -595,49 +646,11 @@ const BecomePartner = () => {
                     );
                   })}
                 </div>
-                <div className="mt-2 p-2 rounded-2" style={{border:"1px solid black"}}>
-                <h5 className="text-center mt-2 mb-2">Rates:</h5>
-                <Form.Group as={Row} className="mb-3 p-1" controlId="Price">
-                  <Form.Label column sm={3} >Price(per sq. ft)</Form.Label>
-                  <Col sm={9}>
-                  <InputGroup>
-                  <InputGroup.Text>₹</InputGroup.Text>
-                  <Form.Control
-                  plaintext
-                  readOnly
-                  defaultValue="25"
-                  style={{padding:"0.5rem"}}
-                  />
-                  </InputGroup>
-                  </Col>
-                  </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="Area">
-                  <Form.Label column sm={3} >Area(in sq. ft)</Form.Label>
-                  <Col sm={9}>
-                  <InputGroup>
-                  <InputGroup.Text>ft²</InputGroup.Text>
-                  <Form.Control
-                  type="text"
-                  onChange={areaChangeHandler}
-                  />
-                  </InputGroup>
-                  </Col>
-                  </Form.Group>
-                <Form.Group as={Row} className="mb-3" controlId="Total_price">
-                  <Form.Label column sm={3} >Total Price</Form.Label>
-                  <Col sm={9}>
-                  <InputGroup>
-                  <InputGroup.Text>₹</InputGroup.Text>
-                  <Form.Control
-                  type="text"
-                  value={totalPrice}
-                  />
-                  </InputGroup>
-                  </Col>
-                  </Form.Group>
-                </div>
-                <div className="mt-2 p-2 rounded-2" style={{ border: "1px solid black" }}>
-                  <h5 className="text-center mt-2 mb-2">Features:</h5>
+                <div
+                  className="mt-2 p-2 rounded-2"
+                  style={{ border: "1px solid black" }}
+                >
+                  <h5 className="text-center mt-2 mb-2">Features</h5>
                   <Form.Group className="d-flex flex-wrap">
                     <div className="w-25 d-flex flex-wrap p-1">
                       <div class="form-check">
@@ -903,45 +916,59 @@ const BecomePartner = () => {
                   </Form.Group>
                 </div>
                 <ImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-        maxNumber={maxNumber}
-        dataURLKey="data_url"
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps,
-        }) => (
-          // write your building UI
-          <div className="upload__image-wrapper mt-2">
-            <button className="p-2 w-100 mx-auto rounded-2 fw-bold"
-              style={isDragging ? { color: 'red' } : undefined}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Upload images here(For verification)&nbsp;
-              <FaUpload style={{color:"#FF6600"}}/>
-            </button>
-            <div className="d-flex">
-            {imageList.map((image, index) => (
-              <div key={index} className="image-item mx-2 text-center">
-                <img src={image['data_url']} alt="" height="100" />
-                <div className="image-item__btn-wrapper mt-1">
-                  <button className="p-1 mr-1 rounded-2" onClick={() => onImageUpdate(index)}>Update</button>
-                  <button className="p-1 ml-1 rounded-2" onClick={() => onImageRemove(index)}>Remove</button>
-                </div>
-              </div>
-            ))}
-            </div>
-          </div>
-        )}
-      </ImageUploading>
+                  multiple
+                  value={images}
+                  onChange={onChange}
+                  maxNumber={maxNumber}
+                  dataURLKey="data_url"
+                >
+                  {({
+                    imageList,
+                    onImageUpload,
+                    onImageRemoveAll,
+                    onImageUpdate,
+                    onImageRemove,
+                    isDragging,
+                    dragProps,
+                  }) => (
+                    // write your building UI
+                    <div className="upload__image-wrapper mt-2">
+                      <button
+                        className="p-2 w-100 mx-auto rounded-2 fw-bold"
+                        style={isDragging ? { color: "red" } : undefined}
+                        onClick={onImageUpload}
+                        {...dragProps}
+                      >
+                        Upload images here(For verification)&nbsp;
+                        <FaUpload style={{ color: "#FF6600" }} />
+                      </button>
+                      <div className="d-flex">
+                        {imageList.map((image, index) => (
+                          <div
+                            key={index}
+                            className="image-item mx-2 text-center"
+                          >
+                            <img src={image["data_url"]} alt="" height="100" />
+                            <div className="image-item__btn-wrapper mt-1">
+                              <button
+                                className="p-1 mr-1 rounded-2"
+                                onClick={() => onImageUpdate(index)}
+                              >
+                                Update
+                              </button>
+                              <button
+                                className="p-1 ml-1 rounded-2"
+                                onClick={() => onImageRemove(index)}
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </ImageUploading>
                 <div className="mt-2">
                   <button
                     className="w-100 p-2 mx-auto rounded-2 fw-bold"
@@ -959,13 +986,31 @@ const BecomePartner = () => {
                   />
                   <div className="d-flex">
                     {files.map((file, index) => (
-                      <div key={index} className="text-center" style={{width:"200px"}}>
-                        <img className="d-block mx-auto" src="images/video_icon.png" width={100}/>
+                      <div
+                        key={index}
+                        className="text-center"
+                        style={{ width: "200px" }}
+                      >
+                        <img
+                          className="d-block mx-auto"
+                          src="images/video_icon.png"
+                          width={100}
+                        />
                         {file}
                         <div className="image-item__btn-wrapper mt-1">
-                  <button className="p-1 mr-1 rounded-2" onClick={() => videoUpdateHandler(index)}>Update</button>
-                  <button className="p-1 ml-1 rounded-2" onClick={() => videoRemoveHandler(index)}>Remove</button>
-                </div>
+                          <button
+                            className="p-1 mr-1 rounded-2"
+                            onClick={() => videoUpdateHandler(index)}
+                          >
+                            Update
+                          </button>
+                          <button
+                            className="p-1 ml-1 rounded-2"
+                            onClick={() => videoRemoveHandler(index)}
+                          >
+                            Remove
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
