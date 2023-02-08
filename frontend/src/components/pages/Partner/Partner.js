@@ -1,5 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
-import { Container, Row, Col, Form, Button, InputGroup,Modal } from "react-bootstrap";
+import React, { useState, useContext, useEffect, useRef } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  InputGroup,
+  Modal,
+} from "react-bootstrap";
 import {
   GiTruck,
   GiHandTruck,
@@ -14,7 +22,7 @@ import { BsFillCloudSunFill } from "react-icons/bs";
 import { FaFireExtinguisher, FaTruckLoading, FaUpload } from "react-icons/fa";
 import { CiVault } from "react-icons/ci";
 import { BiRectangle } from "react-icons/bi";
-import ImageUploading from 'react-images-uploading';
+import ImageUploading from "react-images-uploading";
 import { Context } from "../../../Contexts/context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -41,31 +49,72 @@ const BecomePartner = () => {
   const [height, setHeight] = useState(new Array(100000).fill(""));
   const [area, setArea] = useState(new Array(100000).fill("0"));
   const [volume, setVolume] = useState(new Array(100000).fill("0"));
+  const [totalPrice,setTotalPrice]=useState();
+
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
+  const [disabled, setDisabled] = useState(true);
 
-  const [disabled,setDisabled]=useState(true);
-
-  const [images, setImages] = React.useState([]);
+  const [images, setImages] = useState([]);
   const maxNumber = 69;
+
+  const [files, setFiles]= useState([]);
+  const hiddenFileInput = useRef(null);
+
+  const handleFileClick = (event) => {
+    hiddenFileInput.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    const fileUploaded = event.target.files[0].name;
+    let flag=false;
+    for(let i=0;i<files.length;i++){
+      if(files[i]===''){
+      files[i]=fileUploaded;
+      flag=true;
+      break;
+      }
+    }
+    if(flag===false)
+    {
+    files.push(fileUploaded);
+    }
+    setFiles([...files]);
+    console.log(files);
+  };
+
+  const areaChangeHandler=(event)=>{
+    let temp=event.target.value;
+    setTotalPrice(25*temp);
+  };
 
   const [unit, setUnit] = useState({
     counter: 1,
     arrTemp: new Array(1).fill(""),
   });
 
-
-  const checkDisablehandler=(e)=>{
+  const checkDisablehandler = (e) => {
     setDisabled(!disabled);
-  }
+  };
 
   const onChange = (imageList, addUpdateIndex) => {
     // data for submit
     console.log(imageList, addUpdateIndex);
     setImages(imageList);
   };
+
+  const videoRemoveHandler=(index)=>{
+    files.splice(index,1);
+    console.log(files);
+    console.log(files.length);
+    setFiles([...files]);
+  }
+  const videoUpdateHandler=(index)=>{
+    files[index]="";
+    handleFileClick();
+  }
 
   const add = (e) => {
     e.preventDefault();
@@ -98,16 +147,16 @@ const BecomePartner = () => {
     e.preventDefault();
     const ind = parseInt(e.target.id.split("$")[0]);
     console.log(ind);
-    let templength=length;
-    let tempwidth=width;
-    let tempheight=height;
-    let temparea=area;
-    let tempvol=volume;
-    templength[ind]="";
-    tempwidth[ind]="";
-    tempheight[ind]="";
-    temparea[ind]="0";
-    tempvol[ind]="0";
+    let templength = length;
+    let tempwidth = width;
+    let tempheight = height;
+    let temparea = area;
+    let tempvol = volume;
+    templength[ind] = "";
+    tempwidth[ind] = "";
+    tempheight[ind] = "";
+    temparea[ind] = "0";
+    tempvol[ind] = "0";
     setLength([...templength]);
     setWidth([...tempwidth]);
     setHeight([...tempheight]);
@@ -146,10 +195,10 @@ const BecomePartner = () => {
   };
 
   const [featureArr, setFeatureArr] = useState({
-    'cctv': false,
-    'indoor': false,
-    'outdoor': false,
-    'climate': false
+    cctv: false,
+    indoor: false,
+    outdoor: false,
+    climate: false,
   });
 
   const handleChange = (e) => {
@@ -275,37 +324,51 @@ const BecomePartner = () => {
     <>
       <Modal size="xl" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="mx-auto">Woohoo! you are three steps away to become warelogg's partner</Modal.Title>
+          <Modal.Title className="mx-auto">
+            Woohoo! you are three steps away to become warelogg's partner
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row className="justify-content-between">
             <Col xs={3}>
-            <p><h4>Step 1:</h4>Fill out the form details.Check out the additional features you would like.</p>
-            <div>
-            <img src="images/fill_form.gif" width="100%"></img>
-            </div>
+              <p>
+                <h4>Step 1:</h4>Fill out the form details.Check out the
+                additional features you would like.
+              </p>
+              <div>
+                <img src="images/fill_form.gif" width="100%"></img>
+              </div>
             </Col>
             <Col xs={1}>
-            <div className="d-flex h-100 align-items-center">
-            <img src="images/right_arrow.png" width={50} height={50}></img>
-          </div>
+              <div className="d-flex h-100 align-items-center">
+                <img src="images/right_arrow.png" width={50} height={50}></img>
+              </div>
             </Col>
             <Col xs={3}>
-            <p><h4>Step 2:</h4>Get your details verified.<b>(Our personnel will contact you shortly after filling the form.)</b></p>
-            <div>
-            <img src="images/verified.gif" width="100%"></img>
-            </div>
+              <p>
+                <h4>Step 2:</h4>Get your details verified.
+                <b>
+                  (Our personnel will contact you shortly after filling the
+                  form.)
+                </b>
+              </p>
+              <div>
+                <img src="images/verified.gif" width="100%"></img>
+              </div>
             </Col>
             <Col xs={1}>
-            <div className="d-flex h-100 align-items-center">
-            <img src="images/right_arrow.png" width={50} height={50}></img>
-          </div>
+              <div className="d-flex h-100 align-items-center">
+                <img src="images/right_arrow.png" width={50} height={50}></img>
+              </div>
             </Col>
             <Col xs={3}>
-            <p><h4>Step3:</h4>Congratulations, you are all set.<b>Warelogg welcomes you as a partner.</b></p>
-            <div>
-            <img src="images/handshake.gif" width="100%"></img>
-            </div>
+              <p>
+                <h4>Step3:</h4>Congratulations, you are all set.
+                <b>Warelogg welcomes you as a partner.</b>
+              </p>
+              <div>
+                <img src="images/handshake.gif" width="100%"></img>
+              </div>
             </Col>
           </Row>
         </Modal.Body>
@@ -415,6 +478,7 @@ const BecomePartner = () => {
                 <div
                   style={{
                     border: "1px solid black",
+                    borderRadius:"0.25rem",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -531,259 +595,312 @@ const BecomePartner = () => {
                     );
                   })}
                 </div>
-                <div className="mt-2 p-2" style={{ border: "1px solid black"}}>
-                <h5 className="text-center mt-2 mb-2">Features:</h5>
-                <Form.Group className="d-flex flex-wrap">
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="fire"
-                        class="form-check-input"
-                      />
-                      <label title="" for="fire" class="form-check-label">
-                        Fire Protected &nbsp;
-                        <FaFireExtinguisher
-                          style={{
-                            color: "red",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="climate"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="climate" class="form-check-label">
-                        Climate Control &nbsp;
-                        <BsFillCloudSunFill
-                          style={{
-                            color: "#0dcefdb0",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="elevator"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="elevator" class="form-check-label">
-                        Elevator Access &nbsp;
-                        <GiElevator
-                          style={{
-                            color: "grey",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="availaibility"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="availaibility" class="form-check-label">
-                        Open 7 Days &nbsp;
-                        <Ri24HoursFill
-                          style={{
-                            color: "black",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="indoor"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="indoor" class="form-check-label">
-                        Indoor Storage &nbsp;
-                        <GiHandTruck
-                          style={{
-                            color: "#ffb905",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="outdoor"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="outdoor" class="form-check-label">
-                        Outdoor Storage &nbsp;
-                        <GiTruck
-                          style={{
-                            color: "rgb(255 93 5 / 80%)",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="cctv"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="cctv" class="form-check-label">
-                        CCTV Surveillance &nbsp;
-                        <GiCctvCamera
-                          style={{
-                            color: "rgb(255 5 5 / 93%)",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="secure"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="secure" class="form-check-label">
-                        Clean-Dry-Secure &nbsp;
-                        <GrSecure
-                          style={{
-                            color: "#ffb905",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="protection"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="protection" class="form-check-label">
-                        SafeStore Protection &nbsp;
-                        <CiVault
-                          style={{
-                            color: "darkgreen",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="motion"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="motion" class="form-check-label">
-                        Motion Sensor Lighting &nbsp;
-                        <GiMovementSensor
-                          style={{
-                            color: "#e82e2e",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="monitor"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="monitor" class="form-check-label">
-                         Live video Monitoring &nbsp;
-                        <RiVideoDownloadLine
-                          style={{
-                            color: "rgb(255 5 5 / 93%)",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <div className="w-25 d-flex flex-wrap p-1">
-                    <div class="form-check">
-                      <input
-                        type="checkbox"
-                        id="driveup"
-                        class="form-check-input"
-                        onChange={handleChangeCheck}
-                      />
-                      <label title="" for="driveup" class="form-check-label">
-                        Drive-Up facility &nbsp;
-                        <FaTruckLoading
-                          style={{
-                            color: "rgb(255 93 5 / 80%)",
-                            height: "1.25rem",
-                            width: "1.25rem",
-                          }}
-                        />
-                      </label>
-                    </div>
-                  </div>
-                  <Form.Check
-                    className="w-100 mx-1"
-                    id="newFeature"
-                    type="checkbox"
-                    onChange={checkDisablehandler}
-                    label="Other features:"
+                <div className="mt-2 p-2 rounded-2" style={{border:"1px solid black"}}>
+                <h5 className="text-center mt-2 mb-2">Rates:</h5>
+                <Form.Group as={Row} className="mb-3 p-1" controlId="Price">
+                  <Form.Label column sm={3} >Price(per sq. ft)</Form.Label>
+                  <Col sm={9}>
+                  <InputGroup>
+                  <InputGroup.Text>₹</InputGroup.Text>
+                  <Form.Control
+                  plaintext
+                  readOnly
+                  defaultValue="25"
+                  style={{padding:"0.5rem"}}
                   />
-                  <Form.Control type="text" placeholder="Enter the feature" disabled={disabled}/>
-                </Form.Group>
+                  </InputGroup>
+                  </Col>
+                  </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="Area">
+                  <Form.Label column sm={3} >Area(in sq. ft)</Form.Label>
+                  <Col sm={9}>
+                  <InputGroup>
+                  <InputGroup.Text>ft²</InputGroup.Text>
+                  <Form.Control
+                  type="text"
+                  onChange={areaChangeHandler}
+                  />
+                  </InputGroup>
+                  </Col>
+                  </Form.Group>
+                <Form.Group as={Row} className="mb-3" controlId="Total_price">
+                  <Form.Label column sm={3} >Total Price</Form.Label>
+                  <Col sm={9}>
+                  <InputGroup>
+                  <InputGroup.Text>₹</InputGroup.Text>
+                  <Form.Control
+                  type="text"
+                  value={totalPrice}
+                  />
+                  </InputGroup>
+                  </Col>
+                  </Form.Group>
+                </div>
+                <div className="mt-2 p-2 rounded-2" style={{ border: "1px solid black" }}>
+                  <h5 className="text-center mt-2 mb-2">Features:</h5>
+                  <Form.Group className="d-flex flex-wrap">
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="fire"
+                          class="form-check-input"
+                        />
+                        <label title="" for="fire" class="form-check-label">
+                          Fire Protected &nbsp;
+                          <FaFireExtinguisher
+                            style={{
+                              color: "red",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="climate"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="climate" class="form-check-label">
+                          Climate Control &nbsp;
+                          <BsFillCloudSunFill
+                            style={{
+                              color: "#0dcefdb0",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="elevator"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="elevator" class="form-check-label">
+                          Elevator Access &nbsp;
+                          <GiElevator
+                            style={{
+                              color: "grey",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="availaibility"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label
+                          title=""
+                          for="availaibility"
+                          class="form-check-label"
+                        >
+                          Open 7 Days &nbsp;
+                          <Ri24HoursFill
+                            style={{
+                              color: "black",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="indoor"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="indoor" class="form-check-label">
+                          Indoor Storage &nbsp;
+                          <GiHandTruck
+                            style={{
+                              color: "#ffb905",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="outdoor"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="outdoor" class="form-check-label">
+                          Outdoor Storage &nbsp;
+                          <GiTruck
+                            style={{
+                              color: "rgb(255 93 5 / 80%)",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="cctv"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="cctv" class="form-check-label">
+                          CCTV Surveillance &nbsp;
+                          <GiCctvCamera
+                            style={{
+                              color: "rgb(255 5 5 / 93%)",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="secure"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="secure" class="form-check-label">
+                          Clean-Dry-Secure &nbsp;
+                          <GrSecure
+                            style={{
+                              color: "#ffb905",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="protection"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label
+                          title=""
+                          for="protection"
+                          class="form-check-label"
+                        >
+                          SafeStore Protection &nbsp;
+                          <CiVault
+                            style={{
+                              color: "darkgreen",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="motion"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="motion" class="form-check-label">
+                          Motion Sensor Lighting &nbsp;
+                          <GiMovementSensor
+                            style={{
+                              color: "#e82e2e",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="monitor"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="monitor" class="form-check-label">
+                          Live video Monitoring &nbsp;
+                          <RiVideoDownloadLine
+                            style={{
+                              color: "rgb(255 5 5 / 93%)",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <div className="w-25 d-flex flex-wrap p-1">
+                      <div class="form-check">
+                        <input
+                          type="checkbox"
+                          id="driveup"
+                          class="form-check-input"
+                          onChange={handleChangeCheck}
+                        />
+                        <label title="" for="driveup" class="form-check-label">
+                          Drive-Up facility &nbsp;
+                          <FaTruckLoading
+                            style={{
+                              color: "rgb(255 93 5 / 80%)",
+                              height: "1.25rem",
+                              width: "1.25rem",
+                            }}
+                          />
+                        </label>
+                      </div>
+                    </div>
+                    <Form.Check
+                      className="w-100 mx-1"
+                      id="newFeature"
+                      type="checkbox"
+                      onChange={checkDisablehandler}
+                      label="Other features:"
+                    />
+                    <Form.Control
+                      type="text"
+                      placeholder="Enter the feature"
+                      disabled={disabled}
+                    />
+                  </Form.Group>
                 </div>
                 <ImageUploading
         multiple
@@ -811,7 +928,6 @@ const BecomePartner = () => {
               Upload images here(For verification)&nbsp;
               <FaUpload style={{color:"#FF6600"}}/>
             </button>
-            &nbsp;
             <div className="d-flex">
             {imageList.map((image, index) => (
               <div key={index} className="image-item mx-2 text-center">
@@ -826,6 +942,34 @@ const BecomePartner = () => {
           </div>
         )}
       </ImageUploading>
+                <div className="mt-2">
+                  <button
+                    className="w-100 p-2 mx-auto rounded-2 fw-bold"
+                    onClick={handleFileClick}
+                  >
+                    Upload videos here(For verification)&nbsp;
+                    <FaUpload style={{ color: "#FF6600" }} />
+                  </button>
+                  <input
+                    type="file"
+                    accept="video/*"
+                    ref={hiddenFileInput}
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                  />
+                  <div className="d-flex">
+                    {files.map((file, index) => (
+                      <div key={index} className="text-center" style={{width:"200px"}}>
+                        <img className="d-block mx-auto" src="images/video_icon.png" width={100}/>
+                        {file}
+                        <div className="image-item__btn-wrapper mt-1">
+                  <button className="p-1 mr-1 rounded-2" onClick={() => videoUpdateHandler(index)}>Update</button>
+                  <button className="p-1 ml-1 rounded-2" onClick={() => videoRemoveHandler(index)}>Remove</button>
+                </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </Col>
               <Col md={12}>
                 <Form.Group>

@@ -207,9 +207,11 @@ const MainPage = (props) => {
             </div>
           </div>
         </div>
-        <div className="d-flex" style={{margin:"10rem 0",padding:"0 2rem", marginLeft:"-2rem"}}>
-          <card className="w-25 d-flex justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
-          <div className="w-75"><Carousel 
+        <Row className="d-flex" style={{margin:"10rem 3rem"}}>
+          <Col md={3} xs={6} className="px-0">
+          <card className="d-flex h-100 justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0">Our Supporters</h3></card>
+          </Col>
+          <Col md={9} xs={6} className="px-0"><Carousel 
           responsive={responsive}
           infinite={true}
           arrows={false}
@@ -231,7 +233,7 @@ const MainPage = (props) => {
               className="d-block w-100"
               src="/images/IIT_MANDI_CATALYST.jpg"
               alt="Second slide"
-              style={{ height: "100%", objectFit: "cover" }}
+              style={{ height: "100%", objectFit: "contain" }}
             /></div>
             <div className="sup-items"><img
               className="d-block w-100"
@@ -252,9 +254,9 @@ const MainPage = (props) => {
               style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             /></div>
           </Carousel>
-          </div>
-        </div>
-        {/* <header className="">
+          </Col>
+        </Row>
+        <header className="">
           <div className="headerClass d-flex flex-column justify-content-around">
               <h5 className="textBox">TESTIMONIALS</h5>
               <h1 className="textBox heading">WHAT CLIENTS SAY</h1>
@@ -262,7 +264,7 @@ const MainPage = (props) => {
         </header>
         <div className="clientsBoxDesignMargin">
           <div className="w-100"><Carousel 
-          responsive={responsiveClients}
+          responsive={responsive}
           infinite={true}
           arrows={false}
           autoPlay={true}
@@ -311,7 +313,7 @@ const MainPage = (props) => {
             </div>
           </Carousel>
           </div>
-        </div> */}
+        </div>
       </Container>
     </>
   );
