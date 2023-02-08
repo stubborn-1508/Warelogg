@@ -68,16 +68,24 @@ const StorageTab = () =>
   }
 
   return (
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Search your location <AiOutlineSearch/></Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="Zip, City, State or Landmark"
-          name="fLocation"
-          onChange={ handleInputChange }
-        />
-      </Form.Group>
+    <div className="nextPageTab">
+      {/* <div className="nextPageTabItem1"><div>Search by Location </div></div> */}
+      <Form className="nextPageTabItem2">
+        <Form.Group controlId="formBasicEmail" className="landmarkForm">
+          <Form.Control
+            type="text"
+            placeholder="Zip, City, State or Landmark"
+            name="fLocation"
+            onChange={ handleInputChange }
+            />
+        </Form.Group>
+      </Form>
+      <Link to="/storage" className="nextPageTabItem3">
+        <button className="button-360" onClick={ getLocation } type="submit">
+          Find Storage Units
+          {/* <i style={{marginLeft:"0.4rem"}}>< AiOutlineSearch/></i> */}
+        </button>
+      </Link>
       {/* <Form.Group className="mb-3 d-grid gap-2 text-center text-dark" controlId="formBasicCheckbox">
         <Form.Label className="col-md-12"><b>Show Locations That Have :</b></Form.Label>
         <Form.Check
@@ -88,8 +96,8 @@ const StorageTab = () =>
           name="checkType"
           type="checkbox"
           onChange={ handleCheckChange }
-        />
-        <Form.Check
+          />
+          <Form.Check
           id="c2"
           className="checkX"
           inline
@@ -97,8 +105,8 @@ const StorageTab = () =>
           name="checkType"
           type="checkbox"
           onChange={ handleCheckChange }
-        />
-        <Form.Check
+          />
+          <Form.Check
           id="c3"
           className="checkX"
           inline
@@ -106,8 +114,8 @@ const StorageTab = () =>
           name="checkType"
           type="checkbox"
           onChange={ handleCheckChange }
-        />
-        <Form.Check
+          />
+          <Form.Check
           id="c4"
           className="checkX"
           inline
@@ -115,17 +123,9 @@ const StorageTab = () =>
           name="checkType"
           type="checkbox"
           onChange={ handleCheckChange }
-        />
-      </Form.Group> */}
-      <Form.Group className="mb-3 text-center">
-        <Link to="/storage">
-          <Button className="center" variant="warning" size="lg" type="submit"
-            onClick={ getLocation }>
-            Find Units
-          </Button>
-        </Link>
-      </Form.Group>
-    </Form>
+          />
+        </Form.Group> */}
+    </div>
   );
 };
 

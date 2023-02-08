@@ -15,6 +15,8 @@ const ReviewSection = () =>
     const reviewDate = new Date();
     const reviewerName = "Smit Sharma";
     const ratingTotal = "3.5";
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const bookedDuration = "10 months"
     const reviewDescription = "Great storage facility, with drive up, off-street parking for load/unload. Clean, safe, with lots of security checks & balances in place. Most of the check-in and check-out processes are done online/smart phone by the customer, so if you're tech-challenged you might need some help.";
     const RatingBar = () =>
     {
@@ -32,14 +34,21 @@ const ReviewSection = () =>
     const reviewBar = () =>
     {
         return (
-            <div className="jumbotron my-5">
-                <h6><RatingBar /> &nbsp; { ratingTotal }</h6>
-                <p>
-                    { reviewDescription }
-                </p>
-                <hr className="" />
-                <h5 className="float-right">{ reviewDate.toUTCString() }</h5>
-                <h5 className="text-primary">{ reviewerName }</h5>
+            <div className="jumbotron my-5 shadow p-3 mb-5 bg-white rounded">
+               <div className="Customer-name">
+                    <h4 className="text-primary">{ reviewerName }</h4>
+                    <h6><RatingBar /> &nbsp; { ratingTotal }</h6>
+               </div>
+               <div className="review-duration">
+                    <h5 className="review-date">{ reviewDate.toLocaleDateString(undefined, options) }</h5>
+                    <h7>Booked for {bookedDuration}</h7>
+               </div>
+               <hr></hr>
+               <div>
+                    <p>
+                        { reviewDescription }
+                    </p>
+               </div>
             </div>
         );
     }
@@ -69,31 +78,31 @@ const ReviewSection = () =>
             <Container fluid>
                 <Form>
                     <Row>
-                        <Col lg={ 4 } className="my-5">
-                            <h2>Customer reviews</h2>
-                            <h5><RatingBar /> &nbsp; { ratingTotal } out of 5</h5>
+                        <Col lg={ 4 } className="my-3">
+                            <h3>Customer reviews</h3>
+                            <h6><RatingBar /> &nbsp; { ratingTotal } out of 5</h6>
                             <Row>
-                                <Col className="text-center my-auto float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>5 Star</h6></Col>
-                                <Col><ProgressBar now={ now } label={ `${ now }%` } className="my-3 progressReviewBar" variant="warning" /></Col>
+                                <Col className="text-center float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>5 Star</h6></Col>
+                                <Col><ProgressBar now={ now } label={ `${ now }%` } className=" progressReviewBar" variant="warning" /></Col>
                             </Row>
                             <Row>
-                                <Col className="text-center my-auto float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>4 Star</h6></Col>
-                                <Col><ProgressBar now={ now } label={ `${ now }%` } className="my-3 progressReviewBar" variant="warning" /></Col>
+                                <Col className="text-center float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>4 Star</h6></Col>
+                                <Col><ProgressBar now={ now } label={ `${ now }%` } className=" progressReviewBar" variant="warning" /></Col>
                             </Row>
                             <Row>
-                                <Col className="text-center my-auto float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>3 Star</h6></Col>
-                                <Col className="text-dark"><ProgressBar now={ now } label={ `${ now }%` } className="my-3 progressReviewBar" variant="warning" /></Col>
+                                <Col className="text-center float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>3 Star</h6></Col>
+                                <Col className="text-dark"><ProgressBar now={ now } label={ `${ now }%` } className=" progressReviewBar" variant="warning" /></Col>
                             </Row>
                             <Row>
-                                <Col className="text-center my-auto float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>2 Star</h6></Col>
-                                <Col><ProgressBar now={ now } label={ `${ now }%` } className="my-3 progressReviewBar" variant="warning" /></Col>
+                                <Col className="text-center float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>2 Star</h6></Col>
+                                <Col><ProgressBar now={ now } label={ `${ now }%` } className=" progressReviewBar" variant="warning" /></Col>
                             </Row>
                             <Row>
-                                <Col className="text-center my-auto float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>1 Star</h6></Col>
-                                <Col><ProgressBar now={ now } label={ `${ now }%` } className="my-3 progressReviewBar" variant="warning" /></Col>
+                                <Col className="text-center float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>1 Star</h6></Col>
+                                <Col><ProgressBar now={ now } label={ `${ now }%` } className=" progressReviewBar" variant="warning" /></Col>
                             </Row>
                             <hr />
-                            <h2 className="my-4">By feature</h2>
+                            <h3 className="my-4">By feature</h3>
                             <Row>
                                 <Col className="text-center my-auto float-left" md={ 6 } sm={ 6 } xs={ 6 }><h6>Value for money</h6></Col>
                                 <Col><h6> <RatingBar className="float-right" /> &nbsp; { ratingTotal }</h6></Col>

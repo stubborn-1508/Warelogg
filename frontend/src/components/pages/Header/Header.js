@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Cart.css";
+// import "./Header.css";
 import { FcMenu } from "react-icons/fc";
 import { CartContext } from "../../../Contexts/CartContextHolder";
 import axios from "axios";
@@ -15,6 +16,9 @@ import { Dropdown, Button, Row, Col, Container } from "react-bootstrap";
 import LoginModal from "../Login/LoginModal";
 import RegisterModal from "../Register/RegisterModal";
 import "react-icons";
+import { useLocation } from 'react-router-dom'
+
+
 
 const styles = {
   fontFamily: "Mrs+Sheppards",
@@ -55,6 +59,17 @@ const HeaderSection = () => {
 
     fetchData(usertoken);
   }, []);
+
+  const location = useLocation();
+  console.log(location.pathname);
+
+  function SearchBarDisplay(){
+    return <div className="navBarSearch">
+    <form>
+      <input type="text" name="search" placeholder="Search.." />
+    </form>
+  </div>
+  }
 
   const [modalShow, setModalShow] = React.useState(false);
   const [registerModalShow, setRegisterModalShow] = React.useState(false);
@@ -99,26 +114,44 @@ const HeaderSection = () => {
             id="navbarCollapse"
           >
             <div className="navbar-nav py-0">
-              <Link to="/partner" className="nav-item nav-link">
-                List Your Space
-              </Link>
-              <Link to="/locations" className="nav-item nav-link">
+              {/* <Link to="/locations" className="nav-item nav-link">
                 Track & Trace
-              </Link>
-              <Link to="/contact" className="nav-item nav-link">
+                </Link>
+                <Link to="/contact" className="nav-item nav-link">
                 Contact
-              </Link>
+              </Link> */}
             </div>
             <div>
-            <Link
-              to="/cart"
-              className="nav-item nav-link cart position-relative d-inline-flex my-2 my-lg-0"
-            >
-              <span className="cart-basket d-flex align-items-center justify-content-center">
-                {ctx.cartValue}
-              </span>
-              <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
-            </Link>
+              <div className="d-flex listSpaceBT">
+                {location.pathname != "/" && <SearchBarDisplay/>}
+                <Link to="/partner" className="nav-item nav-link listSpaceButtonStyle">
+                  List Your Space
+                </Link>
+                <a class="nav-item nav-link listSpaceButtonStyle" href="#popup1">Shipping</a>
+                <div id="popup1" class="overlay">
+                  <div class="popup">
+                    <img
+                      className="d-block w-100"
+                      src="/images/comingsoon.png"
+                      alt="First slide"
+                      style={{ height: "29rem", objectFit: "fill"}}
+                    />
+                    <div class="stayTunedContainer" style={{height:"2rem"}}>
+                      <div class="stayTunedTypewriter">STAY TUNED!</div>
+                    </div>
+                    <a class="close" href="#">&times;</a>
+                  </div>
+                </div>
+                <Link
+                  to="/cart"
+                  className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
+                >
+                  <span className="cart-basket d-flex align-items-center justify-content-center">
+                    {ctx.cartValue}
+                  </span>
+                  <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
+                </Link>
+              </div>
             <Dropdown xs={2} className="d-lg-none d-block mx-2" variant="secondary">
               <Dropdown.Toggle
                 id="dropdown-autoclose-true dropdownHeader"
@@ -133,7 +166,7 @@ const HeaderSection = () => {
                   alt=""
                 />
               </Dropdown.Toggle>
-              <Dropdown.Menu>
+              <Dropdown.Menu className="dropdownMenu">
                       <Link to="/profile" className="nav-item nav-link">
                         <Dropdown.Item as="button">Profile</Dropdown.Item>
                       </Link>

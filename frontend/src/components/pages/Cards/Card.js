@@ -15,9 +15,10 @@ import { IoMdPin } from "react-icons/io";
 import { BsCloudLightningRainFill, BsFillCloudSunFill } from "react-icons/bs";
 import { GiCctvCamera, GiLockedChest } from "react-icons/gi";
 import { AiFillStar, AiOutlineExpand } from "react-icons/ai";
-import { GrLocation } from "react-icons/gr";
+import { GrLocation, GrUpdate } from "react-icons/gr";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { ImTruck } from "react-icons/im";
+import { Ri24HoursFill } from "react-icons/ri"
 import { FaWarehouse, FaExpandArrowsAlt } from "react-icons/fa";
 import "./StorageCard.css"
 import "../../css/Card.css"
@@ -42,8 +43,7 @@ const CardSection = ({ warehouseInfo }) =>
         occArea += `${area} sqft`
         return (
             <>
-                {/* <span className="fs-6 float-right margin-left-5px bookedspan">{ `${ totalArea - area } sqft` }</span> */}
-                {/* <span className="fs-6 float-left margin-right-5px bookedspan ">Vacant :</span> */}
+                <div className="nonLaptopView">{remArea}</div>
                 <ProgressBar className="progressContainer progressBorder textProgrees">
                     <ProgressBar title={remArea} now={100 - percentage }  className="text-black fs-6" variant="success" animated key={ 2 } />
                     <ProgressBar title={occArea} now={ percentage } className="text-dark fs-6" variant="warning" key={ 1 } />
@@ -166,18 +166,18 @@ const CardSection = ({ warehouseInfo }) =>
                                         <div>
                                             <i className="h4"><MdOutlineLocationOn className="text-primary mr-1" /></i>
                                                 { warehouse.city }
-                                            <p className="distanceStyle">x kms away</p>
                                         </div>
                                         <div>
                                             <i className="h4 justify-content"><AiFillStar className="text-warning" /> </i>
                                                 {warehouse.rating} 4/5
                                         </div>
                                     </div>
-                                    <div className="bg-secondary p-4 heightdiv paddingInName">
+                                    <div className="distanceStyle bg-secondary">x kms away</div>
+                                    <div className="bg-secondary heightdiv paddingInName d-flex flex-column justify-content-around">
                                         <div className = "d-flex flex-row justify-content-between "> 
-                                            <b className="text-dark h5">{ warehouse.name } Warehouse</b>
+                                            <b className="text-dark warehouseNameStyle">{ warehouse.name } Warehouse</b>
                                         </div>
-                                        <div className="d-flex flex-column justify-content-between mb-3 card-content-4 ">
+                                        <div>
                                             <div className="d-flex flex-row justify-content-around">
                                                 {facility.map((ele, id)=>{
                                                     return (
@@ -191,13 +191,21 @@ const CardSection = ({ warehouseInfo }) =>
                                                     )
                                                 })}
                                             </div>
-                                            <div title = {subUnitStr} className="d-flex justify-content-flex-start h-40%">
+                                        </div>
+                                            <div title = {subUnitStr} className="d-flex justify-content-flex-start">
                                                 <i className="h4"><FaExpandArrowsAlt className="areaIcon" /> </i>
                                                 <h6 className="areaText">
                                                     Total Area: {totArea} sqft
                                                 </h6>
                                             </div>
-                                        </div>
+                                            <div className="d-flex flex-row justify-content-start">
+                                                <i><GrUpdate/></i>
+                                                <div className="realtimeUpdates" style={{marginLeft:"0.7rem", fontSize:"0.9rem"}}>Realtime updates</div>
+                                            </div>
+                                            <div className="d-flex flex-row justify-content-start">
+                                                <i className="updatesIcon"><Ri24HoursFill/></i>
+                                                <div className="realtimeUpdates" style={{marginLeft:"0.5rem", fontSize:"0.9rem"}}>Updated 24hrs ago</div>
+                                            </div>
                                     </div>
                                 <div className="border-top pt-2 prgbar bg-secondary">
                                     <h6 className="m-1">{ WarehouseArea(totArea, occ) }</h6>

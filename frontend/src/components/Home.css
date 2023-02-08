@@ -39,21 +39,8 @@
     justify-content: center;
 }
 .carousel .slide{ background: none; }
-/* .clientBtnStyle{
-    padding: 0.3rem 2rem;
-    background-color: #ff6600;
-    border-radius: 2rem;
-    color: black;
-    border: none;
-}
 
-.clientBtnStyle:hover{
-    background-color: #cc5403;
-    color: black;
-    text-decoration: none;
-} */
-
-.headerClass{
+/* .headerClass{
     width: 40rem;
     margin: auto;
     margin-bottom: 5rem;
@@ -70,13 +57,11 @@
 .cardStyle{
     width: 20rem;
     margin-left: 3rem;
-    /* margin-right: 600rem; */
     padding: 1rem 1rem;
     border-radius: 1rem;
     background-color: rgb(240, 240, 216);
     box-shadow: 0.4rem 0.4rem 1rem rgb(123, 119, 119);
     justify-content: center;
-    /* margin-bottom: 3rem; */
 }
 
 .profileStyle{
@@ -105,8 +90,7 @@
 
 .clientStyle{
     flex-wrap: wrap;
-    /* margin: 1rem 20rem; */
-}
+} */
 
 .bothUnits{
     flex-wrap: wrap;
@@ -116,16 +100,18 @@
 .warehouseImages{
     width: 60rem;
     margin-top: 1rem;
-    /* margin-right: 3rem;  */
+    border-radius: 0.5rem;
 }
 
 
 .nextPage{
-    width: 28rem;
     margin-top: 1rem;
-    /* margin-left: 3rem;
-    margin-top: 1rem;
-    margin-right: 3rem; */
+    border-radius: 1rem;
+    width: 100%
+}
+
+.frontCar-items:hover{
+    cursor: pointer;
 }
 
 @media (max-width: 1245px) {
@@ -142,15 +128,13 @@
 
 @media (min-width: 1245px){
     .bothUnits{
-        display: grid;
-        width: 100%;
+        /* display: grid; */
+        width: 95%;
         padding-right: 2rem;
     }
     .warehouseImages{
-        width: 63%;
-    }
-    .nextPage{
-        width: 32%;
+        width: 100%;
+        margin-right: 2rem;
     }
 }
 
@@ -160,7 +144,65 @@
     }
 }
 
-.clientsBar{
+.frontCar-items{
+    font-size: 2.5rem;
+    position: relative; 
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    background-color: #141414;
+    border-radius: 0.5rem;
+}
+
+.frontCar-itemsText{
+    position: absolute;
+    top: 5%;
+    left: 2%;
+    z-index: 9;
+    border-radius: 0.5rem;
+}
+
+
+@media (max-width: 999px) {
+    .frontCar-itemsImg{
+        height: 29rem;
+        object-fit: fill;
+        opacity: 0.7;
+        border-radius : 0.5rem;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .frontCar-itemsImg{
+        height: 15rem;
+        object-fit: fill;
+        opacity: 0.7;
+        border-radius : 0.5rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    .frontCar-itemsImg{
+        height: 38rem;
+        object-fit: fill;
+        opacity: 0.7;
+        border-radius : 0.5rem;
+    }
+}
+
+
+@media (max-width: 471px) {
+    .frontCar-items{
+        font-size: 1rem;
+    }
+    .bothUnits{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+/* .clientsBar{
     justify-content: center;
 }
 
@@ -194,5 +236,104 @@
     }
     .responsiveWarehouseFontH1{
         font-size: 500px;
+    }
+}
+
+@media (min-width: 1382px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 1214px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 866px) {
+    .clientsBoxDesignMargin{
+        margin-left: 8rem;
+    }
+}
+
+@media (max-width: 635px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 519px) {
+    .clientsBoxDesignMargin{
+        margin-left: 3rem;
+    }
+}
+
+@media (max-width: 479px) {
+    .clientsBoxDesignMargin{
+        margin-left: 5rem;
+    }
+}
+
+@media (max-width: 399px) {
+    .clientsBoxDesignMargin{
+        margin-left: 2rem;
+    }
+} */
+
+.benifitsBar{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0.7rem;
+    box-shadow: 5px 5px 10px #141414;
+    /* background-image: url("/images/warehouseimg1.jpg"); */
+    background-color: beige;
+}
+
+.benifitsHeading{
+    font-size: 1.5rem;
+    color: rgb(255,198,1);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.benifitsSubunitsHeading{
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: rgb(250,121,75);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.benifitsSubunitsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.benifitsSubunit{
+    width: 30rem;
+    padding: 2rem;
+    /* border: 2px solid red; */
+}
+
+.benifitsSubunitsPoints{
+    font-size: 0.9rem;
+}
+
+@media (max-width: 950px) {
+    .benifitsSubunitsContainer{
+        flex-direction: column;
+    }
+    .benifitsSubunit{
+        width: 100%;
+        padding: 2rem;
     }
 }
