@@ -27,6 +27,7 @@ import { BsCloudSunFill } from "react-icons/bs";
 import {FiFilter} from "react-icons/fi"
 import {TbSunOff} from "react-icons/tb"
 import {IoSnow} from "react-icons/io"
+import {HiOutlineAdjustmentsHorizontal} from "react-icons/hi2"
 import Icon from '@mdi/react';
 import { mdiForklift, mdiHours24, mdiShieldCheck, mdiAirport, mdiStarCheckOutline, mdiAccountHardHat, mdiSnowflakeThermometer, mdiFireExtinguisher, mdiDolly} from '@mdi/js';
 import "./FilterSlider.css"
@@ -266,7 +267,7 @@ const Storage = (props) => {
   },
   miniature:{
         breakpoint: { max: 585, min: 450 },
-        items: 2
+        items: 4
   },
   least: {
         breakpoint: {max: 450, min: 436},
@@ -274,7 +275,7 @@ const Storage = (props) => {
   },
   last: {
         breakpoint: {max: 436, min: 0},
-        items: 2
+        items: 3
   }
 };
 
@@ -791,7 +792,7 @@ const CustomRightArrow = ({ onClick }) => {
                                 <IconContext.Provider
                                         value={{size: '1.5rem' }}
                                  >
-                                        <FiFilter />
+                                        <HiOutlineAdjustmentsHorizontal />
                                 </IconContext.Provider>
                                 <span className="filter-text">&nbsp;&nbsp;Filters</span></button>
                         </div>
