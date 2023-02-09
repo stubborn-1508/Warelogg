@@ -63,14 +63,6 @@ const HeaderSection = () => {
   const location = useLocation();
   console.log(location.pathname);
 
-  function SearchBarDisplay(){
-    return <div className="navBarSearch">
-    <form>
-      <input type="text" name="search" placeholder="Search.." />
-    </form>
-  </div>
-  }
-
   const [modalShow, setModalShow] = React.useState(false);
   const [registerModalShow, setRegisterModalShow] = React.useState(false);
 
@@ -123,7 +115,6 @@ const HeaderSection = () => {
             </div>
             <div>
               <div className="d-flex listSpaceBT">
-                {location.pathname != "/" && <SearchBarDisplay/>}
                 <Link to="/partner" className="nav-item nav-link listSpaceButtonStyle">
                   List Your Space
                 </Link>
