@@ -651,7 +651,7 @@ const BecomePartner = () => {
                   style={{ border: "1px solid black" }}
                 >
                   <h5 className="text-center mt-2 mb-2">Features</h5>
-                  <Form.Group className="d-flex flex-wrap">
+                  <Form.Group className="d-flex flex-wrap text-break">
                     <div className="w-25 d-flex flex-wrap p-1">
                       <div class="form-check">
                         <input
