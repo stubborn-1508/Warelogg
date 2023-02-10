@@ -7,7 +7,8 @@ const FooterSection = () => {
     <>
       <div
         className="container-fluid text-white py-5 px-sm-3 px-lg-5"
-        style={{ marginTop: 90 ,backgroundColor:"#2f2a65"}}
+        style={{ marginTop: 90 ,background: "rgb(23,100,171)",
+        background: "linear-gradient(90deg, #233444 33%, rgb(19 43 59) 69%, #152533 75%)"}}
       >
         <div className="row pt-5">
           <div className="col-lg-7 col-md-12">
@@ -125,7 +126,8 @@ const FooterSection = () => {
       </div>
       <div
         className="container-fluid text-white border-top py-4 px-sm-3 px-md-5"
-        style={{backgroundColor:"#2f2a65" ,borderColor: "rgba(256, 256, 256, .1) !important" }}
+        style={{background: "rgb(23,100,171)",
+          background: "linear-gradient(90deg, #233444 33%, rgb(19 43 59) 69%, #152533 75%)" ,borderColor: "rgba(256, 256, 256, .1) !important" }}
       >
         <div className="row">
           <div className="col-lg-6 text-center text-md-left mb-3 mb-md-0">
