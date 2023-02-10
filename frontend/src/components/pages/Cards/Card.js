@@ -26,9 +26,9 @@ import "./progresssbar.css";
 import axios from "axios";
 import { IconContext } from "react-icons/lib";
 
-const CardSection = ({ warehouseInfo }) =>
+const CardSection = ({ warehouseInfo, filter=[] }) =>
 {
-
+    console.log("Card Filter: " + filter);
     function WarehouseArea(x, y)
     {
         const totalArea = parseInt(x);
@@ -66,7 +66,7 @@ const CardSection = ({ warehouseInfo }) =>
     {
         items.push(number);
     }
-    console.log(warehouseInfo)
+    // console.log(warehouseInfo)
     const adminPath = window.location.pathname;
     const facilityObj = {
         'cctv': 'CCTV Monitering',
@@ -133,7 +133,16 @@ const CardSection = ({ warehouseInfo }) =>
         <>
             <Container fluid>
                 <Row>
-                    { (warehouseInfo = adminPath==='/admin' ? warehouseInfo : warehouseInfo.filter(el => el.isVerified===true)).map((warehouse, key) =>
+                    { (warehouseInfo = adminPath==='/admin' ? warehouseInfo : warehouseInfo.filter((el) => {
+                        let flag = true;
+                        for(let i=0;i<filter.length;i++){
+                            if(!el.features.includes(filter[i])){
+                                flag = false;
+                                break;
+                            }
+                        }
+                        return (el.isVerified===true && flag)
+                    })).map((warehouse, key) =>
                     {
                         let facility = [];
                         let length = 0;

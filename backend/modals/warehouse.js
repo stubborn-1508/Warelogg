@@ -41,7 +41,7 @@ const WarehouseSchema = new Schema({
     },
     features: [
         {
-            type: String
+            type: Number
         }
     ],
     isVerified: {
