@@ -158,39 +158,9 @@
 .realtimeUpdates{
     font-size: 0.9 rem;
     color: #44425a;
-    margin-left: 0.7rem;
-    font-size: 0.9rem;
 }
 
 .updatesIcon{
     font-size: 1.2rem;
     color: black;
-}
-
-.cardsIcon{
-    font-size: 30px;
-}
-
-@media (max-width: 991px) {
-    .areaText{
-        font-size: 0.8rem;
-    }
-    .realtimeUpdates{
-        font-size: 0.8rem;
-    }
-    .updatesIcon{
-        
-    }
-    .cardsIcon{
-        font-size: 25px;
-    }
-    .paddingInCity{
-        font-size: 0.7rem;
-    }
-    .warehouseNameStyle{
-        font-size: 0.9rem;
-    }
-    .nonLaptopView{
-        font-size: 0.7rem;
-    }
 }
