@@ -6,8 +6,8 @@ const FooterSection = () => {
   return (
     <>
       <div
-        className="container-fluid bg-dark text-white py-5 px-sm-3 px-lg-5"
-        style={{ marginTop: 90 }}
+        className="container-fluid text-white py-5 px-sm-3 px-lg-5"
+        style={{ marginTop: 90 ,backgroundColor:"#2f2a65"}}
       >
         <div className="row pt-5">
           <div className="col-lg-7 col-md-12">
@@ -21,8 +21,8 @@ const FooterSection = () => {
                 </h5>
                 <p>
                   <i className="fa fa-map-marker-alt mr-2" />
-                  New Coworking Space <br/> IIT Mandi Catalyst<br/> IIT Mandi North Campus
-                  Salgi, Mandi ,<br/> Himachal Pradesh - 175005
+                  New Coworking Space <br/> IIT Mandi North Campus, Salgi
+                  <br/>Mandi, Himachal Pradesh - 175005
                 </p>
                 <p>
                   <i className="fa fa-phone-alt mr-2" />
@@ -56,7 +56,7 @@ const FooterSection = () => {
                   </Link>
                 </div>
               </div>
-              <div className="col-md-6 mb-5">
+              {/* <div className="col-md-6 mb-5">
                 <h5
                   className="text-primary text-uppercase mb-4"
                   style={{ letterSpacing: 5 }}
@@ -93,7 +93,7 @@ const FooterSection = () => {
                     CAREERS
                   </Link>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-lg-5 col-md-12 mb-5">
@@ -124,13 +124,13 @@ const FooterSection = () => {
         </div>
       </div>
       <div
-        className="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5"
-        style={{ borderColor: "rgba(256, 256, 256, .1) !important" }}
+        className="container-fluid text-white border-top py-4 px-sm-3 px-md-5"
+        style={{backgroundColor:"#2f2a65" ,borderColor: "rgba(256, 256, 256, .1) !important" }}
       >
         <div className="row">
           <div className="col-lg-6 text-center text-md-left mb-3 mb-md-0">
             <p className="m-0 text-white">
-              © <Link to="#">warelogg.com &#160;</Link>All Rights Reserved. Designed
+              © 2023<Link to="#">warelogg.com &#160;</Link>All Rights Reserved. Designed
               by<Link to="/">Warelogg Privated Limited</Link>
             </p>
           </div>
