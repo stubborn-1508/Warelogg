@@ -351,6 +351,7 @@ const Storage = (props) => {
         show={show}
         onHide={handleClose}
       />
+
       <Container className="my-5" fluid>
         <Row>
           <Col md={12} sm={12}>
