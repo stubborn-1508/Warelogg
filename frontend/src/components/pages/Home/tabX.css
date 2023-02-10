@@ -87,12 +87,6 @@
   transition-duration: .1s;
 }
 
-@media (min-width: 786px) {
-  .button-36 {
-    padding: 0 2.6rem;
-  }
-}
-
 .nextPageTab{
     padding-right: 2rem;
     display:flex;
@@ -143,3 +137,10 @@
     border: 2px solid rgb(249, 165, 69);
     border-radius: 0.65rem;
 }
+
+
+@media (max-width: 400px) {
+    .landmarkFormFont::placeholder{
+        font-size: 0.85rem;
+    }
+}  

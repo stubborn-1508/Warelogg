@@ -72,6 +72,7 @@ const StorageTab = () =>
       <Form className="nextPageTabItem1">
         <Form.Group controlId="formBasicEmail" className="landmarkForm">
           <Form.Control
+          className="landmarkFormFont"
             type="text"
             placeholder="Zip, City, State or Landmark"
             name="fLocation"

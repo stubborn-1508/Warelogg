@@ -92,6 +92,18 @@ const HeaderSection = () => {
                 Warelogg
               </span>
             </Link>
+            {/* <div className="d-flex flex-row justify-content-between"> */}
+
+            {/* <Link
+              to="/cart"
+              className="nav-item nav-link position-relative my-2 my-lg-0 navBarCartResponsive"
+              style={{display:"none"}}
+              >
+              <span className="cart-basket d-flex align-items-center justify-content-center">
+                {ctx.cartValue}
+              </span>
+              <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
+            </Link> */}
             <button
               type="button"
               className="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around"
@@ -105,31 +117,31 @@ const HeaderSection = () => {
             <div
               className="collapse navbar-collapse flex-row-reverse mx-0 mx-lg-3"
               id="navbarCollapse"
-            >
+              >
                 {/* for screen smaller than lg show this div */}
                 <div className="d-inline d-lg-none">
                   <Link
                     to="/partner"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     List Your Space
                   </Link>
                   <Link
                     to="/orders"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     My Bookings
                   </Link>
                   <Link
                     to="/allListedSpace"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     My Listed Space
                   </Link>
                   <Link
                     to="/cart"
                     className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
-                  >
+                    >
                     <span className="cart-basket d-flex align-items-center justify-content-center">
                       {ctx.cartValue}
                     </span>
@@ -138,14 +150,14 @@ const HeaderSection = () => {
                   <Link
                     to="/profile"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     Profile
                   </Link>
                   {usertoken != null ? (
-                        <Button
-                          className="btn btn-dark text-white d-lg-block mx-4"
-                          onClick={handleLogout}
-                        >
+                    <Button
+                    className="btn btn-dark text-white d-lg-block mx-4"
+                    onClick={handleLogout}
+                    >
                           Logout
                         </Button>
                       ) : (
@@ -164,13 +176,13 @@ const HeaderSection = () => {
                   <Link
                     to="/partner"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     List Your Space
                   </Link>
                   <a
                     class="nav-item nav-link listSpaceButtonStyle"
                     href="#popup1"
-                  >
+                    >
                     Shipping
                   </a>
                   <div id="popup1" class="overlay">
@@ -180,11 +192,11 @@ const HeaderSection = () => {
                         src="/images/comingsoon.png"
                         alt="First slide"
                         style={{ height: "29rem", objectFit: "fill" }}
-                      />
+                        />
                       <div
                         class="stayTunedContainer"
                         style={{ height: "2rem" }}
-                      >
+                        >
                         <div class="stayTunedTypewriter">STAY TUNED!</div>
                       </div>
                       <a class="close" href="#">
@@ -195,7 +207,7 @@ const HeaderSection = () => {
                   <Link
                     to="/cart"
                     className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
-                  >
+                    >
                     <span className="cart-basket d-flex align-items-center justify-content-center">
                       {ctx.cartValue}
                     </span>
@@ -213,7 +225,7 @@ const HeaderSection = () => {
                         className="rounded-circle mx-2"
                         height="25px"
                         alt=""
-                      />
+                        />
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="dropdownMenu">
                       <Link to="/profile" className="nav-item nav-link">
@@ -230,8 +242,8 @@ const HeaderSection = () => {
                       <Dropdown.Divider />
                       {usertoken != null ? (
                         <Button
-                          className="btn btn-dark text-white d-lg-block mx-auto"
-                          onClick={handleLogout}
+                        className="btn btn-dark text-white d-lg-block mx-auto"
+                        onClick={handleLogout}
                         >
                           Logout
                         </Button>
@@ -241,7 +253,7 @@ const HeaderSection = () => {
                             <Dropdown.Item
                               as="button"
                               onClick={() => setRegisterModalShow(true)}
-                            >
+                              >
                               Signup
                             </Dropdown.Item>
                           </Link>
@@ -249,7 +261,7 @@ const HeaderSection = () => {
                             <Dropdown.Item
                               as="button"
                               onClick={() => setModalShow(true)}
-                            >
+                              >
                               Login
                             </Dropdown.Item>
                           </Link>
@@ -257,6 +269,7 @@ const HeaderSection = () => {
                       )}
                     </Dropdown.Menu>
                   </Dropdown>
+                      {/* </div> */}
                 </div>
               </div>
           </nav>
