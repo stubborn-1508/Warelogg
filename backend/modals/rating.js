@@ -1,25 +1,34 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 require("dotenv").config({ path: "../config/config.env" });
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 
 // Schema for Rating
 const RatingSchema = new Schema({
-    warehouseID: [
-        {type: Schema.Types.ObjectId, ref: "Warehouse"}, 
-    ],
-
-    ratings: [
-        {
-            star: Number,
-            // givenBy: { type: mongoose.Schema.Types.ObjectId, ref: "Customer"}
-        }
-    ],
-
-    computedRating: {
+    warehouse_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'warehouses',
+        required: true
+    },
+    user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'users',
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    comment: {
+        type: String,
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    },
+    stars: {
         type: Number,
-        default: 0
+        required: true
     }
 });
 

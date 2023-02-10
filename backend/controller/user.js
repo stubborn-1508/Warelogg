@@ -2,8 +2,12 @@ const User = require("../modals/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-
+const emailValidator = require('deep-email-validator');
 require("dotenv").config({ path: "../config/config.env" });
+
+async function isEmailValid(email) {
+  return emailValidator.validate(email)
+}
 
 const register = async (req, res) => {
   const { name, email, password, mobile, username, state } = req.body;
@@ -17,6 +21,12 @@ const register = async (req, res) => {
     if (userExist) {
       return res.status(400).json("Email already exist!!!");
     } else {
+      const data = await isEmailValid(email);
+      // console.log(data);
+      if(!data.valid)
+      {
+        return res.status(400).json("Please enter valid email");
+      }
       const user = new User({
         name: name,
         email: email,
@@ -40,7 +50,7 @@ const register = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
+    return res.status(402).json({message: "Something went wrong!!"});
   }
 };
 
@@ -79,7 +89,7 @@ const login = async (req, res) => {
       return res.status(400).json("User not found");
     }
   } catch (err) {
-    console.log(err);
+    return res.status(402).json({message: "Something went wrong!!"});
   }
 };
 

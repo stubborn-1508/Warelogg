@@ -4,39 +4,30 @@ require("dotenv").config({ path: "../config/config.env" });
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-
-
 // Create Schema
 const BookSchema = new Schema({
     order_id:{
         type: String
     },
     user_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    subunit_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subunit'
+    },
+    occupiedFrom: {
+        type: Number,
+        default: 0
+    },
+    occupiedTo: {
+        type: Number,
+        default: 0
+    },
+    status: {
         type: String,
-    },
-    subUnit_id: {
-        type: String
-    },
-    fromOcc: {
-        type: Number,
-        default: Date.now
-    },
-    toOcc: {
-        type: Number,
-        default: Date.now
-    },
-    Name: {
-        type: String
-    },
-    Size: {
-        type: String
-    },
-    Price: {
-        type: Number
-    },
-    isActive: {
-        type: Boolean,
-        default: true
+        default: 'none'
     }
 });
 

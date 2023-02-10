@@ -1,120 +1,65 @@
 const Cart = require("../modals/cart");
 const WareHouse = require("../modals/warehouse");
+const Subunit = require("../modals/subunit");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-require("dotenv").config({path: "../config/config.env"});
+require("dotenv").config({ path: "../config/config.env" });
 
 const addToCart = async (req, res) => {
-    const user_id = req.body.user_id;
-    const cartContent = req.body.cartContent;
-    const subUnitId = cartContent.subUnit_id;
+  const user_id = req.body.user_id;
+  const subunit_id = req.body.subUnit_id;
+  try {
+    const cart = new Cart({ user_id, subunit_id });
+    cart.save();
+    return res.status(200).json("Successfully Added to Cart");
+  } catch (err) {
+    res.status(400).json("Error!!");
+  }
+};
 
-    if(!cartContent.OccFrom || !cartContent.OccTo){
-        return res.status(400).json('Please choose the starting and ending dates');
-    }
-    
-    try{
-        const cartData = await Cart.findOne({user_id: user_id}).lean();
-        if(!cartData){
-            const cart = new Cart({
-                user_id,
-                cartContent: [cartContent]
-            });
-            const waitRes1 = await cart.save();
-            const waitRes2 = await WareHouse.updateOne({"subUnits._id": subUnitId}, {
-                $set: {
-                    "subUnits.$.isInCart": true
-                }
-            }, function(err) {
-                console.log(err);
-            });
-            return res.status(200).json('Successfully Added to Cart');
-        }else{
-            const waitRes1 = await Cart.updateOne(
-                { user_id: user_id },
-                { $push: { cartContent: cartContent } }
-            );
-            const waitRes2 = await WareHouse.updateOne({"subUnits._id": subUnitId}, {
-                $set: {
-                    "subUnits.$.isInCart": true
-                }
-            }, function(err) {
-                console.log(err);
-            });
-            return res.status(200).json('Successfully Added to Cart');
-        }
-    }catch(err){
-        res.send(err);
-    }
-}
+const getMyCart = async (req, res) => {
+  const id = req.body.user_id;
+  try {
+    const data = await Cart.find({ user_id: id }).lean();
+    const data1 = data.map((element) => element.subunit_id);
+    const data2 = [];
+    for (index = 0; index < data1.length; index++)
+      data2.push(await Subunit.findOne({ _id: data1[index] }));
+    return res.status(200).json(data2);
+  } catch (err) {
+    res.status(400).json("Error!!");
+  }
+};
 
-const getMyCart = async(req, res) => {
-    const id = req.body.id;
-    try{
-        let data1 = await Cart.findOne({user_id: id}).clone().lean();
-        let data2 = await WareHouse.find().clone().lean();
-        data1 = data1.cartContent.map((ele) => {
-            let obj = ele;
-            for(let i=0;i<data2.length;i++){
-                for(let j=0;j<data2[i].subUnits.length;j++){
-                    if(data2[i].subUnits[j]._id.toString() === ele.subUnit_id){
-                        if(data2[i].subUnits[j].fromOcc === data2[i].subUnits[j].toOcc){
-                            obj.isAvailable = true;
-                        }else{
-                            obj.isAvailable = false;
-                        }
-                    }
-                }
-            }
-            return obj;
-        });
-        return res.status(200).json(data1);
-    }catch(err){
-        res.status(400).json("Error!!");
-    }
-}
-
-const deleteCart = async (req,res) => {
-    const id = req.body.id;
-    const warehouse_id = req.body.warehouse_id;
-    const subUnit_id = req.body.subUnit_id;
-    try {
-        await Cart.updateOne({user_id: id},
-            {$pull: {cartContent: {subUnit_id: subUnit_id}}},
-            { safe: true, multi: false }
-        ).clone();
-        await WareHouse.updateOne({"subUnits._id": subUnit_id}, {
-            $set: {
-                "subUnits.$.isInCart": false
-            }
-        }, function(err) {
-            console.log(err);
-        }).clone();
-        const data = await Cart.findOne({user_id: id}).clone().lean();
-        res.send(data);
-    }catch (err){
-        res.status(400).json({error: err});
-    }
-}
+const deleteCart = async (req, res) => {
+  const user_id = req.body.user_id;
+  const subunit_id = req.body.subUnit_id;
+  try {
+    await Cart.deleteOne({ user_id, subunit_id });
+    return res.status(200).json("Successfully deleted from Cart");
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+};
 
 const assignCarts = async (req, res) => {
-    const user_id = req.body.user_id;
-    const subUnit_id = req.body.subUnit_id;
-    try{
-        const waitRes = await Cart.findOne({user_id: user_id, "cartContent.subUnit_id": subUnit_id}).lean();
-        if(waitRes){
-            res.json({message: true});
-        }else{
-            res.json({message: false});
-        }
-    }catch(err){
-        res.send(err);
+  const user_id = req.body.user_id;
+  const subunit_id = req.body.subUnit_id;
+  try {
+    const waitRes = await Cart.findOne({ user_id, subunit_id }).lean();
+    if (waitRes) {
+      res.json({ message: true });
+    } else {
+      res.json({ message: false });
     }
-}
+  } catch (err) {
+    res.status(400).json({ error: err });
+  }
+};
 
 module.exports = {
-    addToCart,
-    getMyCart,
-    deleteCart,
-    assignCarts
+  addToCart,
+  getMyCart,
+  deleteCart,
+  assignCarts,
 };

@@ -4,49 +4,11 @@ require("dotenv").config({ path: "../config/config.env" });
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-
-const subUnitSchema = new Schema({
-    length: {
-        type: String,
-        required: true
-    },
-    width: {
-        type: String,
-        required: true
-    },
-    height: {
-        type: String,
-        required: true
-    },
-    spaceOccupied: {
-        type: Number,
-        default: 0
-    },
-    price: {
-        type: Number,
-        default: 0
-    },
-    fromOcc: {
-        type: Number,
-        default: Date.now
-    },
-    toOcc: {
-        type: Number,
-        default: Date.now
-    },
-    images: [
-        {
-            type: String
-        }
-    ]
-});
-
 // Create Schema
-const WareHouseSchema = new Schema({
+const WarehouseSchema = new Schema({
     user_id: {
-        type: Number,
-        ref: 'User',
-        field: "user_id"
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     name: {
         type: String,
@@ -59,7 +21,7 @@ const WareHouseSchema = new Schema({
     businessName:{
         type: String
     },
-    contactNumberMobile: {
+    contactNumber: {
         type: Number,
     },
     businessAddress: {
@@ -77,20 +39,25 @@ const WareHouseSchema = new Schema({
     zip: {
         type: String,
     },
-    subUnits: [
-        {
-            type: subUnitSchema,
-            required: true
-        }
-    ],
     features: [
         {
             type: String
         }
     ],
-    isVerified: false
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    status: {
+        type: String,
+        default: "none"
+    },
+    rating: {
+        type: String,
+        default: 0
+    }
 });
 
 
-WareHouse = mongoose.model('warehouses', WareHouseSchema);
-module.exports = WareHouse;
+Warehouse = mongoose.model('warehouses', WarehouseSchema);
+module.exports = Warehouse;

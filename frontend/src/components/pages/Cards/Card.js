@@ -133,7 +133,7 @@ const CardSection = ({ warehouseInfo }) =>
         <>
             <Container fluid>
                 <Row>
-                    { warehouseInfo.map((warehouse, key) =>
+                    { (warehouseInfo = adminPath==='/admin' ? warehouseInfo : warehouseInfo.filter(el => el.isVerified===true)).map((warehouse, key) =>
                     {
                         let facility = [];
                         let length = 0;
@@ -146,18 +146,18 @@ const CardSection = ({ warehouseInfo }) =>
                         });
                         let subUnitStr = "";
                         let totArea = 0;
-                        for(var it = 0; it<warehouse.subUnits.length; it++){
-                            subUnitStr += `SubUnit ${it+1}: ${warehouse.subUnits[it].length} x ${warehouse.subUnits[it].width} x ${warehouse.subUnits[it].height}`;
-                            subUnitStr += '\n';
-                            totArea += (warehouse.subUnits[it].length*warehouse.subUnits[it].width);
-                        }
+                        // for(var it = 0; it<warehouse.subUnits.length; it++){
+                        //     subUnitStr += `SubUnit ${it+1}: ${warehouse.subUnits[it].length} x ${warehouse.subUnits[it].width} x ${warehouse.subUnits[it].height}`;
+                        //     subUnitStr += '\n';
+                        //     totArea += (warehouse.subUnits[it].length*warehouse.subUnits[it].width);
+                        // }
 
-                        warehouse.subUnits.map((ele) => {
-                            length = length + parseInt(ele.length);
-                            width = width + parseInt(ele.width);
-                            height = height + parseInt(ele.height);
-                            occ = occ + parseInt(ele.spaceOccupied);
-                        });
+                        // warehouse.subUnits.map((ele) => {
+                        //     length = length + parseInt(ele.length);
+                        //     width = width + parseInt(ele.width);
+                        //     height = height + parseInt(ele.height);
+                        //     occ = occ + parseInt(ele.spaceOccupied);
+                        // });
                         return <Col lg={ 3 } md={ 4 } sm={ 6 } xs={ 12 } key={ key } >
                             <Card className={adminPath==="/admin"?"rounded shadow bg-white overflow-hidden mb-2 my-4":"rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover"} onClick={ () =>
                                 routeChange(warehouse._id) }>
@@ -169,10 +169,10 @@ const CardSection = ({ warehouseInfo }) =>
                                         </div>
                                         <div>
                                             <i className="h4 justify-content"><AiFillStar className="text-warning" /> </i>
-                                                {warehouse.rating} 4/5
+                                                {warehouse.rating}/5
                                         </div>
                                     </div>
-                                    <div className="distanceStyle bg-secondary">x kms away</div>
+                                    {/* <div className="distanceStyle bg-secondary">x kms away</div> */}
                                     <div className="bg-secondary heightdiv paddingInName d-flex flex-column justify-content-around">
                                         <div className = "d-flex flex-row justify-content-between "> 
                                             <b className="text-dark warehouseNameStyle">{ warehouse.name } Warehouse</b>

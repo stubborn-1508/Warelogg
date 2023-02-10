@@ -5,51 +5,16 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
-const cartContentSchema = new Schema({
-    warehouse_id: {
-        type: String,
-        required: true,
-        ref: 'Warehouse',
-        field: '_id'
-    },
-    subUnit_id: {
-        type: String,
-        required: true,
-    },
-    Name:{
-        type: String,
-        required: true
-    },
-    Size: {
-        type: String,
-        required: true
-    },
-    OccFrom: {
-        type: Number,
-        required: true
-    },
-    OccTo: {
-        type: Number,
-        required: true
-    },
-    Price: {
-        type: String,
-        required: true
-    }
-});
-
 // Create Schema
 const CartSchema = new Schema({
     user_id: {
-        type: String,
+        type: Schema.Types.ObjectId,
         ref: 'User',
-        field: "_id"
     },
-    cartContent: [
-        {
-            type: cartContentSchema,
-        }
-    ]
+    subunit_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'Subunit',
+    },
 });
 
 

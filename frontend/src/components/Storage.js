@@ -187,7 +187,7 @@ const Storage = (props) => {
       .get("/getAllWarehouse")
       .then((res) => {
         console.log(res.data);
-        setWarehoueseInfo(res.data);
+        setWarehoueseInfo(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -297,7 +297,7 @@ const CustomRightArrow = ({ onClick }) => {
 
   return (
     <>
-      {console.log("called 1st")}
+      {console.log(warehouseInfo)}
 
       <FilterModal
         data={data}
@@ -312,108 +312,9 @@ const CustomRightArrow = ({ onClick }) => {
       <Container className="my-5" fluid>
         <Row>
           <Col md={12} sm={12}>
-            {/* <Row className="">
-              <Col lg={2} md={2} sm={2} xs={12} className="">
-                <Button
-                  variant="primary"
-                  className="my-2 text-light btn-block py-2"
-                  onClick={handleShow}
-                >
-                  <VscSettings className="text-white mx-1" />
-                  Filters
-                  <Badge bg="light" pill className="mx-1 text-dark">
-                    {
-                      Object.values(filterItems).filter((f) => f === true)
-                        .length
-                    }
-                  </Badge>
-                </Button>
-              </Col>
-              <Col lg={2} md={2} sm={2} xs={12}>
-                <Button
-                  className="my-2 text-light btn-block"
-                  variant="success"
-                  onClick={() => {
-                    setToggle(1);
-                  }}
-                >
-                  <FaMap className="mx-1" />
-                  Map
-                </Button>
-              </Col>
-              <Col lg={2} md={2} sm={2} xs={12}>
-                <Button
-                  className="my-2 btn-block"
-                  variant="warning"
-                  onClick={() => {
-                    setToggle(0);
-                  }}
-                >
-                  <BsFillGrid3X2GapFill className="mx-1" />
-                  GridView
-                </Button>
-              </Col>
-              <Col md={1} className="my-2 btn-block"></Col>
-              <Col md={5}>
-                <Form className="d-flex my-2">
-                  <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="me-2 rounded-5"
-                    aria-label="Search"
-                    onChange={handleChange}
-                    value={locationInput}
-                  />
-                  <Button variant="secondary" className="text-white">
-                    <FcSearch />
-                  </Button>
-                </Form>
-              </Col>
-            </Row> */}
             <div>
                         <div className="search-bar">
                                 {toggle ? <GridButton/> : <MapButton/>}
-                                {/* <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,200,0,0" />
-                                <form className="d-flex search-box">
-                                <button class="search-button"style={{background: "none", border: "none", padding: "0"}}><span style={{fontSize: "30px", verticalAlign: "-1px", color: "#9B9B9B"}} class="material-symbols-outlined">search</span></button>
-                                <input 
-                                        class="search-input"
-                                        style={{verticalAlign: "4px", width: "255px"}}
-                                        name="focus" 
-                                        id="search-input" 
-                                        type="search"
-				        placeholder="Search"
-					aria-label="Search"
-					onChange={ handleChange }
-					value={ locationInput }
-
-                                />
-                                </form> */}
-                                        {/* <div className="Search">
-                                                <form>
-                                                        <input type="text" name="search" placeholder="Search.." onChange={ handleChange } value={ locationInput }/>
-                                                </form>
-                                        </div> */}
-
-
-                                {/* <form className="d-flex my-2">
-							<input
-								type="search"
-								placeholder="Search"
-								aria-label="Search"
-								onChange={ handleChange }
-								value={ locationInput }
-							/>
-							<button type="button"className="button-42">
-                                                                <IconContext.Provider
-                                                                        value={{size: '1.8rem' }}
-                                 >
-                                                                        <div>
-                                                                        <BiSearchAlt/>
-                                                                        </div>
-                                                                </IconContext.Provider>
-                                                        </button>
-				</form> */}
                         </div>
                         <div className="Icon-filters p-3 bg-white rounded shadow-sm" style={{width: "100%"}}>
                         <div className="slider">
@@ -876,7 +777,9 @@ const CustomRightArrow = ({ onClick }) => {
                 >
                   <Map current_location={currLoc} />
                 </div>
+
               ) : (
+                // <></>
                 <CardSection warehouseInfo={warehouseInfo}></CardSection>
               )}
             </Col>

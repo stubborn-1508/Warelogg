@@ -35,13 +35,15 @@ const Warehouse = () => {
     const navigate = useNavigate();
 
     const [warehouse, setWarehouse] = useState(null);
+    const [subunit, setSubunit] = useState(null);
     const [cart, setCart] = useState([]);
 
     const fetchData = async (id) => {
         try {
-            let res = await axios.post("/getMyWareHouses", { data: id });
+            let res = await axios.post("/getWarehouseWithSubunit", { data: id });
             // console.log(res.data);
-            setWarehouse(res.data);
+            setWarehouse(res.data.warehouse);
+            setSubunit(res.data.subunits);
         } catch (err) {
             console.log("Error in fetching data" + err);
         }
@@ -122,7 +124,7 @@ const Warehouse = () => {
                                         <RatingBar readonly="true" />
                                     </h4> */}
                                     <div>
-                                        <span className='ratingSize'>3.5</span>
+                                        <span className='ratingSize'>{warehouse.rating}</span>
                                         <span className='outOf'>/5</span>
                                         <div className='starDisplay'>
                                             <h4 className='ratingStars'>
@@ -262,11 +264,11 @@ const Warehouse = () => {
                                     </Row>
                                 </p>
                             </div>
-                            {filter=='Price'?(warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1)).filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
+                            {filter=='Price'?(subunit.sort((p1,p2) => ((parseInt(p1.price) > parseInt(p2.price)) ? 1 : -1)).filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
                                 return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} warehouse_id={id} name={warehouse.name} />)
-                            })): filter=='Size'? (warehouse?.subUnits.sort((p1,p2) => ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1)).filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
+                            })): filter=='Size'? (subunit.sort((p1,p2) => ((parseInt(p1.length) * parseInt(p1.width) > parseInt(p2.length) * parseInt(p2.width)) ? 1 : -1)).filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
                                 return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} warehouse_id={id} name={warehouse.name} />)
-                            })):(warehouse?.subUnits.filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
+                            })):(subunit.filter((ele) => parseInt(ele.price) > 0).map((ele, ind) => {
                                 return (<UnitSection key={ind} subUnit={ele} feature={warehouse.features} warehouse_id={id} name={warehouse.name} />)
                             }))}
                         </Col>
