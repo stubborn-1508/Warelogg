@@ -703,20 +703,9 @@ const Storage = (props) => {
                                 </div> */}
                                                                         </Carousel>
                                                                 </div>
-                                                                <button type="button" className="button-17" onClick={handleShow} style={{ fontSize: "1.1rem" }}>
-                                                                        <IconContext.Provider
-                                                                                value={{ size: '1.5rem' }}
-                                                                        >
-                                                                                <HiOutlineAdjustmentsHorizontal />
-                                                                        </IconContext.Provider>
-                                                                        <span className="filter-text">&nbsp;&nbsp;Filters</span></button>
-                                                        </div>
-                                                </div>
-                                                <div className="navBarSearchContainer">
-                                                        <div className="navBarSearch">
-                                                                <form>
-                                                                        <input type="text" name="search" placeholder="Search.." />
-                                                                </form>
+                                                                
+
+
                                                         </div>
                                                 </div>
                                                 <Row>
@@ -775,6 +764,23 @@ const Storage = (props) => {
                                                                         </Col>
                                                                 </Row>
                                                         </Col>
+                                                        <div className="d-flex flex-row justify-content-around">
+                                                                <div className="navBarSearchContainer">
+                                                                        <div className="navBarSearch" style={{marginLeft:"0rem"}}>
+                                                                                <form>
+                                                                                        <input type="text" name="search" placeholder="Search.." />
+                                                                                </form>
+                                                                        </div>
+                                                                        <button type="button" className="button-17" onClick={handleShow} style={{ fontSize: "1.1rem" }}>
+                                                                                <IconContext.Provider
+                                                                                        value={{ size: '1.5rem' }}
+                                                                                        >
+                                                                                        <HiOutlineAdjustmentsHorizontal />
+                                                                                </IconContext.Provider>
+                                                                                <span className="filter-text">&nbsp;&nbsp;Filters</span>
+                                                                        </button>
+                                                                </div>
+                                                        </div>
                                                         <Col lg={2} md={2}></Col>
                                                 </Row>
                                         </Col>
