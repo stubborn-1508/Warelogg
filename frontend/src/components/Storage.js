@@ -334,12 +334,12 @@ const Storage = (props) => {
                                                         </div>
                                                         <div className="Icon-filters p-3 bg-white rounded shadow-sm" style={{ width: "100%" }}>
                                                                 <div className="slider">
-                                                                        <Carousel responsive={responsive} customRightArrow={<CustomRightArrow />} customLeftArrow={<CustomLeftArrow />}>
+                                                                        <Carousel className = "resp" responsive={responsive} customRightArrow={<CustomRightArrow />} customLeftArrow={<CustomLeftArrow />}>
                                                                                 {filterData.map((ele, ind) => {
                                                                                         return (<div className="filter-adjuster">
                                                                                                 <div className="pretty p-icon p-toggle p-plain icon-style-a" >
                                                                                                         <input type="checkbox" title={ele.name} id={ele.code} onChange={handleCheckChange} />
-                                                                                                        <div className="state p-on custom-icon icon-style-b" >
+                                                                                                        <div className="state p-on custom-icon icon-style-b pos-fix" >
                                                                                                                 <div>
                                                                                                                         {ele.on_icon}
                                                                                                                 </div>
@@ -358,6 +358,7 @@ const Storage = (props) => {
                                                                                                 </div>
                                                                                         </div>);
                                                                                 })}
+                                                        
                                                                                 {/* <div className="filter-adjuster">
                                         <div className="pretty p-icon p-toggle p-plain icon-style-a">
                                         <input type="checkbox" title="CCTV Monitoring"/>
