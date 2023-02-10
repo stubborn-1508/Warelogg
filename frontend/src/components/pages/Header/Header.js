@@ -65,15 +65,13 @@ const HeaderSection = () => {
   const [registerModalShow, setRegisterModalShow] = React.useState(false);
 
   return (
-    <>
+    <div className="hello">
       <LoginModal show={modalShow} onHide={() => setModalShow(false)} />
       <RegisterModal
         show={registerModalShow}
         onHide={() => setRegisterModalShow(false)}
       />
-      <div className="shadow-sm bg-white rounded">
-        <div className="container-fluid">
-          <nav className="d-flex justify-content-between navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0 ">
+          <nav className="shadow-sm rounded d-flex navbar navbar-expand-lg bg-light fixed-top navbar-light py-2 py-lg-0">
             <Link
               to="/"
               className="text-decoration-none d-flex justify-content-center align-items-center"
@@ -275,9 +273,7 @@ const HeaderSection = () => {
                 </div>
               </div>
           </nav>
-        </div>
-      </div>
-    </>
+    </div>
   );
 };
 
