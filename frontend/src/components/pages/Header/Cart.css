@@ -34,6 +34,9 @@ a.cart:hover {
   .listSpaceBT{
     flex-direction: row;
   }
+  .hello{
+    margin-bottom: 12vh;
+  }
 }
 @media (max-width: 991px) {
   .listSpaceBT{
@@ -44,6 +47,9 @@ a.cart:hover {
   }
   .posCart{
     margin-right: 100rem;
+  }
+  .hello{
+    margin-bottom: 15vh;
   }
 }
 
@@ -183,3 +189,4 @@ a.cart:hover {
 
 .navbar-toggler.collapsed .toggler-icon {
   background: linear-gradient(to right, #fdc830, #f37335); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */}
+
