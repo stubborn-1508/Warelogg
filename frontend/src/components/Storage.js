@@ -332,7 +332,7 @@ const Storage = (props) => {
                                                         <div className="search-bar">
                                                                 {toggle ? <GridButton /> : <MapButton />}
                                                         </div>
-                                                        <div className="Icon-filters p-3 bg-white rounded shadow-sm" style={{ width: "100%" }}>
+                                                        <div className="Icon-filters p-3 bg-white rounded shadow-sm" style={{ width: "100%", marginLeft:"-1rem" }}>
                                                                 <div className="slider">
                                                                         <Carousel responsive={responsive} customRightArrow={<CustomRightArrow />} customLeftArrow={<CustomLeftArrow />}>
                                                                                 {filterData.map((ele, ind) => {
