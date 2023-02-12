@@ -75,7 +75,7 @@ const ReviewSection = () =>
     const now = 60;
     return (
         <>
-            <Container fluid>
+            <Container>
                 <Form>
                     <Row>
                         <Col lg={ 4 } className="my-3">
