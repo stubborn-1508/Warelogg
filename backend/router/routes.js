@@ -16,7 +16,7 @@ router.post("/loginUser", userController.login);
 router.get("/googlelogin", passport.authenticate("google", {scope: ["profile"],}));
 router.get("/login", passport.authenticate("google", { scope: ["profile"],successRedirect: process.env.FRONTEND_URL }));
 
-router.get("/getAllUsers", authentication, userController.getAllUsers);
+router.get("/getUser", authentication, userController.getUser);
 
 router.post("/warehouseRegister", warehouseController.warehouseRegister);
 

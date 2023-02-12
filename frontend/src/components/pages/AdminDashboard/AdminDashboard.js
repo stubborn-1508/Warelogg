@@ -15,7 +15,7 @@ const AdminDashboard = () => {
 
     const fetchUserData = async (usertoken) => {
         try {
-            const res = await axios.get("/getAllUsers", {
+            const res = await axios.get("/getUser", {
                 headers: { "x-auth-token": usertoken },
             });
             console.log(res.data);
