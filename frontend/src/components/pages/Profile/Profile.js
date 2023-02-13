@@ -14,7 +14,7 @@ const Profile = () => {
 
     const fetchData = async (usertoken) => {
     try {
-        const res = await axios.get("/getAllUsers", {
+        const res = await axios.get("/getUser", {
             headers: { "x-auth-token": usertoken },
         });
         if(res.data.email === 'admin@warelogg.com'){

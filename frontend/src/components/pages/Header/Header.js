@@ -45,7 +45,7 @@ const HeaderSection = () => {
   };
 
   const fetchData = async (usertoken) => {
-    const res = await axios.get("/getAllUsers", {
+    const res = await axios.get("/getUser", {
       headers: { "x-auth-token": usertoken },
     });
     fetchCartValue(res.data._id);
@@ -75,8 +75,11 @@ const HeaderSection = () => {
           <nav className={(location.pathname==="/warehouse")?"container d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0":"d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0"}>
             <Link
               to="/"
-              className="text-decoration-none d-flex justify-content-center align-items-center"
+              className="text-decoration-none cartSmallScreenNav"
+              style={{display:"flex", flexDirection:"row"}}
             >
+              <div style={{display:"flex", flexDirection:"row"}}>
+
               <span>
                 <img src="/images/logo.png" height={60} width={60} alt="" />
               </span>
@@ -89,10 +92,24 @@ const HeaderSection = () => {
                   textTransform: "none",
                 }}
                 className="ml-2 d-none d-sm-block"
-              >
+                >
                 Warelogg
               </span>
+              </div>
+              <span style={{marginTop:"1.4rem"}} className="smallScreenCart">
+                <Link
+                  to="/cart"
+                  className="nav-item cart position-relative my-2 my-lg-0"
+                  >
+                  <span className="cart-basket d-flex align-items-center justify-content-center">
+                    {ctx.cartValue}
+                  </span>
+                  <i className="fas fa fa-shopping-cart fa-lg text-dark" style={{marginRight:"1rem"}}></i>
+                </Link>
+              </span>
             </Link>
+
+
             <button
               type="button"
               className="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around"
@@ -112,41 +129,32 @@ const HeaderSection = () => {
                   <Link
                     to="/partner"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     List Your Space
                   </Link>
                   <Link
                     to="/orders"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     My Bookings
                   </Link>
                   <Link
                     to="/allListedSpace"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     My Listed Space
-                  </Link>
-                  <Link
-                    to="/cart"
-                    className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
-                  >
-                    <span className="cart-basket d-flex align-items-center justify-content-center">
-                      {ctx.cartValue}
-                    </span>
-                    <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
                   </Link>
                   <Link
                     to="/profile"
                     className="nav-item nav-link listSpaceButtonStyle"
-                  >
+                    >
                     Profile
                   </Link>
                   {usertoken != null ? (
-                        <Button
-                          className="btn btn-dark text-white d-lg-block mx-4"
-                          onClick={handleLogout}
-                        >
+                    <Button
+                    className="btn btn-dark text-white d-lg-block mx-4"
+                    onClick={handleLogout}
+                    >
                           Logout
                         </Button>
                       ) : (
@@ -162,6 +170,16 @@ const HeaderSection = () => {
                 </div>
                 {/* else show this div */}
                 <div className="d-none d-lg-flex listSpaceBT">
+                  <Link
+                    to="/cart"
+                    className="nav-item  cart position-relative my-2 my-lg-0"
+                    >
+                    <span className="cart-basket d-flex align-items-center justify-content-center" style={{marginRight:"-1rem"}}>
+
+                      {ctx.cartValue}
+                    </span>
+                    <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
+                  </Link>
                   <Link
                     to="/partner"
                     className="nav-item nav-link listSpaceButtonStyle"
@@ -193,7 +211,7 @@ const HeaderSection = () => {
                       </a>
                     </div>
                   </div>
-                  <Link
+                  {/* <Link
                     to="/cart"
                     className="nav-item nav-link cart position-relative my-2 my-lg-0 posCart"
                   >
@@ -201,7 +219,7 @@ const HeaderSection = () => {
                       {ctx.cartValue}
                     </span>
                     <i className="fas fa fa-shopping-cart fa-lg text-dark"></i>
-                  </Link>
+                  </Link> */}
                   <Dropdown xs={2} className="mx-2" variant="secondary">
                     <Dropdown.Toggle
                       id="dropdown-autoclose-true dropdownHeader"
@@ -258,6 +276,7 @@ const HeaderSection = () => {
                       )}
                     </Dropdown.Menu>
                   </Dropdown>
+                              {/* </div> */}
                 </div>
               </div>
           </nav>

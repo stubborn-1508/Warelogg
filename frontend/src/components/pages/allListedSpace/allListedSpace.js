@@ -21,7 +21,7 @@ const AllListedSpace = () => {
 
     const fetchData = async (usertoken) => {
         try {
-            let res = await axios.get("/getAllUsers", {
+            let res = await axios.get("/getUser", {
                 headers: { "x-auth-token": usertoken },
             });
             const user_id = res.data.user_id;

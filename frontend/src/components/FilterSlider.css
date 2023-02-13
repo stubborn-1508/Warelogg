@@ -2,8 +2,10 @@
         width: 100%;
         height: 100px;
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
         margin-top: -40px;
+        position: fixed;
+        z-index: 5;
 }
 
 .custom-icon {
@@ -17,6 +19,7 @@
 
 .filter-adjuster{
         height: 85px;
+        width: 140px;
 }
 
 .search-bar {
@@ -27,12 +30,13 @@
 }
 
 .slider {
-        width: 92%;
+        width: 100%;
+        margin-left: 50px;
 }
 
 .custom-right-arrow {
         position: absolute !important;
-        right: 30px;
+        right: 50px;
         z-index: 1;
         border: 1px solid grey;
         border-width: 0 3px 3px 0;
@@ -49,7 +53,7 @@
 
 .custom-left-arrow {
         position: absolute !important;
-        left: 5px;
+        left: 2px;
         z-index: 1;
         border: 1px solid grey;
         border-width: 0 3px 3px 0;
@@ -123,6 +127,7 @@
         .slider {
                 width: 100%;
                 margin: auto;
+                margin-left: 10px;
         }
 }
 

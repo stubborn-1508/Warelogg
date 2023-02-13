@@ -24,7 +24,7 @@ const YourOrders = () =>
     }
 
     const fetchData = async (usertoken) => {
-        const res = await axios.get("/getAllUsers", {
+        const res = await axios.get("/getUser", {
             headers: { "x-auth-token": usertoken },
         });
         setUserId(res.data._id);
