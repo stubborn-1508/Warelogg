@@ -80,7 +80,6 @@ const Warehouse = () => {
     }
 
     const handleFilterChange = (e) => {
-        console.log("Filter activated!!!");
         setFilter(e.target.value);
     }
 

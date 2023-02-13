@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Warehouse = require("../modals/warehouse");
 const Subunit = require("../modals/subunit");
+const Book = require("../modals/book");
 require("dotenv").config({path: "../config/config.env"});
 
 // API for warehouse registration
@@ -86,6 +87,24 @@ const getUserWareHouses = async (req,res) => {
     }
 }
 
+const getDisableDates = async (req, res) => {
+    try{
+        const data = await Book.find({subunit_id: req.body.subunit_id}).clone().lean();
+        // console.log(data);
+        let disableInterval = [];
+        data?.map((ele, ind) => {
+            let tempObj = {}
+            tempObj.start = parseInt(ele.occupiedFrom) - 1;
+            tempObj.end = parseInt(ele.occupiedTo);
+            disableInterval.push(tempObj);
+        });
+        return res.status(200).json(disableInterval);
+    }catch(err) {
+        return res.status(402).json({message: "Something went wrong!!"});
+    }
+    // return data;
+}
+
 // 
 const getWarehouseWithSubunit = async (req,res) => {
     const warehouse_id = req.body.data;
@@ -135,6 +154,7 @@ module.exports = {
     getUserWareHouses,
     getWarehouseWithSubunit,
     verifyWarehouse,
-    getSubunit
+    getSubunit,
+    getDisableDates
 };
   

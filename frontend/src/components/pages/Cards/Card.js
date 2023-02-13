@@ -28,7 +28,6 @@ import { IconContext } from "react-icons/lib";
 
 const CardSection = ({ warehouseInfo, filter=[] }) =>
 {
-    console.log("Card Filter: " + filter);
     function WarehouseArea(x, y)
     {
         const totalArea = parseInt(x);

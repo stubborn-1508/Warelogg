@@ -186,7 +186,6 @@ const Storage = (props) => {
                 axios
                         .get("/getAllWarehouse")
                         .then((res) => {
-                                console.log(res.data);
                                 setWarehoueseInfo(res.data.data);
                         })
                         .catch((err) => {
@@ -310,7 +309,6 @@ const Storage = (props) => {
                 }
                 setRand(rand + 1)
         }
-        console.log("filter Array:" + filterArr);
         return (
                 <>
                         {/* {console.log(warehouseInfo)} */}

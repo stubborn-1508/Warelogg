@@ -26,6 +26,8 @@ router.post("/getUserWareHouses", warehouseController.getUserWareHouses);
 
 router.post("/getWarehouseWithSubunit", warehouseController.getWarehouseWithSubunit);
 
+router.post("/getDisableDates", warehouseController.getDisableDates);
+
 router.post("/verifyWarehouse", warehouseController.verifyWarehouse);
 
 router.post("/addReview", ratingController.addReview);

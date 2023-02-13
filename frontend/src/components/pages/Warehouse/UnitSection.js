@@ -45,13 +45,28 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
   const [userId, setUserId] = useState(null);
   const [selectUnit, setSelectUnit] = useState(false);
 
-  const [status, setStatus] = useState(
-    subUnit.toOcc === subUnit.fromOcc
-      ? "Available"
-      : `Occupied from ${convertNumToDate(
-          subUnit.fromOcc
-        )} to ${convertNumToDate(subUnit.toOcc)}`
-  );
+  const [disableDatesInterval, setDisableDatesInterval] = useState([
+    // {
+    //   start: subDays(new Date(), 5),
+    //   end: addDays(new Date(), 5),
+    // },
+    // {
+    //   start: new Date(),
+    //   end: addDays(new Date(), 15),
+    // },
+    // {
+    //   start: new Date(getStrDate(subUnit.fromOcc - 1)),
+    //   end: new Date(getStrDate(subUnit.toOcc)),
+    // },
+    // {
+    //   start: new Date("2023-01-03"),
+    //   end: new Date("2023-01-08"),
+    // },
+    // {
+    //   start: new Date("2023-02-12"),
+    //   end: new Date("2023-02-21"),
+    // },
+  ]);
 
   const facilityObj = {
     cctv: "CCTV Monitering",
@@ -65,12 +80,19 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
       headers: { "x-auth-token": usertoken },
     });
     const id = subUnit._id;
-    const res2 = await axios({
-      url: "/assignCarts",
-      data: { user_id: res1.data._id, subUnit_id: id },
-      method: "post",
+    // const res2 = await axios({
+    //   url: "/assignCarts",
+    //   data: { user_id: res1.data._id, subunit_id: id },
+    //   method: "post",
+    // });
+    const res3 = await axios({
+      url: "/getDisableDates",
+      data: {subunit_id: id},
+      method: "post"
     });
-    setSelectUnit(res2.data.message);
+    console.log(res3.data);
+    setDisableDatesInterval(res3.data);
+    // setSelectUnit(res2.data.message);
     setUserId(res1.data._id);
   };
 
@@ -88,79 +110,18 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
   const [endDate, setEndDate] = useState(null);
 
   const handleChangeEndDate = (date) => {
-    const num = convertDateToNum(date);
     if (!startDate || startDate === "") {
       alert("First Choose starting Date");
       setEndDate(null);
       return;
     }
-    // if (subUnit.toOcc === subUnit.fromOcc) {
-    //   setStatus("Available");
-    //   setEndDate(num);
-    // } else if (
-    //   (startDate <= subUnit.fromOcc && num > subUnit.fromOcc) ||
-    //   num <= startDate
-    // ) {
-    //   setStatus("Choose the correct ending date");
-    //   setEndDate(null);
-    // } else {
-    //   setStatus(
-    //     `Occupied from ${convertNumToDate(
-    //       subUnit.fromOcc
-    //     )} to ${convertNumToDate(subUnit.toOcc)}`
-    //   );
-    //   setEndDate(num);
-    // }
-    if (
-      (num >= subUnit.fromOcc && num <= subUnit.toOcc) ||
-      (startDate <= subUnit.fromOcc && num > subUnit.fromOcc) ||
-      num <= startDate
-    ) {
-      setStatus("Choose the correct starting date");
-      setStatus(
-        `Occupied from ${convertNumToDate(
-          subUnit.fromOcc
-        )} to ${convertNumToDate(subUnit.toOcc)}`
-      );
-      setStartDate(null);
-      setEndDate(null);
-    } else {
-      setStatus("Available");
-      setEndDate(num);
-    }
+    const num = convertDateToNum(date);
+    setEndDate(num);
   };
 
   const handleChangeStartDate = (date) => {
     const num = convertDateToNum(date);
-    // if (subUnit.toOcc === subUnit.fromOcc) {
-    //   setStatus("Available");
-    //   setStartDate(num);
-    // } else if (num > subUnit.fromOcc && num < subUnit.toOcc) {
-    //   setStatus("Choose the correct starting date");
-    //   setStartDate(null);
-    // } else {
-    //   setStatus(
-    //     `Occupied from ${convertNumToDate(
-    //       subUnit.fromOcc
-    //     )} to ${convertNumToDate(subUnit.toOcc)}`
-    //   );
-    //   setStartDate(num);
-    // }
-    // // setStartDate(e.target.value);
-
-    if (num >= subUnit.fromOcc && num <= subUnit.toOcc) {
-      setStatus("Choose the correct starting date");
-      setStatus(
-        `Occupied from ${convertNumToDate(
-          subUnit.fromOcc
-        )} to ${convertNumToDate(subUnit.toOcc)}`
-      );
-      setStartDate(null);
-      setEndDate(null);
-    } else {
-      setStatus("Available");
-      setStartDate(num);
-    }
+    setStartDate(num);
   };
 
   const handleSelectWarehouse = (e) => {
@@ -234,29 +195,6 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
 
     return strdate;
   };
-
-  const disableDatesInterval = [
-    // {
-    //   start: subDays(new Date(), 5),
-    //   end: addDays(new Date(), 5),
-    // },
-    // {
-    //   start: new Date(),
-    //   end: addDays(new Date(), 15),
-    // },
-    {
-      start: new Date(getStrDate(subUnit.fromOcc - 1)),
-      end: new Date(getStrDate(subUnit.toOcc)),
-    },
-    // {
-    //   start: new Date("2023-01-03"),
-    //   end: new Date("2023-01-08"),
-    // },
-    // {
-    //   start: new Date("2023-02-12"),
-    //   end: new Date("2023-02-21"),
-    // },
-  ];
 
   return (
     <>
@@ -411,7 +349,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="dd-mm-yyyy"
                                 // filterDate={(date) => disableDates(date)}
-                                excludeDateIntervals={disableDatesInterval}
+                                // excludeDateIntervals={disableDatesInterval}
                                 showYearDropdown
                                 showMonthDropdown
                                 scrollableMonthYearDropdown
@@ -442,7 +380,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                                 minDate={startDate}
                                 onChange={(date) => handleChangeEndDate(date)}
                                 // filterDate={(date) => disableDates(date)}
-                                excludeDateIntervals={disableDatesInterval}
+                                // excludeDateIntervals={disableDatesInterval}
                                 showYearDropdown
                                 showMonthDropdown
                                 scrollableMonthYearDropdown
@@ -454,9 +392,9 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                       </div>
                     </>
                   )}
-                  <div className="list-unstyled d-flex flex-column justify-content-right">
+                  {/* <div className="list-unstyled d-flex flex-column justify-content-right">
                     {status}
-                  </div>
+                  </div> */}
                   {
                     <>
                       <div className="pt-2">
