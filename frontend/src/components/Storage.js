@@ -339,7 +339,7 @@ const Storage = (props) => {
                                                                                         return (<div className="filter-adjuster">
                                                                                                 <div className="pretty p-icon p-toggle p-plain icon-style-a" >
                                                                                                         <input type="checkbox" title={ele.name} id={ele.code} onChange={handleCheckChange} />
-                                                                                                        <div className="state p-on custom-icon icon-style-b" >
+                                                                                                        <div className="state p-on custom-icon icon-style-b filter-align" >
                                                                                                                 <div>
                                                                                                                         {ele.on_icon}
                                                                                                                 </div>
