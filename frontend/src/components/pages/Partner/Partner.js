@@ -166,7 +166,7 @@ const BecomePartner = () => {
 
   const fetchData = async (usertoken) => {
     try {
-      const res = await axios.get("/getAllUsers", {
+      const res = await axios.get("/getUser", {
         headers: { "x-auth-token": usertoken },
       });
       setWareHouse({ ...wareHouse, user_id: res.data.user_id });

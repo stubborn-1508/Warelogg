@@ -61,7 +61,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
   };
 
   const fetchData = async (usertoken) => {
-    const res1 = await axios.get("/getAllUsers", {
+    const res1 = await axios.get("/getUser", {
       headers: { "x-auth-token": usertoken },
     });
     const id = subUnit._id;
