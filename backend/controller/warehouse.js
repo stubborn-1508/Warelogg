@@ -87,15 +87,32 @@ const getUserWareHouses = async (req,res) => {
     }
 }
 
+const getStrDate = (num) => {
+    let date = new Date(num);
+    let strday = date.getDate().toString();
+    if (strday.length === 1) {
+      strday = "0" + date.getDate().toString();
+    }
+
+    let strmonth = date.getMonth().toString();
+    if (strmonth.length === 1) {
+      strmonth = "0" + (date.getMonth() + 1).toString();
+    }
+
+    let strdate = date.getFullYear().toString() + "-" + strmonth + "-" + strday;
+
+    return strdate;
+  };
+
 const getDisableDates = async (req, res) => {
     try{
-        const data = await Book.find({subunit_id: req.body.subunit_id}).clone().lean();
+        const data = await Book.find({subunit_id: req.body.subunit_id, status: "Booked"}).clone().lean();
         // console.log(data);
         let disableInterval = [];
         data?.map((ele, ind) => {
             let tempObj = {}
-            tempObj.start = parseInt(ele.occupiedFrom) - 1;
-            tempObj.end = parseInt(ele.occupiedTo);
+            tempObj.start = new Date(getStrDate(parseInt(ele.occupiedFrom) - 1));
+            tempObj.end = new Date(getStrDate(parseInt(ele.occupiedTo)));
             disableInterval.push(tempObj);
         });
         return res.status(200).json(disableInterval);

@@ -7,7 +7,7 @@ require("dotenv").config({ path: "../config/config.env" });
 
 const addToCart = async (req, res) => {
   const user_id = req.body.user_id;
-  const subunit_id = req.body.subUnit_id;
+  const subunit_id = req.body.subunit_id;
   try {
     const cart = new Cart({ user_id, subunit_id });
     cart.save();

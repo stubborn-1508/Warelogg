@@ -117,7 +117,7 @@ const CardSection = ({ warehouseInfo, filter=[] }) =>
             const res = await axios({ url: "/verifyWarehouse", data: {id: id}, method: "post" });
             return res.data;
         }catch (e){
-            return [e.response.data, e.response.status];
+            return [e.response.data.message, e.response.status];
         }
     }
 

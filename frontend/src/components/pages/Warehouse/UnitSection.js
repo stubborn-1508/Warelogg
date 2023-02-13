@@ -90,9 +90,8 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
       data: {subunit_id: id},
       method: "post"
     });
-    console.log(res3.data);
     setDisableDatesInterval(res3.data);
-    // setSelectUnit(res2.data.message);
+    // // setSelectUnit(res2.data.message);
     setUserId(res1.data._id);
   };
 
@@ -100,7 +99,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
     // get user_id
     const usertoken = localStorage.getItem("token");
     if (!usertoken) {
-      setSelectUnit(false);
+      // setSelectUnit(false);
     } else {
       fetchData(usertoken);
     }
@@ -127,7 +126,7 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
   const handleSelectWarehouse = (e) => {
     if (selectUnit == false) {
       handleAddToCart(e);
-      // setSelectUnit(!selectUnit);
+      // // setSelectUnit(!selectUnit);
     } else {
       navigate("/cart", { state: userId });
     }
@@ -146,9 +145,22 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
       return [res.data, res.status];
     } catch (e) {
       console.log(e);
-      return [e.response.data, e.response.status];
+      return [e.response.data.message, e.response.status];
     }
   };
+
+  const bookPending = async (userData) => {
+    try{
+      const res = await axios({
+        url: "/addBooking",
+        data: userData,
+        method: "post"
+      });
+      console.log(res);
+    }catch(e){
+      return [e.response.data.message, e.response.status];
+    }
+  }
 
   const handleAddToCart = async (e) => {
     e.preventDefault();
@@ -157,43 +169,34 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
       navigate("/login");
       return;
     }
-    const CartData = {
-      user_id: userId,
-      cartContent: {
-        warehouse_id: warehouse_id,
-        subUnit_id: subUnit._id,
-        Name: name,
-        Size: subUnit.length + "x" + subUnit.width + "x" + subUnit.height,
-        OccFrom: startDate,
-        OccTo: endDate,
-        Price: subUnit.price,
-      },
-    };
 
-    const waitRes = await add(CartData);
+    if(!startDate && !endDate){
+      alert("Specify start and end date!!");
+      return;
+    }
+    const cartContent = {
+      user_id: userId,
+      subunit_id: subUnit._id
+    }
+
+    const waitRes = await add(cartContent);
     if (waitRes[1] === 200) {
-      setSelectUnit(true);
+      const waitRes2 = await bookPending({
+        user_id: userId,
+        subunit_id: subUnit._id,
+        occupiedFrom: startDate,
+        occupiedTo: endDate
+      });
+      if(waitRes2[1] === 200){
+
+      }else{
+        alert(waitRes2[0]);
+      }
+      // setSelectUnit(true);
     } else {
-      setSelectUnit(false);
+      // setSelectUnit(false);
       alert(waitRes[0]);
     }
-  };
-
-  const getStrDate = (num) => {
-    let date = new Date(num);
-    let strday = date.getDate().toString();
-    if (strday.length === 1) {
-      strday = "0" + date.getDate().toString();
-    }
-
-    let strmonth = date.getMonth().toString();
-    if (strmonth.length === 1) {
-      strmonth = "0" + (date.getMonth() + 1).toString();
-    }
-
-    let strdate = date.getFullYear().toString() + "-" + strmonth + "-" + strday;
-
-    return strdate;
   };
 
   return (
@@ -315,11 +318,6 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                       )}
                     </OverlayTrigger>
                   </ul>
-                  {/* <div className='list-unstyled d-flex flex-column justify-content-right'>
-                                        {feature?.map((ele) => {
-                                            return (<p className='float-left'><FcInspection className='mx-2' />{facilityObj[ele]}</p>);
-                                        })}
-                                    </div> */}
                   {selectUnit === true ? (
                     <></>
                   ) : (
@@ -392,9 +390,6 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
                       </div>
                     </>
                   )}
-                  {/* <div className="list-unstyled d-flex flex-column justify-content-right">
-                    {status}
-                  </div> */}
                   {
                     <>
                       <div className="pt-2">

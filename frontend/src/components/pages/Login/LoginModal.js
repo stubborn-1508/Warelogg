@@ -40,7 +40,7 @@ const LoginModal = (props) => {
       return [res.data, res.status];
     } catch (e) {
       console.log(e);
-      return [e.response.data, e.response.status];
+      return [e.response.data.message, e.response.status];
     }
   };
 
