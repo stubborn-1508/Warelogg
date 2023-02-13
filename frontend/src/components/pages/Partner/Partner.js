@@ -50,7 +50,7 @@ const BecomePartner = () => {
   const [area, setArea] = useState(new Array(100000).fill("0"));
   const [volume, setVolume] = useState(new Array(100000).fill("0"));
   const [totalPrice, setTotalPrice] = useState(new Array(100000).fill("0"));
-
+  const [inputPrice, setInputPrice] =useState(new Array(100000).fill("0"));
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -156,12 +156,14 @@ const BecomePartner = () => {
     temparea[ind] = "0";
     tempvol[ind] = "0";
     totalPrice[ind]="0";
+    inputPrice[ind]="0";
     setLength([...templength]);
     setWidth([...tempwidth]);
     setHeight([...tempheight]);
     setArea([...area]);
     setTotalPrice([...totalPrice]);
     setVolume([...volume]);
+    setInputPrice([...inputPrice]);
   };
 
   const fetchData = async (usertoken) => {
@@ -212,7 +214,7 @@ const BecomePartner = () => {
     let iniVol = volume;
     iniArr[ind] = e.target.value;
     iniArea[ind] = e.target.value * width[ind];
-    totalPrice[ind] =iniArea[ind]*25;
+    totalPrice[ind] =iniArea[ind]*inputPrice[ind];
     iniVol[ind] = e.target.value * width[ind] * height[ind];
     setLength([...iniArr]);
     setArea([...iniArea]);
@@ -227,7 +229,7 @@ const BecomePartner = () => {
     let iniVol = volume;
     iniArr[ind] = e.target.value;
     iniArea[ind] = e.target.value * length[ind];
-    totalPrice[ind] =iniArea[ind]*25;
+    totalPrice[ind] =iniArea[ind]*inputPrice[ind];
     iniVol[ind] = e.target.value * length[ind] * height[ind];
     setWidth([...iniArr]);
     setArea([...iniArea]);
@@ -244,6 +246,14 @@ const BecomePartner = () => {
     setVolume([...iniVol]);
     setHeight([...iniArr]);
   };
+
+  const handleChangePrice =(e) =>{
+    const ind = parseInt(e.target.id.split("$")[0]);
+    inputPrice[ind] =e.target.value;
+    totalPrice[ind] =inputPrice[ind]*area[ind];
+    setInputPrice([...inputPrice]);
+    setTotalPrice([...totalPrice]);
+  }
 
   const handleChangeCheck = (e) => {
     setFeatureArr((featureArr) => ({
@@ -565,10 +575,10 @@ const BecomePartner = () => {
                               <InputGroup>
                                 <InputGroup.Text>₹</InputGroup.Text>
                                 <Form.Control
-                                  plaintext
-                                  readOnly
-                                  defaultValue="25"
-                                  style={{ padding: "0.5rem" }}
+                                  id={ind + "$p"}
+                                  type="text"
+                                  value={inputPrice[ind]}
+                                  onChange={handleChangePrice}
                                 />
                               </InputGroup>
                             </Col>

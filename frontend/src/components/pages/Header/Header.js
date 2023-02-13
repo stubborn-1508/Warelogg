@@ -71,7 +71,8 @@ const HeaderSection = () => {
         show={registerModalShow}
         onHide={() => setRegisterModalShow(false)}
       />
-          <nav className="shadow-sm rounded d-flex navbar navbar-expand-lg bg-light fixed-top navbar-light py-2 py-lg-0">
+      <div className="w-100 shadow-sm rounded fixed-top">
+          <nav className={(location.pathname==="/warehouse")?"container d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0":"d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0"}>
             <Link
               to="/"
               className="text-decoration-none cartSmallScreenNav"
@@ -85,7 +86,7 @@ const HeaderSection = () => {
               <span
                 style={{
                   fontSize: "35px",
-                  backgroundImage: "linear-gradient(60deg, #E21143, #FFB03A)",
+                  backgroundImage: "linear-gradient(60deg,  rgb(254 199 108), rgb(255 130 0))",
                   WebkitBackgroundClip: "text",
                   color: "transparent",
                   textTransform: "none",
@@ -279,6 +280,7 @@ const HeaderSection = () => {
                 </div>
               </div>
           </nav>
+          </div>
     </div>
   );
 };
