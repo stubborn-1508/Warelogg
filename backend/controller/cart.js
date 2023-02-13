@@ -49,6 +49,7 @@ const deleteCart = async (req, res) => {
   const subunit_id = req.body.subunit_id;
   try {
     await Cart.deleteOne({ user_id, subunit_id });
+    await Book.deleteOne({ user_id, subunit_id });
     return res.status(200).json("Successfully deleted from Cart");
   } catch (err) {
     res.status(400).json({ error: err });
