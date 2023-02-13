@@ -28,7 +28,6 @@ import { IconContext } from "react-icons/lib";
 
 const CardSection = ({ warehouseInfo, filter=[] }) =>
 {
-    console.log("Card Filter: " + filter);
     function WarehouseArea(x, y)
     {
         const totalArea = parseInt(x);
@@ -118,7 +117,7 @@ const CardSection = ({ warehouseInfo, filter=[] }) =>
             const res = await axios({ url: "/verifyWarehouse", data: {id: id}, method: "post" });
             return res.data;
         }catch (e){
-            return [e.response.data, e.response.status];
+            return [e.response.data.message, e.response.status];
         }
     }
 

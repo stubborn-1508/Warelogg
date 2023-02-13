@@ -7,6 +7,7 @@ const warehouseController = require("../controller/warehouse");
 const cartController = require("../controller/cart");
 const paymentController = require("../controller/payment");
 const ratingController = require("../controller/rating");
+const bookController = require("../controller/book");
 // router.get("/allusers", authentication, userController.getAllUser);
 
 router.post("/register", userController.register);
@@ -25,6 +26,8 @@ router.get("/getAllWarehouse", warehouseController.getAllWarehouse);
 router.post("/getUserWareHouses", warehouseController.getUserWareHouses);
 
 router.post("/getWarehouseWithSubunit", warehouseController.getWarehouseWithSubunit);
+
+router.post("/getDisableDates", warehouseController.getDisableDates);
 
 router.post("/verifyWarehouse", warehouseController.verifyWarehouse);
 
@@ -52,7 +55,7 @@ router.post("/getBooks", paymentController.getBooks);
 
 router.post("/getSubunit", warehouseController.getSubunit);
 
-router.post("/cancelBooking", paymentController.cancelBooking);
+router.post("/addBooking", bookController.addNewBooking);
 
 router.post("/sendEmail", userController.sendEmail);
 
