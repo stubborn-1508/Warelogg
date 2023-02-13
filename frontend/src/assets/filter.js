@@ -63,37 +63,37 @@ const filterData = [
         code: 4,
         name: "Cold Storage",
         icon: <Icon path={mdiSnowflakeThermometer} size={1.3} />,
-        on_icon: <Icon path={mdiSnowflakeThermometer} size={1.4} color="#ff6600" />
+        on_icon: <Icon path={mdiSnowflakeThermometer} size={1.35} color="#ff6600" />
     },
     {
         code: 5,
         name: "Free Loading",
         icon: <Icon path={mdiDolly} size={1.3} />,
-        on_icon: <Icon path={mdiDolly} size={1.4} color="#ff6600" />
+        on_icon: <Icon path={mdiDolly} size={1.35} color="#ff6600" />
     },
     {
         code: 6,
         name: "Fire Safety",
         icon: <Icon path={mdiFireExtinguisher} size={1.3} />,
-        on_icon: <Icon path={mdiFireExtinguisher} size={1.4} color="#ff6600" />
+        on_icon: <Icon path={mdiFireExtinguisher} size={1.35} color="#ff6600" />
     },
     {
         code: 7,
         name: "24-Hours",
         icon: <Icon path={mdiHours24} size={1.3} />,
-        on_icon: <Icon path={mdiHours24} size={1.4} color="#ff6600" />
+        on_icon: <Icon path={mdiHours24} size={1.35} color="#ff6600" />
     },
     {
         code: 8,
         name: "Insurance",
         icon: <Icon path={mdiShieldCheck} size={1.3} />,
-        on_icon: <Icon path={mdiShieldCheck} size={1.4} color="#ff6600" />
+        on_icon: <Icon path={mdiShieldCheck} size={1.35} color="#ff6600" />
     },
     {
         code: 9,
         name: "Near Airport",
         icon: <Icon path={mdiAirport} size={1.3} />,
-        on_icon: <Icon path={mdiAirport} size={1.4} color="#ff6600" />
+        on_icon: <Icon path={mdiAirport} size={1.35} color="#ff6600" />
     },
     {
         code: 10,
@@ -108,8 +108,8 @@ const filterData = [
     {
         code: 11,
         name: "Quality Control",
-        icon: <Icon path={mdiStarCheckOutline} size={1.1} />,
-        on_icon: <Icon path={mdiStarCheckOutline} size={1.4} color="#ff6600" />
+        icon: <Icon path={mdiStarCheckOutline} size={1.3} />,
+        on_icon: <Icon path={mdiStarCheckOutline} size={1.3} color="#ff6600" />
     },
     {
         code: 12,
@@ -134,8 +134,8 @@ const filterData = [
     {
         code: 14,
         name: "Free Labour",
-        icon: <Icon path={mdiAccountHardHat} size={1.1} />,
-        on_icon: <Icon path={mdiAccountHardHat} size={1.4} color="#ff6600" />
+        icon: <Icon path={mdiAccountHardHat} size={1.3} />,
+        on_icon: <Icon path={mdiAccountHardHat} size={1.35} color="#ff6600" />
     },
     {
         code: 15,

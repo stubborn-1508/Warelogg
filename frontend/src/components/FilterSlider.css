@@ -34,6 +34,10 @@
         margin-left: 50px;
 }
 
+.filter-align{
+        margin: 0px;
+}
+
 .custom-right-arrow {
         position: absolute !important;
         right: 50px;
@@ -102,7 +106,7 @@
                 flex-direction: column;
                 align-items: center;
                 height: 75px;
-                margin-top: -20px;
+                margin-top: -5px;
                 align-content: center;
                 align-self: center;
                 margin-bottom: -40px;
@@ -128,6 +132,10 @@
                 width: 100%;
                 margin: auto;
                 margin-left: 10px;
+        }
+
+        .filter-align {
+                margin-top: 7px;
         }
 }
 
