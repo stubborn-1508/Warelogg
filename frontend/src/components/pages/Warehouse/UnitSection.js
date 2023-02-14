@@ -188,7 +188,6 @@ const UnitSection = ({ subUnit, feature, warehouse_id, name }) => {
         occupiedTo: endDate
       });
       if(waitRes2[1] === 200){
-        console.log("Potty!!");
         setSelectUnit(true);
       }else{
         alert(waitRes2[0]);

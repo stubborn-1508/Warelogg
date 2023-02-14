@@ -51,13 +51,15 @@ router.post("/assignCarts", cartController.assignCarts);
 
 router.post("/deleteOrder", paymentController.deleteOrder);
 
-router.post("/getBooks", paymentController.getBooks);
+router.post("/getBooks", bookController.getUserBooking);
 
 router.post("/getSubunit", warehouseController.getSubunit);
 
 router.post("/addBooking", bookController.addNewBooking);
 
 router.post("/sendEmail", userController.sendEmail);
+
+router.post("/cancelBooking", bookController.cancelBooking);
 
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 
