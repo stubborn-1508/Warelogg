@@ -7,6 +7,7 @@ const warehouseController = require("../controller/warehouse");
 const cartController = require("../controller/cart");
 const paymentController = require("../controller/payment");
 const ratingController = require("../controller/rating");
+const bookController = require("../controller/book");
 // router.get("/allusers", authentication, userController.getAllUser);
 
 router.post("/register", userController.register);
@@ -16,7 +17,7 @@ router.post("/loginUser", userController.login);
 router.get("/googlelogin", passport.authenticate("google", {scope: ["profile"],}));
 router.get("/login", passport.authenticate("google", { scope: ["profile"],successRedirect: process.env.FRONTEND_URL }));
 
-router.get("/getAllUsers", authentication, userController.getAllUsers);
+router.get("/getUser", authentication, userController.getUser);
 
 router.post("/warehouseRegister", warehouseController.warehouseRegister);
 
@@ -25,6 +26,8 @@ router.get("/getAllWarehouse", warehouseController.getAllWarehouse);
 router.post("/getUserWareHouses", warehouseController.getUserWareHouses);
 
 router.post("/getWarehouseWithSubunit", warehouseController.getWarehouseWithSubunit);
+
+router.post("/getDisableDates", warehouseController.getDisableDates);
 
 router.post("/verifyWarehouse", warehouseController.verifyWarehouse);
 
@@ -48,13 +51,15 @@ router.post("/assignCarts", cartController.assignCarts);
 
 router.post("/deleteOrder", paymentController.deleteOrder);
 
-router.post("/getBooks", paymentController.getBooks);
+router.post("/getBooks", bookController.getUserBooking);
 
 router.post("/getSubunit", warehouseController.getSubunit);
 
-router.post("/cancelBooking", paymentController.cancelBooking);
+router.post("/addBooking", bookController.addNewBooking);
 
 router.post("/sendEmail", userController.sendEmail);
+
+router.post("/cancelBooking", bookController.cancelBooking);
 
 // router.delete("/delete/:id", authentication, userController.deleteUser);
 

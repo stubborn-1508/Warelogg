@@ -15,7 +15,7 @@ const Cart = () => {
     const [tot, setTot] = useState(0);
 
     const fetchData = async (usertoken) => {
-        const res = await axios.get("/getAllUsers", {
+        const res = await axios.get("/getUser", {
             headers: { "x-auth-token": usertoken },
         });
         setUserId(res.data._id);
@@ -24,7 +24,7 @@ const Cart = () => {
 
     const fetchCart = async (id) => {
         try {
-            const res = await axios({ url: "/getMyCart", data: { id: id }, method: "post" });
+            const res = await axios({ url: "/getMyCart", data: { user_id: id }, method: "post" });
 
             setCart(res.data);
         //     console.log(tot)
@@ -47,11 +47,11 @@ const Cart = () => {
         }
     }, []);
 
-//     console.log(cart)
+    // console.log(cart)
 
-    const deleteCart = async (warehouse_id, subUnit_id) => {
+    const deleteCart = async (subunit_id) => {
         try {
-            const res = await axios({ url: "/deleteCart", data: { id: userId, warehouse_id: warehouse_id, subUnit_id: subUnit_id }, method: "post" });
+            const res = await axios({ url: "/deleteCart", data: { user_id: userId, subunit_id: subunit_id }, method: "post" });
             // console.log(res.data);
             setCart(res.data.cartContent);
         } catch (err) {
@@ -113,7 +113,7 @@ const Cart = () => {
     else {
         var tempSum = 0
             for(let i=0;i<cart.length;i++){
-                tempSum = tempSum + Number(cart[i].Price)*(cart[i].OccTo - cart[i].OccFrom)/(1000 * 3600 * 24);
+                tempSum = tempSum + Number(cart[i].price)*(cart[i].occupiedTo - cart[i].occupiedFrom)/(1000 * 3600 * 24);
             }
         //     setTot(tempSum)
         return (
@@ -143,8 +143,8 @@ const Cart = () => {
                 </div>
 
                 {cart.map((ele, ind)=>{
-                        const stDate = new Date(ele.OccFrom)
-                        const edDate = new Date(ele.OccTo)
+                        const stDate = new Date(ele.occupiedFrom)
+                        const edDate = new Date(ele.occupiedTo)
                                        const startFormat = stDate.toLocaleString("en-GB", {
                                                                                 day: "numeric",
                                                                                 month: "numeric",
@@ -168,7 +168,7 @@ const Cart = () => {
                         </div>
                         <div className="ms-3 name-size">
                         <div className="name-text">
-                                {ele.Name}
+                                {ele.name}
                         </div>
                           <p className="small mb-0">{ele.Size}</p>
                         </div>
@@ -179,11 +179,11 @@ const Cart = () => {
                                 <p className="mb-0">To: &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<span className='fw-normal'>{endFormat}</span></p>
                         </div>
                         <div style={{width: "80px"}}>
-                          <h5 className="mb-0"><BiRupee/>{ele.Price*numDays}</h5>
+                          <h5 className="mb-0"><BiRupee/>{ele.price*numDays}</h5>
                         </div>
                         <a onClick={() => {
-                                deleteCart(ele.warehouse_id, ele.subUnit_id)
-                                }} href="#!" className="text-danger responsive-del-s"><i class="fas fa-trash-alt"></i></a>
+                                deleteCart(ele.subunit_id)
+                                }} href="/cart" className="text-danger responsive-del-s"><i class="fas fa-trash-alt"></i></a>
                         
                       </div>
                                                         

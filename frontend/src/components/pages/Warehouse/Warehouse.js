@@ -80,7 +80,6 @@ const Warehouse = () => {
     }
 
     const handleFilterChange = (e) => {
-        console.log("Filter activated!!!");
         setFilter(e.target.value);
     }
 
@@ -301,5 +300,5 @@ const Warehouse = () => {
         </>);
     }
 }
-export default Warehouse;
 
+export default Warehouse;

@@ -93,7 +93,7 @@ const login = async (req, res) => {
   }
 };
 
-const getAllUsers = async (req, res) => {
+const getUser = async (req, res) => {
   return res.json(req.user);
 };
 
@@ -163,6 +163,6 @@ const sendEmail = async (req, res) => {
 module.exports = {
   register,
   login,
-  getAllUsers,
+  getUser,
   sendEmail,
 };
