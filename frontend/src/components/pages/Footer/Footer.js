@@ -13,8 +13,7 @@ const FooterSection = () => {
         <div className="row">
           <div className="d-flex justify-content-center text-center text-md-left mb-3 mb-md-0">
             <p className="m-0">
-              © 2023<Link style={{color:"inherit",textTransform:"capitalize"}} to="#">warelogg &#160;</Link>All Rights Reserved. Designed
-              by<Link style={{color:"inherit"}} to="/">Warelogg Privated Limited</Link>
+              © 2023<Link style={{color:"inherit",textTransform:"capitalize"}} to="#">Warelogg.com &#160;</Link>All Rights Reserved.
             </p>
           </div>
         </div>

@@ -235,6 +235,12 @@ const MainPage = (props) => {
               alt="Fifth slide"
               style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             /></div>
+            <div className="sup-items"><img
+              className="d-block w-100"
+              src="/images/sup-6.jpeg"
+              alt="Sixth slide"
+              style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
+            /></div>
           </Carousel>
           </Col>
         </Row>

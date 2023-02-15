@@ -26,6 +26,27 @@ const HeaderSection = () => {
   const ctx = useContext(CartContext);
   const usertoken = localStorage.getItem("token");
 
+const [prevScrollPos, setPrevScrollPos] = useState(0);
+const [visible, setVisible] = useState(true)
+
+const handleScroll = () => {
+    const currentScrollPos = window.scrollY
+
+    if(currentScrollPos > prevScrollPos){
+        setVisible(false)
+    }else{
+        setVisible(true)
+    }
+
+    setPrevScrollPos(currentScrollPos)
+}
+
+useEffect( () => {
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll)
+})
+
   const navigate = useNavigate();
   const handleLogout = (e) => {
     localStorage.removeItem("token");
@@ -71,7 +92,7 @@ const HeaderSection = () => {
         show={registerModalShow}
         onHide={() => setRegisterModalShow(false)}
       />
-      <div className="w-100 shadow-sm rounded fixed-top">
+      <div className="w-100 shadow-sm rounded fixed-top" style={{transition: 'all 0.3s ease-in-out',transform:`${visible?'translateY(0)':'translateY(-100%)'}`}}>
           <nav className={(location.pathname==="/warehouse")?"container d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0":"d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0"}>
             <Link
               to="/"
@@ -83,7 +104,7 @@ const HeaderSection = () => {
               <span
                 style={{
                   fontSize: "35px",
-                  backgroundImage: "linear-gradient(60deg,  rgb(254 199 108), rgb(255 130 0))",
+                  backgroundImage: "linear-gradient(60deg, #E21143, #FFB03A)",
                   WebkitBackgroundClip: "text",
                   color: "transparent",
                   textTransform: "none",
@@ -174,7 +195,7 @@ const HeaderSection = () => {
                   >
                     Shipping
                   </a>
-                  <div id="popup1" class="overlay">
+                  <div id="popup1" class="overlay" style={{height:"150vh"}}>
                     <div class="popup">
                       <img
                         className="d-block w-100"
