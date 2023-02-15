@@ -1,3 +1,4 @@
+import filterData from '../../../assets/filter';
 import React, { useState } from 'react'
 import { Container, Row, Col, Card, Button, Tooltip, OverlayTrigger, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -13,13 +14,6 @@ const UnitSection = (props) =>
     const [ selectUnit, setSelectUnit ] = useState(0);
 
     const [price, setPrice] = useState(props.sectionDetails.price);
-
-    let featureArr = {
-        'climate' : 'Climate Control',
-        'indoor': 'Indoor Storage',
-        'outdoor': 'Outdoor Storage',
-        'cctv': 'CCTV Monitering'
-    }
 
     const convertNumToDate = (num) => {
         let result = "";
@@ -56,7 +50,8 @@ const UnitSection = (props) =>
             alert(waitRes[0]);
         }
     }
-    console.log(price);
+    console.log(props.facilities);
+
     return (
         <>
             <Card className='my-5 shadow mb-5 bg-white rounded '>
@@ -77,22 +72,23 @@ const UnitSection = (props) =>
                                         {props.sectionDetails.length}' x {props.sectionDetails.width}' x {props.sectionDetails.height}'
                                     </h3>
                                     <ul className='list-unstyled d-flex flex-row justify-content-center'>
-                                        
-                                        <OverlayTrigger
-                                            placement="bottom"
-                                            overlay={ <Tooltip id="button-tooltip-2">Indoor Storage</Tooltip> }
-                                        >
-                                            { ({ ref, ...triggerHandler }) => (
-                                                <Button
-                                                    variant="light"
-                                                    { ...triggerHandler }
-                                                    className="d-inline-flex align-items-center"
-                                                >
-                                                    <li ref={ ref }><h3 className="text-dark mx-2 text-center"><GiLockedChest /></h3></li>
-                                                </Button>
-                                            ) }
-                                        </OverlayTrigger>
-                                        <OverlayTrigger
+                                        { props?.facilities?.map((el, ind) => {
+                                            return (<OverlayTrigger
+                                                placement="bottom"
+                                                overlay={ <Tooltip id="button-tooltip-2">{filterData[el].name}</Tooltip> }
+                                            >
+                                                { ({ ref, ...triggerHandler }) => (
+                                                    <Button
+                                                        variant="light"
+                                                        { ...triggerHandler }
+                                                        className="d-inline-flex align-items-center"
+                                                    >
+                                                        <li ref={ ref }><h3 className="text-dark mx-2 text-center">{filterData[el].icon}</h3></li>
+                                                    </Button>
+                                                ) }
+                                            </OverlayTrigger>);
+                                        }) }
+                                        {/* <OverlayTrigger
                                             placement="bottom"
                                             overlay={ <Tooltip id="button-tooltip-2">CCTV Camera</Tooltip> }
                                         >
@@ -133,15 +129,15 @@ const UnitSection = (props) =>
                                                     <li ref={ ref }><h3 className="text-dark mx-2"><BsFillCloudSunFill /></h3></li>
                                                 </Button>
                                             ) }
-                                        </OverlayTrigger>
+                                        </OverlayTrigger> */}
                                     </ul>
-                                    <div className='list-unstyled d-flex flex-column justify-content-right'>
+                                    {/* <div className='list-unstyled d-flex flex-column justify-content-right'>
                                         {props.sectionDetails.facility.map((ele, ind) => {
                                             return (
                                                 <p id={ind} key={ind} className='float-left'><FaCheckCircle className='mx-2' />{featureArr[ele]}</p>
                                             );
                                         })}
-                                    </div>
+                                    </div> */}
                                 </Col>
                             </Row>
                         </Col>
@@ -159,14 +155,14 @@ const UnitSection = (props) =>
                                     >Edit Price</Button>
                                 </div>
                             </div>
-                            <div className="pt-2">
+                            {/* <div className="pt-2">
                                 <div className="d-grid gap-1 my-3">
                                     <h5>Space Occupied: {props.sectionDetails.spaceOccupied} sq ft</h5>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="pt-2" style={{border: "2px solid black"}}>
                                 <div className="d-grid gap-1 my-3">
-                                    {convertNumToDate(props.sectionDetails.fromOcc)===convertNumToDate(props.sectionDetails.toOcc)?(<><h6>--Not Occupied--</h6></>):(<>
+                                    {(props.sectionDetails.status === "0")?(<><h6>--Not Occupied--</h6></>):(<>
                                     <h6>Occupied From: {convertNumToDate(props.sectionDetails.fromOcc)}</h6>
                                     <h6>Occupied To: {convertNumToDate(props.sectionDetails.toOcc)}</h6>
                                     </>)}

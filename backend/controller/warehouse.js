@@ -81,9 +81,19 @@ const getAllWarehouse = async (req,res) => {
 
 // get user warehouse
 const getUserWareHouses = async (req,res) => {
-    const userID = req.body.data;
+    const userID = req.body.user_id;
     try{
         const data = await Warehouse.find({user_id: userID}).lean();
+        for(let i=0;i<data.length;i++){
+            const warehouse_id = data[i]._id;
+            const res2 = await Subunit.find({warehouse_id}).clone().lean();
+            let l = 0, w = 0;
+            for(let j=0;j<res2.length;j++){
+                l+=parseInt(res2[j].length);
+                w+=parseInt(res2[j].width);
+            }
+            data[i].size = l + "x" + w;
+        }
         return res.status(200).json({data: data});
     }catch(err){
         return res.status(402).json({message: "Something went wrong!!"});
@@ -131,6 +141,19 @@ const getWarehouseWithSubunit = async (req,res) => {
     try{
         const warehouse = await Warehouse.findOne({_id: warehouse_id}).clone().lean();
         const subunits = await Subunit.find({warehouse_id: warehouse_id}).clone().lean();
+        for(let i=0;i<subunits.length;i++){
+            const s_id = subunits[i]._id;
+            const book = await Book.findOne({subunit_id: s_id, status: "Booked"});
+            if(book){
+                const occFrom = book.occupiedFrom;
+                const occTo = book.occupiedTo;
+                subunits[i].status = "1";
+                subunits[i].occFrom = occFrom;
+                subunits[i].occTo = occTo;
+            }else{
+                subunits[i].status = "0";
+            }
+        }
         return res.status(200).json({warehouse, subunits});
     }catch(err){
         return res.status(402).json({message: "Something went wrong!!"});

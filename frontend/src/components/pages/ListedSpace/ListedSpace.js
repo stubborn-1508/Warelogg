@@ -17,6 +17,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./listedspace.css";
 import axios from 'axios';
 import UnitSection from "./UnitSection.js";
+import filterData from '../../../assets/filter';
 
 
 const ListedSpace = () => {
@@ -27,13 +28,15 @@ const ListedSpace = () => {
   const id = location.state;
 
   const [warehouse, setWarehouse] = useState(null);
+  const [subunit, setSubunit] = useState(null);
 
   const fetchData = async (id) => {
     try {
       console.log(id);
-      let res = await axios.post("/getMyWareHouses", { data: id });
-      // console.log(res.data);
-      setWarehouse(res.data);
+      let res = await axios.post("/getWarehouseWithSubunit", { data: id });
+      console.log(res.data);
+      setWarehouse(res.data.warehouse);
+      setSubunit(res.data.subunits)
     } catch (err) {
       console.log("Error in fetching data" + err);
     }
@@ -117,48 +120,49 @@ const ListedSpace = () => {
                     <h2 className='text-warning mb-5'>Features Available at this Facility :</h2>
                   </Col>
                   <Col md={4} className="">
-                    <p><FcOk /> No Deposit or Admin Fee</p>
-                    <p><FcOk /> Clean - Dry - Secure</p>
-                    <p><FcOk /> Free Automatic Payment Plans</p>
-                    <p><FcOk /> Move-In Trucks</p>
-                    <p><FcOk /> Free Online Account Management</p>
-                    <p><FcOk /> Make Your Payment Online!</p>
-                    <p><FcOk /> Individually timed lighting in most spaces</p>
+                    {warehouse?.features?.map((el, ind) => {
+                      if (el % 3 === 0) {
+                        return (
+                          <p><FcOk /> {filterData[el].name}</p>
+                        )
+                      }
+                    })}
                   </Col>
                   <Col md={4} className="">
-                    <p><FcOk /> rive-Up Loading and Unloading</p>
-                    <p><FcOk /> Package Signing and Receiving</p>                                <p><FcOk /> Package Signing and Receiving</p>
-                    <p><FcOk /> 24-Hour Video Monitoring</p>
-                    <p><FcOk /> Motion Sensor Lighting</p>
-                    <p><FcOk /> Electronically Controlled Access</p>
-                    <p><FcOk /> Fire Protected: Sprinklers and Alarms</p>
-                    <p><FcOk /> Convenient Elevator Access</p>
+                    {warehouse?.features?.map((el, ind) => {
+                      if (el % 3 === 1) {
+                        return (
+                          <p><FcOk /> {filterData[el].name}</p>
+                        )
+                      }
+                    })}
                   </Col>
                   <Col md={4} className="">
-                    <p><FcOk /> Climate Control</p>
-                    <p><FcOk /> SafeStor Protection</p>
-                    <p><FcOk /> Indoor Storage: Twice the Protection and Security</p>
-                    <p><FcOk /> Open 7 Days</p>
-                    <p><FcOk /> Controlled Access for Your Protection</p>
+                    {warehouse?.features?.map((el, ind) => {
+                      if (el % 3 === 2) {
+                        return (
+                          <p><FcOk /> {filterData[el].name}</p>
+                        )
+                      }
+                    })}
                   </Col>
                   <Col md={6}></Col>
                 </Row>
               </Card.Body>
             </Card>
-            {warehouse.subUnits.map((ele, ind) => {
+            {subunit?.map((ele, ind) => {
               let section_props = {
                 warehouseID: warehouse._id,
                 id: ele._id,
                 length: parseInt(ele.length),
                 width: parseInt(ele.width),
                 height: parseInt(ele.height),
-                facility: warehouse.features,
                 price: parseInt(ele.price),
-                spaceOccupied: parseInt(ele.spaceOccupied),
-                fromOcc: parseInt(ele.fromOcc),
-                toOcc: parseInt(ele.toOcc)
+                fromOcc: parseInt(ele.occFrom),
+                toOcc: parseInt(ele.occTo),
+                status: ele.status
               }
-              return (<UnitSection key={ind} id={ind} sectionDetails={section_props} />);
+              return (<UnitSection key={ind} id={ind} sectionDetails={section_props} facilities={warehouse.features} />);
             })}
 
           </Form>

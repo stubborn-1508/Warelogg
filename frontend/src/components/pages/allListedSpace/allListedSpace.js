@@ -24,50 +24,51 @@ const AllListedSpace = () => {
             let res = await axios.get("/getUser", {
                 headers: { "x-auth-token": usertoken },
             });
-            const user_id = res.data.user_id;
+            const user_id = res.data._id;
             if(!user_id){
                 alert('User not found');
                 navigate('/');
             }
-
-            res = await axios.post("/getAllMyWareHouses", {data: user_id});
+            console.log(user_id);
+            res = await axios.post("/getUserWareHouses", {user_id});
             if(res.status !== 200){
                 alert('Error 404');
                 navigate('/');
             }
 
-            res = res.data;
-            let finalArr = [];
-            res.forEach((ele) => {
-                let tempObj = {};
-                tempObj['id'] = ele._id;
-                console.log(tempObj['id'])
-                tempObj['name'] = ele.name;
-                tempObj['location'] = ele.businessAddress + ', ' + ele.city;
-                let tempStr = '';
-                ele.features.forEach(e => {
-                    tempStr = tempStr + mapping_feature[e] + ', ';
-                });
-                tempObj['facility'] = tempStr;
-                let tempStrL = 0;
-                let tempStrW = 0;
-                let tempStrH = 0;
-                let tempStrSpaceOcc = 0;
-                for(let i=0;i<ele.subUnits.length;i++){
-                    tempStrL = tempStrL + parseInt(ele.subUnits[i].length)
-                    tempStrW = tempStrW + parseInt(ele.subUnits[i].width)
-                    tempStrH = tempStrH + parseInt(ele.subUnits[i].height)
-                    tempStrSpaceOcc = tempStrSpaceOcc + parseInt(ele.subUnits[i].spaceOccupied);
-                }
-                tempObj['size'] = tempStrL+'x'+tempStrW+'x'+tempStrH;
-                tempObj['area'] = parseInt(tempStrSpaceOcc)
-                tempObj['totalArea'] = parseInt(tempStrL)*parseInt(tempStrW)
-                if(ele.isVerified){
-                    finalArr.push(tempObj);
-                }
-            });
+            res = res.data?.data;
+            console.log(res);
+            res = res.filter(el => el.isVerified);
+            // res.forEach((ele) => {
+            //     let tempObj = {};
+            //     tempObj['id'] = ele._id;
+            //     console.log(tempObj['id'])
+            //     tempObj['name'] = ele.name;
+            //     tempObj['location'] = ele.businessAddress + ', ' + ele.city;
+            //     let tempStr = '';
+            //     ele.features.forEach(e => {
+            //         tempStr = tempStr + mapping_feature[e] + ', ';
+            //     });
+            //     tempObj['facility'] = tempStr;
+            //     let tempStrL = 0;
+            //     let tempStrW = 0;
+            //     let tempStrH = 0;
+            //     let tempStrSpaceOcc = 0;
+            //     for(let i=0;i<ele.subUnits.length;i++){
+            //         tempStrL = tempStrL + parseInt(ele.subUnits[i].length)
+            //         tempStrW = tempStrW + parseInt(ele.subUnits[i].width)
+            //         tempStrH = tempStrH + parseInt(ele.subUnits[i].height)
+            //         tempStrSpaceOcc = tempStrSpaceOcc + parseInt(ele.subUnits[i].spaceOccupied);
+            //     }
+            //     tempObj['size'] = tempStrL+'x'+tempStrW+'x'+tempStrH;
+            //     tempObj['area'] = parseInt(tempStrSpaceOcc)
+            //     tempObj['totalArea'] = parseInt(tempStrL)*parseInt(tempStrW)
+            //     if(ele.isVerified){
+            //         finalArr.push(tempObj);
+            //     }
+            // });
 
-            setWarehouseInfo(finalArr);
+            setWarehouseInfo(res);
 
         } catch (err) {
             console.log("Error in fetching data" + err);
