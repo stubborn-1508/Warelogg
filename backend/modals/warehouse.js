@@ -55,6 +55,14 @@ const WarehouseSchema = new Schema({
     rating: {
         type: String,
         default: 0
+    },
+    lat: {
+        type: String,
+        default: null
+    },
+    lng: {
+        type: String,
+        default: null
     }
 });
 

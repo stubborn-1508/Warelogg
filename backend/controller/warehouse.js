@@ -16,7 +16,8 @@ const warehouseRegister = async (req,res) => {
         state,
         zip,
         subUnits,
-        features } = req.body;
+        features,
+        coordinates } = req.body;
 
     if(!user_id){
         return res.status(401).json("User not logged in");
@@ -37,7 +38,9 @@ const warehouseRegister = async (req,res) => {
             city: city,
             state: state,
             zip: zip,
-            features: features
+            features: features,
+            lat: coordinates[1],
+            lng: coordinates[0]
         });
         let warehouse_id = null;
         await warehouse.save()
