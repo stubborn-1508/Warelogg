@@ -4,6 +4,7 @@ import { FcClock, FcRating, FcGlobe, FcCamcorderPro, FcRuler, FcCurrencyExchange
 import { BiCuboid } from "react-icons/bi";
 import { Row, Col, Card, Button } from "react-bootstrap";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const convertNumToDate = (num) => {
@@ -14,37 +15,21 @@ const convertNumToDate = (num) => {
     return result;
 }
 
-const YourOrdersCard = ({ muted, bookData }) =>
+const YourOrdersCard = ({ muted, bookData=null, user_id=null }) =>
 {
-    const [orderCard,setOrderCard] = useState(null);
-
-    const fetchSubUnit = async (id) => {
-        const res = await axios({url: '/getSubunit', data:{id: id}, method:'post'});
-        if(res.status !== 200){
-            alert('Try Again!!');
-        }
-        setOrderCard(res.data);
-    }
-
-    useEffect(() => {
-        let id = bookData.subUnit_id;
-        fetchSubUnit(id);
-        console.log(bookData);
-        console.log('hello');
-        console.log(convertNumToDate(bookData.fromOcc));
-        console.log(convertNumToDate(bookData.toOcc));
-
-    }, []);
-
-    const cancelBooking = async(subUnit_id) => {
-        const res = await axios({url: '/cancelBooking', data: {id: subUnit_id}, method: 'post'});
+    const navigate = useNavigate();
+    const cancelBooking = async(id) => {
+        const res = await axios({url: '/cancelBooking', data: {id: id}, method: 'post'});
         if(res.status!==200){
             alert('Try Again!!');
+        }else{
+            alert(res.data.message);
+            navigate('/orders')
         }
         muted = true;
     }
 
-    if(!orderCard){
+    if(!bookData){
         // Apply Loader
         return (
             <>
@@ -107,7 +92,7 @@ const YourOrdersCard = ({ muted, bookData }) =>
             <>
                 <Card className='my-5 shadow p-3 mb-5 bg-white rounded'>
                     <Card.Header className="text-center text-dark bg-warning h4 ">
-                        <b>{orderCard.Name}</b>
+                        <b>{bookData.name}</b>
                     </Card.Header>
                     <Card.Body className="">
                         <Row md={ 12 } className="h-100 text-dark  rounded-3 text-center">
@@ -120,11 +105,11 @@ const YourOrdersCard = ({ muted, bookData }) =>
                                 <div className="d-flex flex-wrap justify-content-between mt-4 mb-5">
                                     <h6 className="m-1">
                                         <i><FcGlobe /> </i>
-                                        {orderCard.city}-{orderCard.state}
+                                        {bookData.city}-{bookData.state}
                                     </h6>
                                     <h6 className="m-1">
                                         <i><BiCuboid style={{color:"blue"}}/> </i>
-                                        {parseInt(orderCard.length)*parseInt(orderCard.width)*parseInt(orderCard.height)}sq.ft Volume
+                                        {parseInt(bookData.length)*parseInt(bookData.width)*parseInt(bookData.height)}sq.ft Volume
                                     </h6>
                                     <h6 className="m-1">
                                         <i><FcRating /> </i>
@@ -132,14 +117,14 @@ const YourOrdersCard = ({ muted, bookData }) =>
                                     </h6>
                                     <h6 className="m-1">
                                         <i><FcCurrencyExchange /> </i>
-                                        { orderCard.price } ₹
+                                        { bookData.price } ₹
                                     </h6>
                                 </div>
                                 <div className='text-center mb-5'>
-                                    {bookData.isActive==true?
+                                    {bookData.status=="Booked"?
                                 <>
-                                <h5 className="mb-0">Occupied From - {convertNumToDate(bookData.fromOcc)}</h5>
-                                <h5 className="mb-0">To - {convertNumToDate(bookData.toOcc)}</h5>
+                                <h5 className="mb-0">Occupied From - {convertNumToDate(bookData.occupiedFrom)}</h5>
+                                <h5 className="mb-0">To - {convertNumToDate(bookData.occupiedTo)}</h5>
                                 </>:<></>
                                 }
                                 </div>
@@ -156,8 +141,8 @@ const YourOrdersCard = ({ muted, bookData }) =>
                                         <Link to="/warehouse" style={ { textDecoration: "none" } }><Button
                                             className="btn btn-block text-white" variant="success" size="md" block>Book Again</Button></Link>
                                     </div>: <div className="d-grid gap-1 my-2">
-                                        <Link to="/refund" style={ { textDecoration: "none" } }><Button
-                                            className={ muted ? "d-none" : "btn btn-block text-white" } variant="danger" size="md" block onClick={() => {cancelBooking(orderCard._id)}}>Cancel Your Booking</Button></Link>
+                                        <Button
+                                            className={ muted ? "d-none" : "btn btn-block text-white" } variant="danger" size="md" block onClick={() => {cancelBooking(bookData._id)}}>Cancel Your Booking</Button>
                                     </div> }
                                        <div className="d-grid gap-1 my-2">
                                        <Link to="/" style={ { textDecoration: "none" } }><Button
@@ -178,7 +163,7 @@ const YourOrdersCard = ({ muted, bookData }) =>
                                             className="btn btn-block text-white" variant="success" size="md" block>Book Again</Button></Link>
                                     </div>: <div className="d-grid gap-1 my-2">
                                         <Link to="/refund" style={ { textDecoration: "none" } }><Button
-                                            className={ muted ? "d-none" : "btn btn-block text-white" } variant="danger" size="md" block onClick={() => {cancelBooking(orderCard._id)}}>Cancel Your Booking</Button></Link>
+                                            className={ muted ? "d-none" : "btn btn-block text-white" } variant="danger" size="md" block onClick={() => {cancelBooking(bookData._id)}}>Cancel Your Booking</Button></Link>
                                     </div> }   
                                 </div>
                             </Col> */}

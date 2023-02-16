@@ -1,6 +1,7 @@
 const User = require("../modals/user");
 const Subunit = require("../modals/subunit");
 const Book = require("../modals/book");
+const Warehouse = require("../modals/warehouse");
 require("dotenv").config({ path: "../config/config.env" });
 
 const addNewBooking = async (req, res) => {
@@ -36,15 +37,28 @@ const getUserBooking = async (req, res) => {
         return res.status(401).json({message: "User not logged in"});
     }
     try {
-        const myBooking = await Book.findOne({user_id: user_id});
+        let myBooking = await Book.find({user_id: user_id}).clone().lean();
         if (myBooking) {
             let bookedSubunits = [];
-            myBooking.map(async (ele, ind) => {
-                const subunit = await Subunit.findOne({_id: ele.subunit_id}).clone().lean();
+            for(let i=0;i<myBooking.length;i++){
+                let subunit = await Subunit.findOne({_id: myBooking[i].subunit_id}).clone().lean();
+                let warehouse = await Warehouse.findOne({_id: subunit.warehouse_id}).clone().lean();
                 if(subunit){
-                    bookedSubunits.push(subunit);
+                    bookedSubunits.push({
+                        _id: myBooking[i]._id,
+                        name: warehouse.name,
+                        city: warehouse.city,
+                        state: warehouse.state,
+                        length: subunit.length,
+                        width: subunit.width,
+                        height: subunit.height,
+                        price: subunit.price,
+                        occupiedFrom: myBooking[i].occupiedFrom,
+                        occupiedTo: myBooking[i].occupiedTo,
+                        status: myBooking[i].status
+                    });
                 }
-            });
+            }
             return res.status(200).json(bookedSubunits);
         } else {
             return res.status(401).json({ message: "No booking found" });

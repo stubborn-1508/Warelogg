@@ -15,8 +15,7 @@ const YourOrders = () =>
 
 	const fetchBook = async (id) => {
         try {
-            const res = await axios({ url: "/getBooks", data: { id: id }, method: "post" });
-			console.log(res);
+            const res = await axios({ url: "/getBooks", data: { user_id: id }, method: "post" });
             setBook(res.data);
         } catch (err) {
             console.log(err);
@@ -59,13 +58,13 @@ const YourOrders = () =>
 								justify
 							>
 								<Tab eventKey="bookings" title="Bookings">
-									{book.filter(ele => ele.isActive===true).map((ele, ind) => {
-										return <YourOrdersCard key={ind} bookData={ele}></YourOrdersCard>
+									{book.filter(ele => ele.status==="Booked").map((ele, ind) => {
+										return <YourOrdersCard key={ind} bookData={ele} user_id={userId}></YourOrdersCard>
 									})}
 								</Tab>
 								<Tab eventKey="profile" title="Cancelled Bookings">
-									{book.filter(ele => ele.isActive===false).map((ele, ind) => {
-										return <YourOrdersCard muted={true} key={ind} bookData={ele}></YourOrdersCard>
+									{book.filter(ele => ele.status==="Cancelled").map((ele, ind) => {
+										return <YourOrdersCard muted={true} key={ind} bookData={ele} user_id={userId}></YourOrdersCard>
 									})}
 								</Tab>
 							</Tabs>

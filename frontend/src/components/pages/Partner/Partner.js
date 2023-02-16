@@ -1,3 +1,4 @@
+import filterData from "../../../assets/filter";
 import React, { useState, useContext, useEffect, useRef } from "react";
 import {
   Container,
@@ -26,6 +27,8 @@ import ImageUploading from "react-images-uploading";
 import { Context } from "../../../Contexts/context";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import mapboxgl from "mapbox-gl";
+mapboxgl.accessToken = "pk.eyJ1IjoibGF6eWdob3N0IiwiYSI6ImNsY293dHF1dzAydHEzc2xyMjUwczBuMW4ifQ.atwKqBdRVNLk_saQmszluQ";
 
 const BecomePartner = () => {
   const navigate = useNavigate();
@@ -44,13 +47,13 @@ const BecomePartner = () => {
     features: [],
   });
 
-  const [length, setLength] = useState(new Array(100000).fill(""));
-  const [width, setWidth] = useState(new Array(100000).fill(""));
-  const [height, setHeight] = useState(new Array(100000).fill(""));
-  const [area, setArea] = useState(new Array(100000).fill("0"));
-  const [volume, setVolume] = useState(new Array(100000).fill("0"));
-  const [totalPrice, setTotalPrice] = useState(new Array(100000).fill("0"));
-  const [inputPrice, setInputPrice] =useState(new Array(100000).fill("0"));
+  const [length, setLength] = useState(new Array(1000).fill(""));
+  const [width, setWidth] = useState(new Array(1000).fill(""));
+  const [height, setHeight] = useState(new Array(1000).fill(""));
+  const [area, setArea] = useState(new Array(1000).fill("0"));
+  const [volume, setVolume] = useState(new Array(1000).fill("0"));
+  const [totalPrice, setTotalPrice] = useState(new Array(1000).fill("0"));
+  const [inputPrice, setInputPrice] = useState(new Array(1000).fill("0"));
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
 
@@ -171,7 +174,7 @@ const BecomePartner = () => {
       const res = await axios.get("/getUser", {
         headers: { "x-auth-token": usertoken },
       });
-      setWareHouse({ ...wareHouse, user_id: res.data.user_id });
+      setWareHouse({ ...wareHouse, user_id: res.data._id });
     } catch (err) {
       console.log("Error in fetching data" + err);
     }
@@ -196,11 +199,12 @@ const BecomePartner = () => {
     color: "black",
   };
 
-  const [featureArr, setFeatureArr] = useState({
-    cctv: false,
-    indoor: false,
-    outdoor: false,
-    climate: false,
+  const [featureArr, setFeatureArr] = useState(() => {
+    let initialObj = {}
+    for(let i=0;i<filterData.length;i++){
+      initialObj[filterData[i].code] = false;
+    }
+    return initialObj;
   });
 
   const handleChange = (e) => {
@@ -276,6 +280,23 @@ const BecomePartner = () => {
     }
   };
 
+  const getCoords = async (address) => {
+    console.log(address);
+    const url = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+    const query_String = url + `${address}.json?access_token=` + mapboxgl.accessToken;
+    const res = await axios({url: query_String, method:"get"});
+    console.log(res?.data?.features[0]?.geometry?.coordinates);
+    const feature = res?.data?.features;
+    if(!feature || feature.length==0){
+      return [null, null];
+    }
+    const ans = feature[0]?.geometry?.coordinates;
+    if(!ans){
+      return [null, null];
+    }
+    return ans;
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     let finalArr = [];
@@ -289,9 +310,10 @@ const BecomePartner = () => {
 
     for (let i = 0; i < unit.counter; i++) {
       let subunit = {};
-      subunit.length = length[i];
-      subunit.width = width[i];
-      subunit.height = height[i];
+      subunit.length = parseInt(length[i]);
+      subunit.width = parseInt(width[i]);
+      subunit.height = parseInt(height[i]);
+      subunit.price = parseInt(inputPrice[i]);
       finalArr2.push(subunit);
     }
 
@@ -309,11 +331,18 @@ const BecomePartner = () => {
       features: finalArr,
     };
 
-    // console.log(wareHouseDetails);
+    console.log(wareHouseDetails);
+    const {businessAddress, city, state} = wareHouseDetails;
+    let coordinate = [null, null];
+    if(businessAddress && businessAddress!="" && city && city !="" && state && state!=""){
+      coordinate = await getCoords(`${businessAddress} ${city} ${state}`);
+    }
+    console.log(coordinate);
+    wareHouseDetails.coordinates = coordinate;
     const waitWareReg = await wareHouseReg(wareHouseDetails);
     console.log(waitWareReg);
     if (waitWareReg[1] == 200) {
-      alert(waitWareReg[0]);
+      alert(waitWareReg[0].message);
       navigate("/allListedSpace");
     } else {
       alert(waitWareReg[0]);
@@ -662,26 +691,25 @@ const BecomePartner = () => {
                 >
                   <h5 className="text-center mt-2 mb-2">Features</h5>
                   <Form.Group className="d-flex flex-wrap text-break">
-                    <div className="w-25 d-flex flex-wrap p-1">
-                      <div class="form-check">
-                        <input
-                          type="checkbox"
-                          id="fire"
-                          class="form-check-input"
-                        />
-                        <label title="" for="fire" class="form-check-label">
-                          Fire Protected &nbsp;
-                          <FaFireExtinguisher
-                            style={{
-                              color: "red",
-                              height: "1.25rem",
-                              width: "1.25rem",
-                            }}
+                    {filterData.map((ele, ind) => {
+                      return (
+                      <div className="w-25 d-flex flex-wrap p-1">
+                        <div class="form-check">
+                          <input
+                            type="checkbox"
+                            id={ele.code}
+                            class="form-check-input"
+                            onChange={handleChangeCheck}
                           />
-                        </label>
+                          <label title="" for={ele.code} class="form-check-label">
+                            {ele.name} &nbsp;
+                            {ele.partner_icon}
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                    <div className="w-25 d-flex flex-wrap p-1">
+                      );
+                    })}
+                    {/* <div className="w-25 d-flex flex-wrap p-1">
                       <div class="form-check">
                         <input
                           type="checkbox"
@@ -816,6 +844,7 @@ const BecomePartner = () => {
                         />
                         <label title="" for="secure" class="form-check-label">
                           Clean-Dry-Secure &nbsp;
+
                           <GrSecure
                             style={{
                               color: "#ffb905",
@@ -910,7 +939,7 @@ const BecomePartner = () => {
                           />
                         </label>
                       </div>
-                    </div>
+                    </div> */}
                     <Form.Check
                       className="w-100 mx-1"
                       id="newFeature"

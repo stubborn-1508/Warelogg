@@ -133,7 +133,7 @@ const ReviewSection = () =>
 
     return (
         <>
-            <Container>
+            <Container fluid>
                 <Form>
                     <Row>
                         <Col lg={ 4 } className="my-3">
