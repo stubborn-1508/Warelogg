@@ -21,7 +21,7 @@ const width = window.screen.width
 const filterData = [
     {
         code: 0,
-        name: "CCTV Monitering",
+        name: "CCTV Monitoring",
         icon: <GiCctvCamera />,
         on_icon: <IconContext.Provider
             value={{ color: '#ff6600' }}
