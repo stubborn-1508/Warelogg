@@ -234,6 +234,16 @@ const MainPage = (props) => {
       <p>"Warelogg continuously monitors and identifies unused space within a warehouse, thereby facilitating the effective utilization of available space and maximizing profitability for owners"</p>
     </div>
   </article>
+
+  <article class="features-group">
+    <div class="features-image">
+      <img src="/images/cold-store.png" alt="Illustration of a man in a suit pointing to a bar chart that is going up" />
+    </div>
+    <div class="features-text">
+      <h2>Optimizing cold storage facility to minimize food waste and maximize preservation</h2>
+      <p>"By leveraging our extensive network of warehouses located in various regions, Warelogg can efficiently and effectively respond to unexpected spikes in demand, ensuring optimal inventory management and minimizing food waste"</p>
+    </div>
+  </article>
 </section>
         <Row className="d-flex" style={{margin:"10rem 3rem"}}>
           <Col md={3} xs={12} className="px-0 mb-2">
