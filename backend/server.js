@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 //   origin: "http://localhost:3000",
 // }));
 
-const dbURL = "mongodb://localhost:27017/mern-auth";
+const dbURL = "mongodb://127.0.0.1:27017/mern-auth";
 console.log(process.env.MONGODB_URI);
 
 mongoose

@@ -72,7 +72,12 @@ const warehouseRegister = async (req,res) => {
 // API to fetch all warehouses
 const getAllWarehouse = async (req,res) => {
     try{
-        const data = await Warehouse.find({});
+        let data = await Warehouse.find({}).lean();
+        for(let i=0;i<data.length;i++){
+            const warehouse_id = data[i]._id;
+            const res2 = await Subunit.find({warehouse_id}).clone().lean();
+            data[i].subunits = res2;
+        }
         return res.status(200).json({data: data});
     }catch(err){
         return res.status(402).json({message: "Something went wrong!!"});

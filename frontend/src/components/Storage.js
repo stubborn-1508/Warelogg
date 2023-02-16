@@ -60,40 +60,40 @@ const Storage = (props) => {
                 bookType: false,
         });
 
-        const position = async () => {
-                // navigator.geolocation.getCurrentPosition(
-                // 	position => setCurrLoc({
-                // 		latitude: position.coords.latitude,
-                // 		longitude: position.coords.longitude
-                // 	}, newState => console.log(newState)),
-                // 	err => console.log(err)
-                // );
-                if (navigator.geolocation) {
-                        var location_timeout = setTimeout(() => {
-                                alert("Timeout!!");
-                        }, 10000);
+        // const position = async () => {
+        //         // navigator.geolocation.getCurrentPosition(
+        //         // 	position => setCurrLoc({
+        //         // 		latitude: position.coords.latitude,
+        //         // 		longitude: position.coords.longitude
+        //         // 	}, newState => console.log(newState)),
+        //         // 	err => console.log(err)
+        //         // );
+        //         if (navigator.geolocation) {
+        //                 var location_timeout = setTimeout(() => {
+        //                         alert("Timeout!!");
+        //                 }, 10000);
 
-                        navigator.geolocation.getCurrentPosition(
-                                function (position) {
-                                        clearTimeout(location_timeout);
+        //                 navigator.geolocation.getCurrentPosition(
+        //                         function (position) {
+        //                                 clearTimeout(location_timeout);
 
-                                        var lat = position.coords.latitude;
-                                        var lng = position.coords.longitude;
-                                        setCurrLoc({
-                                                latitude: lat,
-                                                longitude: lng,
-                                        });
-                                },
-                                function (error) {
-                                        clearTimeout(location_timeout);
-                                        alert("Error!!");
-                                }
-                        );
-                } else {
-                        // Fallback for no geolocation
-                        alert("Error!!");
-                }
-        };
+        //                                 var lat = position.coords.latitude;
+        //                                 var lng = position.coords.longitude;
+        //                                 setCurrLoc({
+        //                                         latitude: lat,
+        //                                         longitude: lng,
+        //                                 });
+        //                         },
+        //                         function (error) {
+        //                                 clearTimeout(location_timeout);
+        //                                 alert("Error!!");
+        //                         }
+        //                 );
+        //         } else {
+        //                 // Fallback for no geolocation
+        //                 alert("Error!!");
+        //         }
+        // };
 
         if (contextfacility.length > 0) {
                 contextfacility.forEach((ele1, ind1) => {
@@ -195,7 +195,7 @@ const Storage = (props) => {
 
         useEffect(() => {
                 getAds();
-                position();
+                // position();
         }, []);
 
         // search bar begins
@@ -793,7 +793,7 @@ const Storage = (props) => {
                                                                                 margin: "auto",
                                                                         }}
                                                                 >
-                                                                        <Map current_location={currLoc} />
+                                                                        <Map warehouseInfo={warehouseInfo}/>
                                                                 </div>
 
                                                         ) : (
