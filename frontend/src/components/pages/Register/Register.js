@@ -14,7 +14,6 @@ const Register = () =>
         username: '',
         mobile: '',
         password: '',
-        state: ''
     });
 
     const handleChange = (e) => {
@@ -39,7 +38,7 @@ const Register = () =>
             return [res.data, res.status];
         } catch(e){
             console.log(e);
-            return [e.response.data.message, e.response.status];
+            return [e.response.data, e.response.status];
         }
     }
 
@@ -51,7 +50,6 @@ const Register = () =>
             email: user.email,
             mobile: user.mobile,
             password: user.password,
-            state: user.state,
         };
         
         const logUser = {
@@ -82,7 +80,6 @@ const Register = () =>
             email: '',
             password: '',
             mobile: '',
-            state: '',
             username: ''
         });
     }
@@ -154,7 +151,7 @@ const Register = () =>
                                                 required="required"
                                                 value={user.email} />
                                     </div>
-                                    <div style={{width: "100%", marginBottom: "0.75rem"}}>
+                                    {/* <div style={{width: "100%", marginBottom: "0.75rem"}}>
                                         <i className="bx bxs-user" style={{color:"black"}}></i>
                                         <select className="input-field" 
                                                 name="state"
@@ -165,7 +162,7 @@ const Register = () =>
                                                 <option value={ "Gujurat" }>Gujarat</option>
                                                 <option value={ "Maharashtra" }>Maharashtra</option>
                                         </select>
-                                    </div>
+                                    </div> */}
                                     <div style={{width: "100%", marginBottom: "0.75rem"}}>
                                         <i className="bx bxs-contact" style={{color:"black"}}></i>
                                         <input className="input-field" 
