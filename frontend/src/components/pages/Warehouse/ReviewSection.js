@@ -19,6 +19,7 @@ const ReviewSection = () =>
     const [reload, setReload] = useState(false)
     const[reviews, setReviews] = useState([]);
     const [userId, setUserId] = useState(null);
+    const [hasReviewed, setHasReviewed] = useState(false);
     const[star,setStar]=useState(0);
     const[allStar,setAllStar]=useState([]);
     const id = location.state;
@@ -37,9 +38,9 @@ const ReviewSection = () =>
 
       const fetchData = async (id) => {
         try {
-          const res = await axios.post("/getReview", { warehouse_id : id });
-          setReviews(res.data);
-          console.log(res.data);
+          const res = await axios.post("/getReview", { warehouse_id : id, user_id: userId });
+          setReviews(res.data.data);
+          setHasReviewed(res.data.hasUserReviewed);
         } catch (err) {
           console.log("Error in fetching reviews" + err);
         }
@@ -121,13 +122,13 @@ const ReviewSection = () =>
         console.log(reviews);
         return (
                 <Col lg={ 8 } md={ 8 } sm={ 12 } xs={ 12 }>
-                            <Form.Label>Sort By:</Form.Label>
-                            <Form.Select size="sm">
-                                <option>Top Reviews</option>
-                                <option>Most Recent</option>
-                            </Form.Select>
-                            { reviews? reviews.reviews.map((review) => {return reviewBar(review)}) : null  }
-                        </Col>
+                    <Form.Label>Sort By:</Form.Label>
+                    <Form.Select size="sm">
+                        <option>Top Reviews</option>
+                        <option>Most Recent</option>
+                    </Form.Select>
+                    { reviews? reviews.reviews.map((review) => {return reviewBar(review)}) : null  }
+                </Col>
         )
     }
 
@@ -161,7 +162,7 @@ const ReviewSection = () =>
                             </Row>
                             <hr />
                             <div className="container" style={{height: "100px"}}>
-                                {<Button onClick={switchForm} type="button" varient="primary" style={{margin: "auto"}}>{ showForm ? " " : <BsPencilSquare/> }&nbsp;{showForm ? "View Comments" :"Write a Review"}</Button>}
+                                { <Button onClick={ switchForm } type="button" varient="primary" style={{ margin: "auto" }}> { showForm ? " " : <BsPencilSquare/> } &nbsp; { showForm ? "View Comments" : hasReviewed ? null : "Write a Review" } </Button>}
                             </div>
                         </Col>
 

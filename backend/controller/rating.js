@@ -14,7 +14,7 @@ const addReview = async (req, res) => {
   if(!comment || !stars)
     return res.status(422).json("Please fill all the fields");
   try{
-    const user = await User.findOne({user_id}).lean();
+    const user = await User.findOne({_id: user_id}).lean();
     const name = user.name;
     // console.log(name);
     const review = new Rating({
@@ -33,10 +33,13 @@ const addReview = async (req, res) => {
 };
 
 const getReview = async (req, res) => {
-  const id = req.body.warehouse_id
+  const id = req.body.warehouse_id;
+  const user_id = req.body.user_id;
   try{
-    const data = await Rating.find({ warehouse_id: id }).lean();
-    return res.status(200).json(data);
+    const data = await Rating.find({ warehouse_id: id }).clone().lean();
+    const hasUserReviewed = await Rating.findOne({user_id}).clone().lean();
+    hasUserReviewed = ( hasUserReviewed ? true : false );
+    return res.status(200).json({data:data, hasUserReviewed});
   }catch{
     res.status(400).json("Error, fetching reviews");
   }
