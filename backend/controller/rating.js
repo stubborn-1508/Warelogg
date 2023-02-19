@@ -37,7 +37,7 @@ const getReview = async (req, res) => {
   const user_id = req.body.user_id;
   try{
     const data = await Rating.find({ warehouse_id: id }).clone().lean();
-    const hasUserReviewed = await Rating.findOne({user_id}).clone().lean();
+    let hasUserReviewed = await Rating.findOne({warehouse_id:id, user_id:user_id}).clone().lean();
     hasUserReviewed = ( hasUserReviewed ? true : false );
     return res.status(200).json({data:data, hasUserReviewed});
   }catch{
