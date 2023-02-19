@@ -29,6 +29,16 @@ const LoginSection = () => {
     }
   }
 
+  const handleGoogleLogin = async (e) => {
+    try{
+      console.log("Function Called!!!");
+      const res = await axios({url: "http://localhost:5000/login", method: "get"});
+      console.log(res);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const logUser = {
@@ -77,7 +87,7 @@ const LoginSection = () => {
                                     SIGN IN WITH
                                 </h6>
                                 <div style={{textAlign: "center"}}>
-                                    <button class="google-button" type="button">
+                                    <button class="google-button" type="button" onClick={handleGoogleLogin}>
                                     <FcGoogle />
                                           <span style={{marginLeft:"3px", fontSize:"18px"}}>Google</span>
                                     </button>
