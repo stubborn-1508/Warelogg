@@ -35,15 +35,15 @@ const UserDetails = (props) => {
                             contactNumberMobile}</p>}
                 </div>
             </div>
-            <hr />
-            <div className="row">
+            {/* <hr /> */}
+            {/* <div className="row">
                 <div className="col-sm-3">
                     <p className="mb-0">Address</p>
                 </div>
                 <div className="col-sm-9">
                     <p className="text-muted mb-0">Bay Ahemdabad-Gujarat, India</p>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

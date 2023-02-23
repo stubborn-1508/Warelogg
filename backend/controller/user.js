@@ -10,7 +10,7 @@ async function isEmailValid(email) {
 }
 
 const register = async (req, res) => {
-  const { name, email, password, mobile, username, state } = req.body;
+  const { name, email, password, mobile, username } = req.body;
   if (!name || !email || !password) {
     return res.status(422).json("Please fill the fields properly!!");
   }
@@ -33,7 +33,6 @@ const register = async (req, res) => {
         password: password,
         contactNumberMobile: mobile,
         username: username,
-        state: state,
       });
       const rounds = 10;
       bcrypt.genSalt(rounds, (err, salt) => {

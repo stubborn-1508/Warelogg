@@ -19,12 +19,13 @@ const ReviewSection = () =>
     const [reload, setReload] = useState(false)
     const[reviews, setReviews] = useState([]);
     const [userId, setUserId] = useState(null);
+    const [hasReviewed, setHasReviewed] = useState(false);
     const[star,setStar]=useState(0);
-    const[allStar,setAllStar]=useState([]);
+    const[allStar,setAllStar]=useState([0,0,0,0,0,0]);
     const id = location.state;
     useEffect(() => {
-          fetchData(id);
-          fetchUser();
+        fetchUser();
+        fetchData(id);
       }, [reload]);
 
     useEffect(() => {
@@ -37,9 +38,10 @@ const ReviewSection = () =>
 
       const fetchData = async (id) => {
         try {
-          const res = await axios.post("/getReview", { warehouse_id : id });
-          setReviews(res.data);
-          console.log(res.data);
+          const res = await axios.post("/getReview", { warehouse_id : id, user_id: userId });
+          console.log(res);
+          setReviews(res.data.data);
+          setHasReviewed(res.data.hasUserReviewed);
         } catch (err) {
           console.log("Error in fetching reviews" + err);
         }
@@ -53,7 +55,9 @@ const ReviewSection = () =>
            arr[reviews[i].stars] += 1;
            s += reviews[i].stars;
         }
-        s = (s/reviews.length).toFixed(1);
+        if(reviews.length > 0){
+            s = (s/reviews.length).toFixed(1);
+        }
         for(let i=1;i<=5;i++)
         {
             arr[i] = ((arr[i] * 100)/reviews.length).toFixed(2);
@@ -121,16 +125,17 @@ const ReviewSection = () =>
         console.log(reviews);
         return (
                 <Col lg={ 8 } md={ 8 } sm={ 12 } xs={ 12 }>
-                            <Form.Label>Sort By:</Form.Label>
-                            <Form.Select size="sm">
-                                <option>Top Reviews</option>
-                                <option>Most Recent</option>
-                            </Form.Select>
-                            { reviews? reviews.reviews.map((review) => {return reviewBar(review)}) : null  }
-                        </Col>
+                    <Form.Label>Sort By:</Form.Label>
+                    <Form.Select size="sm">
+                        <option>Top Reviews</option>
+                        <option>Most Recent</option>
+                    </Form.Select>
+                    { reviews? reviews.reviews.map((review) => {return reviewBar(review)}) : null  }
+                </Col>
         )
     }
-
+    console.log(hasReviewed);
+    console.log(reviews);
     return (
         <>
             <Container fluid>
@@ -138,7 +143,7 @@ const ReviewSection = () =>
                     <Row>
                         <Col lg={ 4 } className="my-3">
                             <h3>Customer reviews</h3>
-                            <h6><RatingBar fill={star} /> &nbsp; { star } out of 5</h6>
+                            <h6><RatingBar fill={star?star:0} /> &nbsp; { star } out of 5</h6>
                             <Row>
                                 <Col className="text-center float-left" md={ 3 } sm={ 3 } xs={ 3 }><h6>5 Star</h6></Col>
                                 <Col><ProgressBar now={ allStar[5] } label={ `${ allStar[5] }%` } className=" progressReviewBar" variant="warning" /></Col>
@@ -161,7 +166,7 @@ const ReviewSection = () =>
                             </Row>
                             <hr />
                             <div className="container" style={{height: "100px"}}>
-                                {<Button onClick={switchForm} type="button" varient="primary" style={{margin: "auto"}}>{ showForm ? " " : <BsPencilSquare/> }&nbsp;{showForm ? "View Comments" :"Write a Review"}</Button>}
+                                { showForm ? <Button onClick={ switchForm } type="button" varient="primary" style={{ margin: "auto" }}> { " " } &nbsp; { "View Comments" } </Button> : hasReviewed ? null : <Button onClick={ switchForm } type="button" varient="primary" style={{ margin: "auto" }}> { <BsPencilSquare/> } &nbsp; { "Write Comment" } </Button>}
                             </div>
                         </Col>
 

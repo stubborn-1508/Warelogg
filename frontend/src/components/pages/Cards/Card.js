@@ -154,6 +154,14 @@ const CardSection = ({ warehouseInfo, filter=[] }) =>
                         });
                         let subUnitStr = "";
                         let totArea = 0;
+                        let len = 0;
+                        let wid = 0;
+                        console.log(warehouse);
+                        for(let i=0;i<warehouse?.subunits.length;i++){
+                            len += parseInt(warehouse.subunits[i].length)
+                            wid += parseInt(warehouse.subunits[i].width);
+                        }
+                        totArea = len*wid;
                         // for(var it = 0; it<warehouse.subUnits.length; it++){
                         //     subUnitStr += `SubUnit ${it+1}: ${warehouse.subUnits[it].length} x ${warehouse.subUnits[it].width} x ${warehouse.subUnits[it].height}`;
                         //     subUnitStr += '\n';

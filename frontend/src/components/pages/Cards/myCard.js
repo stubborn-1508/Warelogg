@@ -51,41 +51,41 @@ const MyCardSection = ({ warehouseInfo }) =>
         items.push(number);
     }
 
-    const facility = [ "CCTV Monitoring", "Climate Control", "Indoor Storage", "Outdoor/Drive Up" ];
     return (
         <>
             <Container fluid>
                 <Row>
                     { warehouseInfo.map((warehouse, key) =>
                     {
-                        const id = warehouse.id;
-                        return <Col lg={ 3 } md={ 6 } sm={ 6 } xs={ 12 } key={ key }>
+                        const id = warehouse._id;
+                        return (<Col lg={ 6 } md={ 9 } sm={ 9 } xs={ 12 } key={ key }>
                             <Card className="rounded shadow bg-white overflow-hidden mb-2 my-4 cardHover" onClick={() => {
                                     routeChange(id);
                                 }}>
+                                    <img className="img-fluid" src="images/s5.jpg" alt="" />
                                 <div className="bg-secondary p-4">
                                     <b className=" text-dark h5">{ warehouse.name }</b>
                                     <div className="d-flex flex-column justify-content-between mb-3">
                                         <h6 className="m-1">
                                             <i className="h4"><IoMdPin className="text-primary mr-1" /></i>
-                                            { warehouse.location }
+                                            { warehouse.businessAddress + ", " + warehouse.city + ", " +warehouse.state }
                                         </h6>
-                                        <h6 className="m-1">
+                                        {/* <h6 className="m-1">
                                             <i className="h4">{ facility[ 0 ] ? <FcCamcorderPro className="text-blue mr-1" /> : <BsCloudLightningRainFill className="text-blue mr-1" /> }</i>
                                             { warehouse.facility }
-                                        </h6>
+                                        </h6> */}
                                         <h6 className="m-1">
                                             <i className="h4"><FcOrgUnit className="text-blue mr-1" /> </i>
-                                            { warehouse.size }
+                                            { warehouse.size } sq ft
                                         </h6>
                                     </div>
-                                    <div className="border-top pt-2">
+                                    {/* <div className="border-top pt-2">
                                         <h6 className="m-1">{ WarehouseArea(warehouse.totalArea, warehouse.area) }</h6>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </Card>
-                        </Col>
-                    }) }
+                        </Col>)
+                    })}
                 </Row>
             </Container>
         </>

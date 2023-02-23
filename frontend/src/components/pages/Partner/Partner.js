@@ -310,10 +310,10 @@ const BecomePartner = () => {
 
     for (let i = 0; i < unit.counter; i++) {
       let subunit = {};
-      subunit.length = length[i];
-      subunit.width = width[i];
-      subunit.height = height[i];
-      subunit.price = inputPrice[i];
+      subunit.length = parseInt(length[i]);
+      subunit.width = parseInt(width[i]);
+      subunit.height = parseInt(height[i]);
+      subunit.price = parseInt(inputPrice[i]);
       finalArr2.push(subunit);
     }
 
@@ -338,14 +338,15 @@ const BecomePartner = () => {
       coordinate = await getCoords(`${businessAddress} ${city} ${state}`);
     }
     console.log(coordinate);
-    // const waitWareReg = await wareHouseReg(wareHouseDetails);
-    // console.log(waitWareReg);
-    // if (waitWareReg[1] == 200) {
-    //   alert(waitWareReg[0]);
-    //   navigate("/allListedSpace");
-    // } else {
-    //   alert(waitWareReg[0]);
-    // }
+    wareHouseDetails.coordinates = coordinate;
+    const waitWareReg = await wareHouseReg(wareHouseDetails);
+    console.log(waitWareReg);
+    if (waitWareReg[1] == 200) {
+      alert(waitWareReg[0].message);
+      navigate("/allListedSpace");
+    } else {
+      alert(waitWareReg[0]);
+    }
     setWareHouse({
       user_id: "",
       name: "",
