@@ -17,17 +17,17 @@ const MainPage = (props) => {
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 4,
+      items: 5,
       slidesToSlide: 1, // optional, default to 1.
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
-      items: 2,
+      items: 3,
       slidesToSlide: 1, // optional, default to 1.
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
+      items: 2,
       slidesToSlide: 1, // optional, default to 1.
     }
   };
@@ -235,11 +235,18 @@ const MainPage = (props) => {
     </div>
   </article>
 </section>
-        <Row className="d-flex" style={{margin:"10rem 3rem"}}>
-          <Col md={3} xs={12} className="px-0 mb-2">
-          <card className="d-flex h-100 justify-content-center align-items-center mr-2" style={{boxShadow: "#49505766 2px 0px 10px -1px"}}><h3 className="h-auto text-center mb-0  my-4">Our Supporters</h3></card>
+        <Row style={{margin:"10rem 3rem"}}>
+          <Col xs={12} className="px-0 mb-3">
+          <card className="d-flex h-100 justify-content-center align-items-center mr-2"
+          // style={{boxShadow: "#49505766 2px 0px 10px -1px"}}
+          >
+          <h1 className="h-auto text-center mb-0 my-4 font-weight-medium"
+          style={{backgroundImage: "linear-gradient(60deg, #E21143, #FFB03A)",
+          WebkitBackgroundClip: "text",
+          color: "transparent"}}
+          >Supported by</h1></card>
           </Col>
-          <Col md={9} xs={12} className="px-0 mb-2"><Carousel 
+          <Col xs={12} className="px-0"><Carousel 
           responsive={responsive}
           infinite={true}
           arrows={false}
@@ -283,7 +290,7 @@ const MainPage = (props) => {
             /></div>
             <div className="sup-items"><img
               className="d-block w-100"
-              src="/images/sup-6.jpeg"
+              src="/images/sup-6.png"
               alt="Sixth slide"
               style={{ height: "100%", objectFit: "fill",backgroundColor:"white" }}
             /></div>

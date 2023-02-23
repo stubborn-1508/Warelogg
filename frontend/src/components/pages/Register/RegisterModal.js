@@ -153,7 +153,9 @@ const RegisterModal = (props) => {
                         loading="lazy"
                         className="logo"
                       />
-                      <figcaption>𝕎𝕒𝕣𝕖𝕝𝕠𝕘𝕘</figcaption>
+                      <figcaption style={{backgroundImage: "linear-gradient(60deg, #E21143, #FFB03A)",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",textTransform:"capitalize"}}>Warelogg</figcaption>
                     </figure>
                     <div className="google-sign-in">
                       <h6

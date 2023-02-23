@@ -18,7 +18,6 @@ const Careers = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-8">
-              <div className="owl-carousel testimonial-carousel">
                 <div className="text-center my-2">
                   <h5 className="font-weight-normal mb-4">
                     At Warelogg, we believe that our employees are the backbone
@@ -64,7 +63,6 @@ const Careers = () => {
                     </ol>
                   </h5>
                 </div>
-              </div>
             </div>
             <h2>Join us in our mission to Warelogg. We look forward to hearing from you!</h2>
           </div>

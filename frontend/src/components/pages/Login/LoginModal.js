@@ -114,7 +114,9 @@ const LoginModal = (props) => {
                       loading="lazy"
                       class="logo"
                     />
-                    <figcaption>𝕎𝕒𝕣𝕖𝕝𝕠𝕘𝕘</figcaption>
+                    <figcaption style={{backgroundImage: "linear-gradient(60deg, #E21143, #FFB03A)",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",textTransform:"capitalize"}}>Warelogg</figcaption>
                   </figure>
                   <div class="google-sign-in">
                     <h6

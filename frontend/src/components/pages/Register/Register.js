@@ -100,7 +100,9 @@ const Register = () =>
                         <div className="signup-form-container">
                             <figure className="spirit-logo">
                                 <img src="/images/logo.png" alt="logo spirit" loading="lazy" className="logo" />
-                                <figcaption>𝕎𝕒𝕣𝕖𝕝𝕠𝕘𝕘</figcaption>
+                                <figcaption style={{backgroundImage: "linear-gradient(60deg, #E21143, #FFB03A)",
+                  WebkitBackgroundClip: "text",
+                  color: "transparent",textTransform:"capitalize"}}>Warelogg</figcaption>
                             </figure>
                             <div className="google-sign-in">
                                 <h6 style={{lineHeight: "1.25rem", padding: "0.75rem 0",color: "rgba(75,85,99,1)",fontWeight: "700"}}>

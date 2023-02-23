@@ -92,7 +92,7 @@ useEffect( () => {
         show={registerModalShow}
         onHide={() => setRegisterModalShow(false)}
       />
-      <div className="w-100 shadow-sm rounded fixed-top" style={{transition: 'all 0.3s ease-in-out',transform:`${visible?'translateY(0)':'translateY(-100%)'}`}}>
+      <div className="w-100 shadow-sm rounded fixed-top" style={{transition: 'all 0.3s ease-in-out',transform:`${(visible||location.pathname==='/storage')?'translateY(0)':'translateY(-100%)'}`}}>
           <nav className={(location.pathname==="/warehouse")?"container d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0":"d-flex navbar navbar-expand-lg bg-light navbar-light py-2 py-lg-0"}>
             <Link
               to="/"
